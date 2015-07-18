@@ -1,4 +1,4 @@
-# React Starter Kit
+# Fou Frontend
 
 [![Build Status](http://img.shields.io/travis/kriasoft/react-starter-kit/master.svg?style=flat-square)](http://travis-ci.org/kriasoft/react-starter-kit)
 [![Dependency Status](https://david-dm.org/kriasoft/react-starter-kit.svg?style=flat-square)](https://david-dm.org/kriasoft/react-starter-kit)

@@ -16,14 +16,9 @@
     "jsx": true
   },
   "rules": {
-    // Strict mode
     "strict": [2, "never"],
-
-    // Code style
     "indent": [2, 2],
     "quotes": [2, "single"],
-
-    // React
     "react/display-name": 0,
     "react/jsx-boolean-value": 1,
     "react/jsx-no-undef": 1,
