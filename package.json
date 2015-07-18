@@ -56,7 +56,7 @@
     "test-watch": "npm run watch && nodemon --watch build --exec 'jest'",
     "coverage": "npm run build && jest --coverage",
     "coverage-watch": "npm run watch && nodemon --watch build --exec 'jest --coverage'",
-    "start": "gulp dist && node dist/server.js",
+    "start": "gulp dist --release && node dist/server.js",
     "start-dev": "gulp serve",
     "start-sync": "gulp sync"
   },
