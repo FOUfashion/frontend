@@ -5,19 +5,23 @@
   ],
   "env": {
     "browser": true,
+    "jasmine": true,
     "node": true,
     "es6": true
   },
   "globals": {
     "__DEV__": true,
-    "__SERVER__": true
+    "__SERVER__": true,
+    "jest": true
   },
   "ecmaFeatures": {
     "jsx": true
   },
   "rules": {
     "strict": [2, "never"],
-    "indent": [2, 2],
+    "indent": [2, 2, {
+      "indentSwitchCase": true
+    }],
     "quotes": [2, "single"],
     "react/display-name": 0,
     "react/jsx-boolean-value": 1,

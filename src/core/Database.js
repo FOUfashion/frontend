@@ -1,5 +1,3 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import fs from 'fs';
 import path from 'path';
 import jade from 'jade';
@@ -19,9 +17,9 @@ fs.exists(CONTENT_DIR, (exists) => {
 
 // Extract 'front matter' metadata and generate HTML
 function parseJade(uri, jadeContent) {
-  let content = fm(jadeContent);
-  let html = jade.render(content.body, null, '  ');
-  let page = Object.assign({path: uri, content: html}, content.attributes);
+  const content = fm(jadeContent);
+  const html = jade.render(content.body, null, '  ');
+  const page = Object.assign({ path: uri, content: html }, content.attributes);
   return page;
 }
 
@@ -31,10 +29,11 @@ export default {
     // Read page content from a Jade file
     return new Promise((resolve) => {
       let fileName = path.join(CONTENT_DIR, (uri === '/' ? '/index' : uri) + '.jade');
-      fs.readFile(fileName, {encoding: 'utf8'}, (err, data) => {
+
+      fs.readFile(fileName, { encoding: 'utf8' }, (err, data) => {
         if (err) {
           fileName = path.join(CONTENT_DIR, uri + '/index.jade');
-          fs.readFile(fileName, {encoding: 'utf8'}, (err2, data2) => {
+          fs.readFile(fileName, { encoding: 'utf8' }, (err2, data2) => {
             resolve(err2 ? null : parseJade(uri, data2));
           });
         } else {
@@ -44,10 +43,11 @@ export default {
     }).then((page) => {
       Dispatcher.dispatch({
         type: ActionTypes.RECEIVE_PAGE,
-        page: page});
+        page: page
+      });
+
       return Promise.resolve(page);
     });
   }
 
 };
-

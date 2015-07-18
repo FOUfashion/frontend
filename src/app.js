@@ -1,5 +1,3 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import 'babel/polyfill';
 import React from 'react';
 import FastClick from 'fastclick';
@@ -12,13 +10,14 @@ let path = decodeURI(window.location.pathname);
 let onSetMeta = (name, content) => {
   // Remove and create a new <meta /> tag in order to make it work
   // with bookmarks in Safari
-  let elements = document.getElementsByTagName('meta');
+  const elements = document.getElementsByTagName('meta');
   [].slice.call(elements).forEach((element) => {
     if (element.getAttribute('name') === name) {
       element.parentNode.removeChild(element);
     }
   });
-  let meta = document.createElement('meta');
+
+  const meta = document.createElement('meta');
   meta.setAttribute('name', name);
   meta.setAttribute('content', content);
   document.getElementsByTagName('head')[0].appendChild(meta);
@@ -26,16 +25,17 @@ let onSetMeta = (name, content) => {
 
 function run() {
   // Render the top-level React component
-  let props = {
+  const props = {
     path: path,
     context: {
       onSetTitle: value => document.title = value,
       onSetMeta
     }
   };
+
   let element = React.createElement(App, props);
   React.render(element, document.getElementById('app'), () => {
-    let css = document.getElementById('css');
+    const css = document.getElementById('css');
     css.parentNode.removeChild(css);
   });
 

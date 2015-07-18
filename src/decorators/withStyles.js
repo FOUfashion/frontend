@@ -1,6 +1,4 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
-import React, { PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+import React, { PropTypes } from 'react';
 import invariant from '../../node_modules/react/lib/invariant';
 import { canUseDOM } from '../../node_modules/react/lib/ExecutionEnvironment';
 
@@ -15,8 +13,10 @@ function withStyles(styles) {
 
     constructor() {
       this.refCount = 0;
+
       ComposedComponent.prototype.renderCss = function (css) {
         let style;
+
         if (canUseDOM) {
           if (this.styleId && (style = document.getElementById(this.styleId))) {
             if ('textContent' in style) {
@@ -56,10 +56,13 @@ function withStyles(styles) {
 
     componentWillUnmount() {
       styles.unuse();
+
       if (this.styleId) {
         this.refCount--;
+
         if (this.refCount < 1) {
-          let style = document.getElementById(this.styleId);
+          const style = document.getElementById(this.styleId);
+
           if (style) {
             style.parentNode.removeChild(style);
           }

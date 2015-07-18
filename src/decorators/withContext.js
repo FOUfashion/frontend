@@ -1,6 +1,4 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
-import React, { PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+import React, { PropTypes } from 'react';
 import emptyFunction from '../../node_modules/react/lib/emptyFunction';
 
 function withContext(ComposedComponent) {
@@ -23,7 +21,7 @@ function withContext(ComposedComponent) {
     };
 
     getChildContext() {
-      let context = this.props.context;
+      const context = this.props.context;
       return {
         onInsertCss: context.onInsertCss || emptyFunction,
         onSetTitle: context.onSetTitle || emptyFunction,
@@ -33,7 +31,7 @@ function withContext(ComposedComponent) {
     }
 
     render() {
-      let { context, ...other } = this.props; // eslint-disable-line no-unused-vars
+      const { context, ...other } = this.props;
       return <ComposedComponent {...other} />;
     }
 

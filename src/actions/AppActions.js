@@ -1,5 +1,3 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import http from 'superagent';
 import { canUseDOM } from 'react/lib/ExecutionEnvironment';
 import Dispatcher from '../core/Dispatcher';
@@ -24,7 +22,7 @@ export default {
     });
   },
 
-  loadPage(path, cb) {
+  loadPage(path, callback) {
     Dispatcher.dispatch({
       type: ActionTypes.GET_PAGE,
       path
@@ -39,8 +37,9 @@ export default {
           err,
           page: res ? res.body : null
         });
-        if (cb) {
-          cb();
+
+        if (callback) {
+          callback();
         }
       });
   }

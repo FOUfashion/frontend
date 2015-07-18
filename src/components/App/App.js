@@ -1,5 +1,3 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import React, { PropTypes } from 'react';
 import styles from './App.less';
 import withContext from '../../decorators/withContext';
@@ -29,23 +27,26 @@ class App {
     window.addEventListener('popstate', this.handlePopState);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.path !== nextProps.path;
+  }
+
   componentWillUnmount() {
     window.removeEventListener('popstate', this.handlePopState);
   }
 
-  shouldComponentUpdate(nextProps) {
-    return this.props.path !== nextProps.path;
+  handlePopState(event) {
+    AppActions.navigateTo(window.location.pathname, { replace: !!event.state });
   }
 
   render() {
     let component;
 
     switch (this.props.path) {
-
       case '/':
       case '/about':
       case '/privacy':
-        let page = AppStore.getPage(this.props.path);
+        const page = AppStore.getPage(this.props.path);
         component = React.createElement(pages[page.component], page);
         break;
 
@@ -62,18 +63,16 @@ class App {
         break;
     }
 
-    return component ? (
-      <div>
+    if (component) {
+      return (<div>
         <Header />
         {component}
         <Feedback />
         <Footer />
-      </div>
-    ) : <NotFoundPage />;
-  }
+      </div>);
+    }
 
-  handlePopState(event) {
-    AppActions.navigateTo(window.location.pathname, {replace: !!event.state});
+    return <NotFoundPage />;
   }
 
 }

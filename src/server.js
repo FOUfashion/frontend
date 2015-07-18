@@ -1,5 +1,3 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import 'babel/polyfill';
 import _ from 'lodash';
 import fs from 'fs';
@@ -35,6 +33,7 @@ server.get('*', async (req, res, next) => {
     if (['/', '/about', '/privacy'].indexOf(req.path) !== -1) {
       await db.getPage(req.path);
     }
+
     let notFound = false;
     let css = [];
     let data = {description: ''};
@@ -49,10 +48,12 @@ server.get('*', async (req, res, next) => {
 
     data.body = React.renderToString(app);
     data.css = css.join('');
-    let html = template(data);
+
     if (notFound) {
       res.status(404);
     }
+
+    const html = template(data);
     res.send(html);
   } catch (err) {
     next(err);

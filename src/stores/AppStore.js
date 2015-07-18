@@ -1,15 +1,13 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import EventEmitter from 'eventemitter3';
 import Dispatcher from '../core/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 
 const CHANGE_EVENT = 'change';
 
-var pages = {};
-var loading = false;
+let pages = {};
+let loading = false;
 
-var AppStore = Object.assign({}, EventEmitter.prototype, {
+const AppStore = Object.assign({}, EventEmitter.prototype, {
 
   isLoading() {
     return loading;
@@ -65,14 +63,17 @@ AppStore.dispatchToken = Dispatcher.register((action) => {
 
     case ActionTypes.RECEIVE_PAGE:
       loading = false;
+
       if (!action.err) {
         pages[action.page.path] = action.page;
       }
+
       AppStore.emitChange();
       break;
 
     default:
       // Do nothing
+
   }
 
 });

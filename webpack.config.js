@@ -91,7 +91,7 @@ const config = {
 const appConfig = merge({}, config, {
   entry: './src/app.js',
   output: {
-    path: './build/public',
+    path: './dist/public',
     filename: 'app.js'
   },
   devtool: DEBUG ? 'source-map' : false,
@@ -111,7 +111,7 @@ const appConfig = merge({}, config, {
 const serverConfig = merge({}, config, {
   entry: './src/server.js',
   output: {
-    path: './build',
+    path: './dist',
     filename: 'server.js',
     libraryTarget: 'commonjs2'
   },

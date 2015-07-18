@@ -1,7 +1,3 @@
 [ignore]
-.*/build
-.*/config
 .*/node_modules
-.*/gulpfile.js
-
-[include]
+.*/build
