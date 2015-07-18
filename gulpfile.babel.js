@@ -2,7 +2,6 @@ import path from 'path';
 import cp from 'child_process';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
-import del from 'del';
 import runSequence from 'run-sequence';
 import webpack from 'webpack';
 
@@ -14,11 +13,6 @@ let browserSync;
 
 // The default task
 gulp.task('default', ['sync']);
-
-// Clean output directory
-gulp.task('clean', done => {
-  del(['dist'], {dot: true}, done);
-});
 
 // Static files
 gulp.task('assets', () => {
@@ -79,7 +73,7 @@ gulp.task('bundle', done => {
 });
 
 // Build the app from source code
-gulp.task('dist', ['clean'], done => {
+gulp.task('dist', done => {
   runSequence(['assets', 'resources'], ['bundle'], done);
 });
 
