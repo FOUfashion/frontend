@@ -1,7 +1,5 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import React, { PropTypes } from 'react';
-import styles from './Footer.less';
+import styles from './Footer.scss';
 import withViewport from '../../decorators/withViewport';
 import withStyles from '../../decorators/withStyles';
 import Link from '../../utils/Link';
@@ -19,7 +17,7 @@ class Footer {
 
   render() {
     // This is just an example how one can render CSS
-    let { width, height } = this.props.viewport;
+    const { width, height } = this.props.viewport;
     this.renderCss(`.Footer-viewport:after {content:' ${width}x${height}';}`);
 
     return (

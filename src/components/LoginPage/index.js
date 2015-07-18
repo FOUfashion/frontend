@@ -1,22 +1,20 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import React, { PropTypes } from 'react';
+import styles from './LoginPage.scss';
 import withStyles from '../../decorators/withStyles';
-import styles from './RegisterPage.less';
 
 @withStyles(styles)
-class RegisterPage {
+class LoginPage {
 
   static contextTypes = {
     onSetTitle: PropTypes.func.isRequired
   };
 
   render() {
-    let title = 'New User Registration';
+    const title = 'Log In';
     this.context.onSetTitle(title);
     return (
-      <div className="RegisterPage">
-        <div className="RegisterPage-container">
+      <div className="LoginPage">
+        <div className="LoginPage-container">
           <h1>{title}</h1>
           <p>...</p>
         </div>
@@ -26,4 +24,4 @@ class RegisterPage {
 
 }
 
-export default RegisterPage;
+export default LoginPage;

@@ -1,22 +1,10 @@
 import webpack, { DefinePlugin, BannerPlugin } from 'webpack';
 import merge from 'lodash/object/merge';
 import autoprefixer from 'autoprefixer-core';
-import minimist from 'minimist';
 
-const argv = minimist(process.argv.slice(2));
-const DEBUG = !argv.release;
+const DEBUG = !process.argv.includes('--release');
 const STYLE_LOADER = 'style-loader/useable';
 const CSS_LOADER = DEBUG ? 'css-loader' : 'css-loader?minimize';
-const AUTOPREFIXER_BROWSERS = [
-  'Android 2.3',
-  'Android >= 4',
-  'Chrome >= 20',
-  'Firefox >= 24',
-  'Explorer >= 8',
-  'iOS >= 6',
-  'Opera >= 12',
-  'Safari >= 6'
-];
 const GLOBALS = {
   'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
   '__DEV__': DEBUG
@@ -46,7 +34,7 @@ const config = {
   ],
 
   resolve: {
-    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
 
   module: {
@@ -60,8 +48,8 @@ const config = {
       test: /\.css$/,
       loader: `${STYLE_LOADER}!${CSS_LOADER}!postcss-loader`
     }, {
-      test: /\.less$/,
-      loader: `${STYLE_LOADER}!${CSS_LOADER}!postcss-loader!less-loader`
+      test: /\.scss$/,
+      loader: `${STYLE_LOADER}!${CSS_LOADER}!postcss-loader!sass-loader`
     }, {
       test: /\.gif/,
       loader: 'url-loader?limit=10000&mimetype=image/gif'
@@ -81,7 +69,7 @@ const config = {
     }]
   },
 
-  postcss: [autoprefixer(AUTOPREFIXER_BROWSERS)]
+  postcss: [autoprefixer]
 };
 
 //

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import styles from './App.less';
+import '../../../node_modules/normalize.css/normalize.css';
+import styles from './App.scss';
 import withContext from '../../decorators/withContext';
 import withStyles from '../../decorators/withStyles';
 import AppActions from '../../actions/AppActions';

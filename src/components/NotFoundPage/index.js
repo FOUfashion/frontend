@@ -1,8 +1,6 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import React, { PropTypes } from 'react';
 import withStyles from '../../decorators/withStyles';
-import styles from './NotFoundPage.less';
+import styles from './NotFoundPage.scss';
 
 @withStyles(styles)
 class NotFoundPage {
@@ -13,7 +11,7 @@ class NotFoundPage {
   };
 
   render() {
-    let title = 'Page Not Found';
+    const title = 'Page Not Found';
     this.context.onSetTitle(title);
     this.context.onPageNotFound();
     return (

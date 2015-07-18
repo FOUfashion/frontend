@@ -1,8 +1,6 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import React, { PropTypes } from 'react';
 import withStyles from '../../decorators/withStyles';
-import styles from './TextBox.less';
+import styles from './TextBox.scss';
 
 @withStyles(styles)
 class TextBox {

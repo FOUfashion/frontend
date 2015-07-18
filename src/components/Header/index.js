@@ -1,7 +1,5 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import React from 'react';
-import styles from './Header.less';
+import styles from './Header.scss';
 import withStyles from '../../decorators/withStyles';
 import Link from '../../utils/Link';
 import Navigation from '../Navigation';

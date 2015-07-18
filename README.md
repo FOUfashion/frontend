@@ -4,7 +4,7 @@
 [![Coverage](https://img.shields.io/coveralls/FOUfashion/frontend/master.svg)](https://coveralls.io/github/FOUfashion/frontend?branch=master)
 [![Dependencies](https://img.shields.io/david/FOUfashion/frontend.svg)](https://david-dm.org/FOUfashion/frontend)
 
-This project is based on [React Starter Kit](https://github.com/kriasoft/react-starter-kit). It uses [React](https://facebook.github.io/react/), [Flux](http://facebook.github.io/flux/), [WebPack](http://webpack.github.io/), [SASS](http://sass-lang.com/) and [Babel](https://babeljs.io/).
+This project is based on [React Starter Kit](https://github.com/kriasoft/react-starter-kit). It uses [React](https://facebook.github.io/react/), [Flux](http://facebook.github.io/flux/), [WebPack](http://webpack.github.io/), [SCSS](http://sass-lang.com/) and [Babel](https://babeljs.io/).
 
 ## Build
 
@@ -45,3 +45,6 @@ $ npm run lint
 # and if you can't help from typing...
 $ npm run lint-watch
 ```
+## IDE and linting
+
+I use [Atom](https://atom.io/) with `atom-beautify`, `autocomplete`, `language-babel`, `linter`, `linter-eslint`, `linter-scss-lint` and `css-comb`. These plugins provide code formatting, auto completion, ES6 support and linting.

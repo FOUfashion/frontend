@@ -1,7 +1,5 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import React from 'react';
-import styles from './Feedback.less';
+import styles from './Feedback.scss';
 import withStyles from '../../decorators/withStyles';
 
 @withStyles(styles)

@@ -1,0 +1,28 @@
+@import '../variables';
+
+//
+// Base styles
+// -----------------------------------------------------------------------------
+html {
+  color: $color-primary;
+  font-family: $font-family-base;
+  font-size: 1em; // ~16px;
+  font-weight: 100;
+  line-height: 1.375; // ~22px
+}
+
+::selection {
+  background: $text-selection-bg;
+  color: $text-selection-color;
+  text-shadow: none;
+}
+
+// A better looking default horizontal rule
+hr {
+  border: 0;
+  border-top: 1px solid $hr-border;
+  display: block;
+  height: 1px;
+  margin: 1em 0;
+  padding: 0;
+}

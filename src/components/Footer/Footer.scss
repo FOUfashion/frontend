@@ -1,6 +1,4 @@
-/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
-@import '../variables.less';
+@import '../variables';
 
 .Footer {
   background: #333;
@@ -9,7 +7,7 @@
   &-container {
     margin: 0 auto;
     padding: 20px 15px;
-    max-width: @max-content-width;
+    max-width: $max-content-width;
     text-align: center;
   }
 
