@@ -42,8 +42,6 @@ server.get('*', async (req, res, next) => {
         onPageNotFound: () => notFound = true
       }} />);
 
-    console.log(app);
-
     data.body = React.renderToString(app);
     data.css = css.join('');
 

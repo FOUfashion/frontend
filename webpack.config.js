@@ -63,12 +63,7 @@ const config = {
     }, {
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        stage: 0,
-        optional: ['runtime', 'optimisation'],
-        cacheDirectory: true
-      }
+      loader: 'babel?cacheDirectory'
     }]
   }
 };
