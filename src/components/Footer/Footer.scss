@@ -6,8 +6,8 @@
 
   &-container {
     margin: 0 auto;
-    padding: 20px 15px;
     max-width: $max-content-width;
+    padding: 20px 15px;
     text-align: center;
   }
 
@@ -23,16 +23,13 @@
     color: rgba(255, 255, 255, .3);
   }
 
-  &-text,
-  &-link {
-    padding: 2px 5px;
+  &-text, &-link {
     font-size: 1em;
+    padding: 2px 5px;
   }
 
   &-link {
-    &,
-    &:active,
-    &:visited {
+    &, &:active, &:visited {
       color: rgba(255, 255, 255, .6);
       text-decoration: none;
     }

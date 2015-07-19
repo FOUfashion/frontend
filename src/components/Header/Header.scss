@@ -1,5 +1,4 @@
 @import '../variables';
-
 $brand-color: #61dafb;
 
 .Header {
@@ -8,21 +7,17 @@ $brand-color: #61dafb;
 
   &-container {
     margin: 0 auto;
-    padding: 20px 0;
     max-width: $max-content-width;
+    padding: 20px 0;
   }
 
   &-brand {
     color: lighten($brand-color, 10%);
-    text-decoration: none;
     font-size: 1.75em; // ~28px
+    text-decoration: none;
   }
 
-  &-brandImg {
-
-  }
-
-  &-brandTxt {
+  &-brandtxt {
     margin-left: 10px;
   }
 
@@ -35,18 +30,18 @@ $brand-color: #61dafb;
     text-align: center;
   }
 
-  &-bannerTitle {
+  &-bannertitle {
+    font-size: 4em;
+    font-weight: normal;
+    line-height: 1em;
     margin: 0;
     padding: 10px;
-    font-weight: normal;
-    font-size: 4em;
-    line-height: 1em;
   }
 
-  &-bannerDesc {
-    padding: 0;
+  &-bannerdesc {
     color: rgba(255, 255, 255, .5);
     font-size: 1.25em;
     margin: 0;
+    padding: 0;
   }
 }
