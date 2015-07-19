@@ -1,4 +1,4 @@
-import webpack, { DefinePlugin, BannerPlugin } from 'webpack';
+import webpack from 'webpack';
 import path from 'path';
 
 const DEBUG = !process.argv.includes('--release');
@@ -24,7 +24,8 @@ const config = {
   },
 
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin()
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.BannerPlugin('require("babel-runtime/core-js/promise").default = require("bluebird");', { raw: true })
   ],
 
   resolve: {
@@ -62,7 +63,12 @@ const config = {
     }, {
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'babel'
+      loader: 'babel',
+      query: {
+        stage: 0,
+        optional: ['runtime', 'optimisation'],
+        cacheDirectory: true
+      }
     }]
   }
 };
@@ -81,7 +87,7 @@ const appConfig = Object.assign({}, config, {
   },
   devtool: DEBUG ? 'source-map' : false,
   plugins: config.plugins.concat([
-    new DefinePlugin(Object.assign({}, GLOBALS, { '__SERVER__': false }))
+    new webpack.DefinePlugin(Object.assign({}, GLOBALS, { '__SERVER__': false }))
   ].concat(DEBUG ? [] : [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
@@ -114,8 +120,8 @@ const serverConfig = Object.assign({}, config, {
   },
   devtool: DEBUG ? 'source-map' : 'cheap-module-source-map',
   plugins: config.plugins.concat(
-    new DefinePlugin(Object.assign({}, GLOBALS, { '__SERVER__': true })),
-    new BannerPlugin('require("source-map-support").install();', { raw: true, entryOnly: false })
+    new webpack.DefinePlugin(Object.assign({}, GLOBALS, { '__SERVER__': true })),
+    new webpack.BannerPlugin('require("source-map-support").install();', { raw: true, entryOnly: false })
   ),
   module: {
     loaders: config.module.loaders.map(function(loader) {
