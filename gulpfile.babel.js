@@ -26,7 +26,6 @@ gulp.task('assets', () => {
 // Resource files
 gulp.task('resources', () => {
   src.resources = [
-    'package.json',
     'src/content*/**',
     'src/templates*/**'
   ];
@@ -57,7 +56,8 @@ gulp.task('bundle', done => {
       chunks: verbose,
       chunkModules: verbose,
       cached: verbose,
-      cachedAssets: verbose
+      cachedAssets: verbose,
+      errorDetails: verbose
     }));
 
     if (++bundlerRunCount === (watch ? config.length : 1)) {
@@ -132,7 +132,7 @@ gulp.task('sync', ['serve'], done => {
   browserSync = require('browser-sync');
 
   browserSync({
-    logPrefix: 'RSK',
+    logPrefix: 'FF',
     notify: false,
     https: false,
     proxy: 'localhost:5000'

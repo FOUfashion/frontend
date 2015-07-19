@@ -1,4 +1,3 @@
-import 'babel/polyfill';
 import React from 'react';
 import FastClick from 'fastclick';
 import App from './components/App';

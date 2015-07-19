@@ -1,14 +1,13 @@
 import webpack, { DefinePlugin, BannerPlugin } from 'webpack';
-import merge from 'lodash/object/merge';
-import autoprefixer from 'autoprefixer-core';
+import path from 'path';
 
 const DEBUG = !process.argv.includes('--release');
-const STYLE_LOADER = 'style-loader/useable';
-const CSS_LOADER = DEBUG ? 'css-loader' : 'css-loader?minimize';
 const GLOBALS = {
   'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
   '__DEV__': DEBUG
 };
+
+const CSS_LOADER_MODULES = `css?modules&${DEBUG ? 'localIdentName=[name]__[local]___[hash:base64:5]' : 'minimize'}`;
 
 //
 // Common configuration chunk to be used for both
@@ -16,11 +15,6 @@ const GLOBALS = {
 // -----------------------------------------------------------------------------
 
 const config = {
-  output: {
-    publicPath: './',
-    sourcePrefix: '  '
-  },
-
   cache: DEBUG,
   debug: DEBUG,
 
@@ -34,57 +28,60 @@ const config = {
   ],
 
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['', '.js', '.jsx']
   },
 
   module: {
     preLoaders: [{
-      test: /\.js$/,
+      test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'eslint-loader'
+      loader: 'eslint'
     }],
 
     loaders: [{
       test: /\.css$/,
-      loader: `${STYLE_LOADER}!${CSS_LOADER}!postcss-loader`
+      loader: `style!css?${DEBUG ? '' : 'minimize&'}importLoaders=1!autoprefixer`
     }, {
       test: /\.scss$/,
-      loader: `${STYLE_LOADER}!${CSS_LOADER}!postcss-loader!sass-loader`
+      loader: `style!${CSS_LOADER_MODULES}!autoprefixer!sass?includePaths[]=` + path.resolve(__dirname, 'node_modules')
     }, {
-      test: /\.gif/,
-      loader: 'url-loader?limit=10000&mimetype=image/gif'
+      test: /\.hbs$/,
+      loader: 'handlebars'
     }, {
-      test: /\.jpg/,
-      loader: 'url-loader?limit=10000&mimetype=image/jpg'
+      test: /\.gif$/,
+      loader: 'url?limit=10000&mimetype=image/gif'
     }, {
-      test: /\.png/,
-      loader: 'url-loader?limit=10000&mimetype=image/png'
+      test: /\.jpe?g$/,
+      loader: 'url?limit=10000&mimetype=image/jpg'
     }, {
-      test: /\.svg/,
-      loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+      test: /\.png$/,
+      loader: 'url?limit=10000&mimetype=image/png'
+    }, {
+      test: /\.svg$/,
+      loader: 'url?limit=10000&mimetype=image/svg+xml'
     }, {
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'babel-loader'
+      loader: 'babel'
     }]
-  },
-
-  postcss: [autoprefixer]
+  }
 };
 
 //
 // Configuration for the client-side bundle (app.js)
 // -----------------------------------------------------------------------------
 
-const appConfig = merge({}, config, {
+const appConfig = Object.assign({}, config, {
   entry: './src/app.js',
   output: {
+    publicPath: './',
+    sourcePrefix: '  ',
     path: './dist/public',
     filename: 'app.js'
   },
   devtool: DEBUG ? 'source-map' : false,
   plugins: config.plugins.concat([
-    new DefinePlugin(merge(GLOBALS, { '__SERVER__': false }))
+    new DefinePlugin(Object.assign({}, GLOBALS, { '__SERVER__': false }))
   ].concat(DEBUG ? [] : [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
@@ -96,9 +93,11 @@ const appConfig = merge({}, config, {
 // Configuration for the server-side bundle (server.js)
 // -----------------------------------------------------------------------------
 
-const serverConfig = merge({}, config, {
+const serverConfig = Object.assign({}, config, {
   entry: './src/server.js',
   output: {
+    publicPath: './',
+    sourcePrefix: '  ',
     path: './dist',
     filename: 'server.js',
     libraryTarget: 'commonjs2'
@@ -115,14 +114,14 @@ const serverConfig = merge({}, config, {
   },
   devtool: DEBUG ? 'source-map' : 'cheap-module-source-map',
   plugins: config.plugins.concat(
-    new DefinePlugin(merge(GLOBALS, { '__SERVER__': true })),
+    new DefinePlugin(Object.assign({}, GLOBALS, { '__SERVER__': true })),
     new BannerPlugin('require("source-map-support").install();', { raw: true, entryOnly: false })
   ),
   module: {
     loaders: config.module.loaders.map(function(loader) {
       // Remove style-loader
-      return merge(loader, {
-        loader: loader.loader = loader.loader.replace(STYLE_LOADER + '!', '')
+      return Object.assign({}, loader, {
+        loader: loader.loader.replace('style!', '')
       });
     })
   }

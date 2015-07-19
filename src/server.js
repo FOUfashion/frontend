@@ -1,6 +1,3 @@
-import 'babel/polyfill';
-import _ from 'lodash';
-import fs from 'fs';
 import path from 'path';
 import express from 'express';
 import React from 'react';
@@ -24,8 +21,7 @@ server.use('/api/query', require('./api/query'));
 // -----------------------------------------------------------------------------
 
 // The top-level React component + HTML template for it
-const templateFile = path.join(__dirname, 'templates/index.html');
-const template = _.template(fs.readFileSync(templateFile, 'utf8'));
+const template = require('./templates/index.hbs');
 
 server.get('*', async (req, res, next) => {
   try {
@@ -36,15 +32,17 @@ server.get('*', async (req, res, next) => {
 
     let notFound = false;
     let css = [];
-    let data = {description: ''};
+    let data = { description: '' };
     let app = (<App
       path={req.path}
       context={{
-        onInsertCss: value => css.push(value),
-        onSetTitle: value => data.title = value,
+        onInsertCss: (value) => css.push(value),
+        onSetTitle: (value) => data.title = value,
         onSetMeta: (key, value) => data[key] = value,
         onPageNotFound: () => notFound = true
       }} />);
+
+    console.log(app);
 
     data.body = React.renderToString(app);
     data.css = css.join('');
