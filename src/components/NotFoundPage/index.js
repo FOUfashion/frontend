@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
-import withStyles from '../../decorators/withStyles';
 import styles from './NotFoundPage.scss';
 
-@withStyles(styles)
 class NotFoundPage {
 
   static contextTypes = {

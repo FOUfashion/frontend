@@ -1,24 +1,24 @@
 import React from 'react';
-import styles from './Header.scss';
-import withStyles from '../../decorators/withStyles';
+import styles from './styles';
 import Link from '../../utils/Link';
 import Navigation from '../Navigation';
 
-@withStyles(styles)
+console.log(styles);
+
 class Header {
 
   render() {
     return (
-      <div className="Header">
-        <div className="Header-container">
-          <a className="Header-brand" href="/" onClick={Link.handleClick}>
-            <img className="Header-brandImg" src={require('./logo-small.png')} width="38" height="38" alt="React" />
-            <span className="Header-brandTxt">Your Company</span>
+      <div className={styles.header}>
+        <div className={styles.container}>
+          <a className={styles.brand} href="/" onClick={Link.handleClick}>
+            <img className={styles.brandimg} src={require('./logo-small.png')} width="38" height="38" alt="React" />
+            <span className={styles.brandtxt}>Your Company</span>
           </a>
-          <Navigation className="Header-nav" />
-          <div className="Header-banner">
-            <h1 className="Header-bannerTitle">React</h1>
-            <p className="Header-bannerDesc">Complex web apps made easy</p>
+          <Navigation className={styles.nav} />
+          <div className={styles.banner}>
+            <h1 className={styles.bannertitle}>React</h1>
+            <p className={styles.bannerdesc}>Complex web apps made easy</p>
           </div>
         </div>
       </div>

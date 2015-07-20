@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
-import withStyles from '../../decorators/withStyles';
 import styles from './TextBox.scss';
 
-@withStyles(styles)
 class TextBox {
 
   static propTypes = {

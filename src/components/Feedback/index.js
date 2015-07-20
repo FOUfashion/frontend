@@ -1,8 +1,6 @@
 import React from 'react';
-import styles from './Feedback.scss';
-import withStyles from '../../decorators/withStyles';
+//import styles from './Feedback.scss';
 
-@withStyles(styles)
 class Feedback {
 
   render() {

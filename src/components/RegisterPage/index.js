@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
-import withStyles from '../../decorators/withStyles';
 import styles from './RegisterPage.scss';
 
-@withStyles(styles)
 class RegisterPage {
 
   static contextTypes = {

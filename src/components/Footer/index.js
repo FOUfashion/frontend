@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react';
 import styles from './Footer.scss';
 import withViewport from '../../decorators/withViewport';
-import withStyles from '../../decorators/withStyles';
 import Link from '../../utils/Link';
 
 @withViewport
-@withStyles(styles)
 class Footer {
 
   static propTypes = {

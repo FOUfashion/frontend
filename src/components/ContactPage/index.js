@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
-import styles from './ContactPage.scss';
-import withStyles from '../../decorators/withStyles';
+//import styles from './ContactPage.scss';
 
-@withStyles(styles)
 class ContactPage {
 
   static contextTypes = {

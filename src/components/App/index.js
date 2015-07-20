@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
-import '../../../node_modules/normalize.css/normalize.css';
-import styles from './App.scss';
+import 'normalize.css/normalize.css';
+//import styles from './App.scss';
 import withContext from '../../decorators/withContext';
-import withStyles from '../../decorators/withStyles';
 import AppActions from '../../actions/AppActions';
 import AppStore from '../../stores/AppStore';
 import Header from '../Header';
@@ -17,7 +16,6 @@ import Footer from '../Footer';
 const pages = { ContentPage, ContactPage, LoginPage, RegisterPage, NotFoundPage };
 
 @withContext
-@withStyles(styles)
 class App {
 
   static propTypes = {

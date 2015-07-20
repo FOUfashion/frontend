@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
-import styles from './ContentPage.scss';
-import withStyles from '../../decorators/withStyles';
+//import styles from './ContentPage.scss';
 
-@withStyles(styles)
 class ContentPage {
 
   static propTypes = {
