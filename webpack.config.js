@@ -14,6 +14,8 @@ const config = {
   cache: DEBUG,
   debug: DEBUG,
 
+  context: path.join(__dirname, 'src'),
+
   stats: {
     colors: true,
     reasons: DEBUG
@@ -30,12 +32,12 @@ const config = {
 
 // Configuration for the client-side bundle (app.js)
 const appConfig = Object.assign({}, config, {
-  entry: './src/app.js',
+  entry: './app.js',
 
   output: {
     publicPath: './',
     sourcePrefix: '  ',
-    path: './dist/public',
+    path: '../dist/public',
     filename: 'app.js'
   },
 
@@ -53,20 +55,20 @@ const appConfig = Object.assign({}, config, {
   module: {
     preLoaders: [{
       test: /\.jsx?$/,
-      exclude: /node_modules/,
       loader: 'eslint'
     }],
 
     loaders: [{
       test: /\.jsx?$/,
-      exclude: /node_modules/,
       loader: 'babel?cacheDirectory'
     }, {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract('style', `css?${DEBUG ? '-minimize' : 'minimize'}!autoprefixer`)
+      // loader: `style!css?${DEBUG ? '-minimize' : 'minimize'}!autoprefixer`
     }, {
       test: /\.scss$/,
       loader: ExtractTextPlugin.extract('style', `${CSS_LOADER_MODULES}!autoprefixer!sass?includePaths[]=` + path.resolve(__dirname, 'node_modules'))
+      //loader: `style!${CSS_LOADER_MODULES}!autoprefixer!sass?includePaths[]=` + path.resolve(__dirname, 'node_modules')
     }, {
       test: /\.jpg$/,
       loader: 'url?limit=10000&mimetype=image/jpg'
@@ -82,12 +84,12 @@ const appConfig = Object.assign({}, config, {
 
 // Configuration for the server-side bundle (server.js)
 const serverConfig = Object.assign({}, config, {
-  entry: './src/server.js',
+  entry: './server.js',
 
   output: {
     publicPath: './',
     sourcePrefix: '  ',
-    path: './dist',
+    path: '../dist',
     filename: 'server.js',
     libraryTarget: 'commonjs2'
   },
@@ -113,13 +115,11 @@ const serverConfig = Object.assign({}, config, {
   module: {
     preLoaders: [{
       test: /\.jsx?$/,
-      exclude: /node_modules/,
       loader: 'eslint'
     }],
 
     loaders: [{
       test: /\.jsx?$/,
-      exclude: /node_modules/,
       loader: 'babel?cacheDirectory'
     }, {
       test: /\.hbs$/,
@@ -127,6 +127,5 @@ const serverConfig = Object.assign({}, config, {
     }]
   }
 });
-
 
 export default [appConfig, serverConfig];
