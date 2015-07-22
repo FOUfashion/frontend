@@ -1,62 +1,49 @@
 import path from 'path';
+import db from './core/Database';
 import express from 'express';
 import React from 'react';
-import './core/Dispatcher';
-import './stores/AppStore';
-import db from './core/Database';
 import App from './components/App';
 
 const server = express();
+const pageTemplate = require('./templates/index.hbs');
 
-server.set('port', (process.env.PORT || 5000));
+// Set Express port and public folder
+server.set('port', process.env.PORT || 5000);
 server.use(express.static(path.join(__dirname, 'public')));
 
-//
 // Register API middleware
-// -----------------------------------------------------------------------------
 server.use('/api/query', require('./api/query'));
 
-//
 // Register server-side rendering middleware
-// -----------------------------------------------------------------------------
-
-// The top-level React component + HTML template for it
-const template = require('./templates/index.hbs');
-
-server.get('*', async (req, res, next) => {
+server.get('*', async function(req, res, next) {
   try {
-    // TODO: Temporary fix #159
     if (['/', '/about', '/privacy'].indexOf(req.path) !== -1) {
       await db.getPage(req.path);
     }
 
     let notFound = false;
-    let data = { description: '' };
-    let app = (<App
-      path={req.path}
-      context={{
+    let data = {};
+
+    let app = (
+      <App path={req.path} context={{
         onSetTitle: (value) => data.title = value,
         onSetMeta: (key, value) => data[key] = value,
         onPageNotFound: () => notFound = true
-      }} />);
-
-    data.body = React.renderToString(app);
+      }}/>
+    );
 
     if (notFound) {
       res.status(404);
     }
 
-    const html = template(data);
-    res.send(html);
+    data.body = React.renderToString(app);
+    res.send(pageTemplate(data));
   } catch (err) {
     next(err);
   }
 });
 
-//
-// Launch the server
-// -----------------------------------------------------------------------------
-
+// Start the server
 server.listen(server.get('port'), () => {
   if (process.send) {
     process.send('online');
