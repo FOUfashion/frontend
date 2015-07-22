@@ -1,6 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import 'normalize.css/normalize.css';
-//import styles from './App.scss';
 import withContext from '../../decorators/withContext';
 import AppActions from '../../actions/AppActions';
 import AppStore from '../../stores/AppStore';
@@ -63,12 +62,14 @@ class App {
     }
 
     if (component) {
-      return (<div>
-        <Header />
-        {component}
-        <Feedback />
-        <Footer />
-      </div>);
+      return (
+        <div>
+          <Header />
+          {component}
+          <Feedback />
+          <Footer />
+        </div>
+      );
     }
 
     return <NotFoundPage />;

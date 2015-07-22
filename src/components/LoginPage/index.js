@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import styles from './LoginPage.scss';
+import React, {PropTypes} from 'react';
+import styles from './styles.scss';
 
 class LoginPage {
 
@@ -11,8 +11,8 @@ class LoginPage {
     const title = 'Log In';
     this.context.onSetTitle(title);
     return (
-      <div className="LoginPage">
-        <div className="LoginPage-container">
+      <div className={styles.page}>
+        <div className={styles.container}>
           <h1>{title}</h1>
           <p>...</p>
         </div>

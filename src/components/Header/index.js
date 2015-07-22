@@ -1,9 +1,8 @@
 import React from 'react';
-import styles from './styles';
-import Link from '../../utils/Link';
 import Navigation from '../Navigation';
+import Link from '../../utils/Link';
 
-console.log(styles);
+import styles from './styles.scss';
 
 class Header {
 
@@ -12,13 +11,13 @@ class Header {
       <div className={styles.header}>
         <div className={styles.container}>
           <a className={styles.brand} href="/" onClick={Link.handleClick}>
-            <img className={styles.brandimg} src={require('./logo-small.png')} width="38" height="38" alt="React" />
-            <span className={styles.brandtxt}>Your Company</span>
+            <img className={styles.brandImage} src={require('./logo-small.png')} width="38" height="38" alt="React" />
+            <span className={styles.brandText}>Your Company</span>
           </a>
           <Navigation className={styles.nav} />
           <div className={styles.banner}>
-            <h1 className={styles.bannertitle}>React</h1>
-            <p className={styles.bannerdesc}>Complex web apps made easy</p>
+            <h1 className={styles.bannerTitle}>React</h1>
+            <p className={styles.bannerDescription}>Complex web apps made easy</p>
           </div>
         </div>
       </div>

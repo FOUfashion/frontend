@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import styles from './TextBox.scss';
+import React, {PropTypes} from 'react';
+import styles from './styles.scss';
 
 class TextBox {
 
@@ -13,10 +13,10 @@ class TextBox {
 
   render() {
     return (
-      <div className="TextBox">
+      <div className={styles.box}>
         {this.props.maxLines > 1 ?
-          <textarea {...this.props} className="TextBox-input" ref="input" key="input" rows={this.props.maxLines} /> :
-          <input {...this.props} className="TextBox-input" ref="input" key="input" />}
+          <textarea {...this.props} className={styles.input} ref="input" key="input" rows={this.props.maxLines} /> :
+          <input {...this.props} className={styles.input} ref="input" key="input" />}
       </div>
     );
   }

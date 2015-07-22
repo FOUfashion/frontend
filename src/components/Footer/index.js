@@ -1,35 +1,21 @@
-import React, { PropTypes } from 'react';
-import styles from './Footer.scss';
-import withViewport from '../../decorators/withViewport';
+import React from 'react';
 import Link from '../../utils/Link';
 
-@withViewport
+import styles from './styles.scss';
+
 class Footer {
 
-  static propTypes = {
-    viewport: PropTypes.shape({
-      width: PropTypes.number.isRequired,
-      height: PropTypes.number.isRequired
-    }).isRequired
-  };
-
   render() {
-    // This is just an example how one can render CSS
-    const { width, height } = this.props.viewport;
-    this.renderCss(`.Footer-viewport:after {content:' ${width}x${height}';}`);
-
     return (
-      <div className="Footer">
-        <div className="Footer-container">
-          <span className="Footer-text">© Your Company</span>
-          <span className="Footer-spacer">·</span>
-          <a className="Footer-link" href="/" onClick={Link.handleClick}>Home</a>
-          <span className="Footer-spacer">·</span>
-          <a className="Footer-link" href="/privacy" onClick={Link.handleClick}>Privacy</a>
-          <span className="Footer-spacer">·</span>
-          <a className="Footer-link" href="/not-found" onClick={Link.handleClick}>Not Found</a>
-          <span className="Footer-spacer"> | </span>
-          <span ref="viewport" className="Footer-viewport Footer-text Footer-text--muted">Viewport:</span>
+      <div className={styles.footer}>
+        <div className={styles.container}>
+          <span className={styles.text}>© Your Company</span>
+          <span className={styles.spacer}>·</span>
+          <a className={styles.link} href="/" onClick={Link.handleClick}>Home</a>
+          <span className={styles.spacer}>·</span>
+          <a className={styles.link} href="/privacy" onClick={Link.handleClick}>Privacy</a>
+          <span className={styles.spacer}>·</span>
+          <a className={styles.link} href="/not-found" onClick={Link.handleClick}>Not Found</a>
         </div>
       </div>
     );

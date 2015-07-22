@@ -1,20 +1,28 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import webpack from 'webpack';
-import path from 'path';
 
 const DEBUG = !process.argv.includes('--release');
-const CSS_LOADER_MODULES = `css/locals?modules&${DEBUG ? 'localIdentName=[path]--[local]---[hash:base64:5]' : 'minimize'}`;
 const GLOBALS = {
   'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
   '__DEV__': DEBUG
 };
 
-// Common configuration chunk to be used for both client-side (app.js) and server-side (server.js) bundles
+const CSS_LOADER = DEBUG ? 'css' : 'css?minimize';
+const CSS_LOADER_MODULES = `css?modules&${DEBUG ? 'localIdentName=[path]-[local]--[hash:base64:5]' : 'minimize'}`;
+const CSS_LOADER_LOCALS = `css/locals?modules&${DEBUG ? 'localIdentName=[path]-[local]--[hash:base64:5]' : 'minimize'}`;
+const SASS_LOADER = `sass?includePaths[]=${__dirname}/node_modules`;
+
+const extractVendorStyles = new ExtractTextPlugin('vendor.css');
+const extractAppStyles = new ExtractTextPlugin('styles.css');
+
+// Common configuration for both client-side and server-side bundles
 const config = {
+  output: {
+    publicPath: './'
+  },
+
   cache: DEBUG,
   debug: DEBUG,
-
-  context: path.join(__dirname, 'src'),
 
   stats: {
     colors: true,
@@ -22,53 +30,26 @@ const config = {
   },
 
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin()
+    new webpack.optimize.OccurenceOrderPlugin(),
+    extractVendorStyles,
+    extractAppStyles
   ],
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.scss']
-  }
-};
-
-// Configuration for the client-side bundle (app.js)
-const appConfig = Object.assign({}, config, {
-  entry: './app.js',
-
-  output: {
-    publicPath: './',
-    sourcePrefix: '  ',
-    path: '../dist/public',
-    filename: 'app.js'
+    extensions: ['', '.js', '.jsx']
   },
-
-  devtool: DEBUG ? 'source-map' : false,
-
-  plugins: config.plugins.concat([
-    new webpack.DefinePlugin(Object.assign({}, GLOBALS, { '__SERVER__': false })),
-    new ExtractTextPlugin('styles.css')
-  ].concat(DEBUG ? [] : [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.AggressiveMergingPlugin()
-  ])),
 
   module: {
     preLoaders: [{
       test: /\.jsx?$/,
+      exclude: /node_modules/,
       loader: 'eslint'
     }],
 
     loaders: [{
       test: /\.jsx?$/,
+      exclude: /node_modules/,
       loader: 'babel?cacheDirectory'
-    }, {
-      test: /\.css$/,
-      loader: ExtractTextPlugin.extract('style', `css?${DEBUG ? '-minimize' : 'minimize'}!autoprefixer`)
-      // loader: `style!css?${DEBUG ? '-minimize' : 'minimize'}!autoprefixer`
-    }, {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('style', `${CSS_LOADER_MODULES}!autoprefixer!sass?includePaths[]=` + path.resolve(__dirname, 'node_modules'))
-      //loader: `style!${CSS_LOADER_MODULES}!autoprefixer!sass?includePaths[]=` + path.resolve(__dirname, 'node_modules')
     }, {
       test: /\.jpg$/,
       loader: 'url?limit=10000&mimetype=image/jpg'
@@ -78,25 +59,68 @@ const appConfig = Object.assign({}, config, {
     }, {
       test: /\.svg$/,
       loader: 'url?limit=10000&mimetype=image/svg+xml'
+    }, {
+      test: /\.hbs$/,
+      loader: 'handlebars'
     }]
   }
+};
+
+// Configuration for the client-side bundle (app.js)
+const appConfig = Object.assign({}, config, {
+  entry: {
+    app: './src/app.js',
+    vendor: [
+      'classnames',
+      'eventemitter3',
+      'fastclick',
+      'flux',
+      'react',
+      'superagent'
+    ]
+  },
+
+  output: Object.assign({}, config.output, {
+    path: './dist/public',
+    filename: 'app.js'
+  }),
+
+  devtool: DEBUG ? 'source-map' : false,
+
+  plugins: config.plugins.concat([
+    new webpack.DefinePlugin(Object.assign({}, GLOBALS, { '__SERVER__': false })),
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)
+  ].concat(DEBUG ? [] : [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.AggressiveMergingPlugin()
+  ])),
+
+  module: Object.assign({}, config.module, {
+    loaders: config.module.loaders.concat([{
+      test: /\.css$/,
+      loader: extractVendorStyles.extract('style', CSS_LOADER)
+    }, {
+      test: /\.scss$/,
+      loader: extractAppStyles.extract('style', `${CSS_LOADER_MODULES}&sourceMap!autoprefixer!${SASS_LOADER}&sourceMap`)
+    }])
+  })
 });
 
 // Configuration for the server-side bundle (server.js)
 const serverConfig = Object.assign({}, config, {
-  entry: './server.js',
+  entry: './src/server.js',
 
-  output: {
-    publicPath: './',
-    sourcePrefix: '  ',
-    path: '../dist',
+  output: Object.assign({}, config.output, {
+    path: './dist',
     filename: 'server.js',
     libraryTarget: 'commonjs2'
-  },
+  }),
 
   target: 'node',
   externals: /^[a-z][a-z\.\-0-9]*$/,
-  devtool: DEBUG ? 'source-map' : 'cheap-module-source-map',
+  devtool: 'source-map',
 
   node: {
     console: false,
@@ -112,20 +136,15 @@ const serverConfig = Object.assign({}, config, {
     new webpack.BannerPlugin('require("source-map-support").install();', { raw: true, entryOnly: false })
   ),
 
-  module: {
-    preLoaders: [{
-      test: /\.jsx?$/,
-      loader: 'eslint'
-    }],
-
-    loaders: [{
-      test: /\.jsx?$/,
-      loader: 'babel?cacheDirectory'
+  module: Object.assign({}, config.module, {
+    loaders: config.module.loaders.concat([{
+      test: /\.css$/,
+      loader: CSS_LOADER
     }, {
-      test: /\.hbs$/,
-      loader: 'handlebars'
-    }]
-  }
+      test: /\.scss$/,
+      loader: `${CSS_LOADER_LOCALS}!autoprefixer!${SASS_LOADER}`
+    }])
+  })
 });
 
 export default [appConfig, serverConfig];

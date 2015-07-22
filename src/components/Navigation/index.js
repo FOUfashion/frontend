@@ -1,7 +1,8 @@
-import React, { PropTypes } from 'react';
-import classNames from 'classnames';
-import styles from './Navigation.scss';
+import React, {PropTypes} from 'react';
 import Link from '../../utils/Link';
+
+import classNames from 'classnames';
+import styles from './styles.scss';
 
 class Navigation {
 
@@ -11,14 +12,14 @@ class Navigation {
 
   render() {
     return (
-      <div className={classNames(this.props.className, 'Navigation')} role="navigation">
-        <a className="Navigation-link" href="/about" onClick={Link.handleClick}>About</a>
-        <a className="Navigation-link" href="/contact" onClick={Link.handleClick}>Contact</a>
-        <span className="Navigation-spacer"> | </span>
-        <a className="Navigation-link" href="/login" onClick={Link.handleClick}>Log in</a>
-        <span className="Navigation-spacer">or</span>
-        <a className="Navigation-link Navigation-link--highlight" href="/register" onClick={Link.handleClick}>Sign up</a>
-      </div>
+      <nav className={classNames(this.props.className, styles.nav)} role="navigation">
+        <a className={styles.link} href="/about" onClick={Link.handleClick}>About</a>
+        <a className={styles.link} href="/contact" onClick={Link.handleClick}>Contact</a>
+        <span className={styles.spacer}> | </span>
+        <a className={styles.link} href="/login" onClick={Link.handleClick}>Log in</a>
+        <span className={styles.spacer}>or</span>
+        <a className={styles.link_highlight} href="/register" onClick={Link.handleClick}>Sign up</a>
+      </nav>
     );
   }
 

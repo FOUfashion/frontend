@@ -33,15 +33,12 @@ function run() {
   };
 
   let element = React.createElement(App, props);
-  React.render(element, document.getElementById('app'), () => {
-    const css = document.getElementById('css');
-    css.parentNode.removeChild(css);
-  });
+  React.render(element, document.getElementById('app'));
 
   // Update `Application.path` prop when `window.location` is changed
   Dispatcher.register((action) => {
     if (action.type === ActionTypes.CHANGE_LOCATION) {
-      element = React.cloneElement(element, {path: action.path});
+      element = React.cloneElement(element, { path: action.path });
       React.render(element, document.getElementById('app'));
     }
   });

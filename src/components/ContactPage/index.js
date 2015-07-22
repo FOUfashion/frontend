@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-//import styles from './ContactPage.scss';
+import React, {PropTypes} from 'react';
+import styles from './styles.scss';
 
 class ContactPage {
 
@@ -11,8 +11,8 @@ class ContactPage {
     const title = 'Contact Us';
     this.context.onSetTitle(title);
     return (
-      <div className="ContactPage">
-        <div className="ContactPage-container">
+      <div className={styles.page}>
+        <div className={styles.container}>
           <h1>{title}</h1>
           <p>...</p>
         </div>

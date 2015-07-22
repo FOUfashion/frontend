@@ -1,0 +1,11 @@
+linters:
+  ColorVariable:
+    enabled: false
+  EmptyRule:
+    enabled: false
+  PlaceholderInExtend:
+    enabled: false
+  SelectorFormat:
+    enabled: false
+  SingleLinePerSelector:
+    enabled: false

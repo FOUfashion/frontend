@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import styles from './NotFoundPage.scss';
+import React, {PropTypes} from 'react';
+import './styles.scss';
 
 class NotFoundPage {
 

@@ -1,0 +1,36 @@
+@import '../variables';
+
+.footer {
+  background: #333;
+  color: #fff;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: $max-content-width;
+  padding: 20px 15px;
+  text-align: center;
+}
+
+.spacer {
+  color: rgba(255, 255, 255, .3);
+}
+
+.text {
+  color: rgba(255, 255, 255, .5);
+}
+
+.link {
+  @extend .text;
+  font-size: 1em;
+  padding: 2px 5px;
+
+  &, &:active, &:visited {
+    color: rgba(255, 255, 255, .6);
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+  }
+}
