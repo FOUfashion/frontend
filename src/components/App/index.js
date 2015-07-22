@@ -1,5 +1,7 @@
+import 'purecss/build/pure.css';
+import './styles.scss';
+
 import React, {PropTypes} from 'react';
-import 'normalize.css/normalize.css';
 import withContext from '../../decorators/withContext';
 import AppActions from '../../actions/AppActions';
 import AppStore from '../../stores/AppStore';

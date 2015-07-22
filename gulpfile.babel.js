@@ -38,6 +38,9 @@ gulp.task('resources', () => {
 
 // Bundle
 gulp.task('bundle', done => {
+  // Keeps sass-loader from hanging https://github.com/jtangelder/sass-loader/issues/49
+  process.env.UV_THREADPOOL_SIZE = 100;
+
   const config = require('./webpack.config.js');
   const bundler = webpack(config);
   const verbose = process.argv.includes('--verbose');

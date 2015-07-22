@@ -8,9 +8,8 @@ const GLOBALS = {
 };
 
 const CSS_LOADER = DEBUG ? 'css' : 'css?minimize';
-const CSS_LOADER_MODULES = `css?modules&${DEBUG ? 'localIdentName=[path]-[local]--[hash:base64:5]' : 'minimize'}`;
-const CSS_LOADER_LOCALS = `css/locals?modules&${DEBUG ? 'localIdentName=[path]-[local]--[hash:base64:5]' : 'minimize'}`;
-const SASS_LOADER = `sass?includePaths[]=${__dirname}/node_modules`;
+const CSS_LOADER_PARAMS = `modules&localIdentName=${DEBUG ? '[dir]--[local]--[sourceHash:5]' : '[sourceHash]&minimize'}`;
+const SASS_LOADER = `sass?sourceMap&includePaths[]=${__dirname}/node_modules`;
 
 const extractVendorStyles = new ExtractTextPlugin('vendor.css');
 const extractAppStyles = new ExtractTextPlugin('styles.css');
@@ -103,7 +102,7 @@ const appConfig = Object.assign({}, config, {
       loader: extractVendorStyles.extract('style', CSS_LOADER)
     }, {
       test: /\.scss$/,
-      loader: extractAppStyles.extract('style', `${CSS_LOADER_MODULES}&sourceMap!autoprefixer!${SASS_LOADER}&sourceMap`)
+      loader: extractAppStyles.extract('style', `css?${CSS_LOADER_PARAMS}&sourceMap!autoprefixer!${SASS_LOADER}`)
     }])
   })
 });
@@ -142,7 +141,7 @@ const serverConfig = Object.assign({}, config, {
       loader: CSS_LOADER
     }, {
       test: /\.scss$/,
-      loader: `${CSS_LOADER_LOCALS}!autoprefixer!${SASS_LOADER}`
+      loader: `css/locals?${CSS_LOADER_PARAMS}!autoprefixer!${SASS_LOADER}`
     }])
   })
 });

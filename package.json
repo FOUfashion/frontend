@@ -11,7 +11,7 @@
     "flux": "^2.0.3",
     "front-matter": "^1.0.0",
     "jade": "^1.11.0",
-    "normalize.css": "^3.0.3",
+    "purecss": "^0.6.0",
     "react": "^0.13.3",
     "source-map-support": "^0.3.2",
     "superagent": "^1.2.0"
@@ -23,7 +23,7 @@
     "babel-eslint": "^3.1.26",
     "babel-loader": "^5.3.2",
     "browser-sync": "^2.8.0",
-    "css-loader": "^0.15.5",
+    "css-loader": "Aluxian/css-loader",
     "eslint": "^0.24.1",
     "eslint-loader": "^0.14.2",
     "eslint-plugin-react": "^3.0.0",
@@ -41,7 +41,7 @@
     "node-sass": "^3.2.0",
     "nodemon": "^1.3.8",
     "run-sequence": "^1.1.2",
-    "sass-loader": "openlearningnet/sass-loader",
+    "sass-loader": "^1.0.2",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.6",
     "webpack": "^1.10.1"
@@ -57,8 +57,8 @@
     "coverage-watch": "npm run watch && nodemon --watch build --exec 'jest --coverage'",
     "dist": "rm -rf dist && gulp dist --release",
     "start": "node dist/server.js",
-    "start-dev": "gulp serve",
-    "start-sync": "gulp sync"
+    "start-dev": "rm -rf dist && gulp serve",
+    "start-sync": "rm -rf dist && gulp sync"
   },
   "jest": {
     "testPathDirs": [
