@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import './styles.scss';
+import styles from './styles.scss';
 
 class NotFoundPage {
 
@@ -13,9 +13,11 @@ class NotFoundPage {
     this.context.onSetTitle(title);
     this.context.onPageNotFound();
     return (
-      <div>
-        <h1>{title}</h1>
-        <p>Sorry, but the page you were trying to view does not exist.</p>
+      <div className={styles.container}>
+        <div className={styles.center}>
+          <h1>{title}</h1>
+          <p>Sorry, but the page you were trying to view does not exist.</p>
+        </div>
       </div>
     );
   }

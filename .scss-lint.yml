@@ -3,7 +3,11 @@ linters:
     enabled: false
   EmptyRule:
     enabled: false
+  IdSelector:
+    enabled: false
   PlaceholderInExtend:
+    enabled: false
+  PropertySortOrder:
     enabled: false
   SelectorFormat:
     enabled: false

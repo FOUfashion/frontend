@@ -6,11 +6,11 @@
 }
 
 .container {
-  font-size: 1.5em; // ~24px
   margin: 0 auto;
-  max-width: $max-content-width;
   padding: 20px 8px;
+  max-width: $max-content-width;
   text-align: center;
+  font-size: 1.5em; // ~24px
 }
 
 .link {
@@ -25,6 +25,6 @@
 }
 
 .spacer {
-  padding-left: 15px;
   padding-right: 15px;
+  padding-left: 15px;
 }

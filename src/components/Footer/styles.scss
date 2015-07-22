@@ -7,8 +7,8 @@
 
 .container {
   margin: 0 auto;
-  max-width: $max-content-width;
   padding: 20px 15px;
+  max-width: $max-content-width;
   text-align: center;
 }
 
@@ -21,9 +21,10 @@
 }
 
 .link {
-  @extend .text;
-  font-size: 1em;
   padding: 2px 5px;
+  font-size: 1em;
+
+  @extend .text;
 
   &, &:active, &:visited {
     color: rgba(255, 255, 255, .6);
