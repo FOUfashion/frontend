@@ -1,3 +1,4 @@
+import NyanProgressPlugin from 'nyan-progress-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import webpack from 'webpack';
 
@@ -30,6 +31,7 @@ const config = {
 
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
+    new NyanProgressPlugin(),
     extractVendorStyles,
     extractAppStyles
   ],
