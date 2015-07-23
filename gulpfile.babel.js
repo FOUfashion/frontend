@@ -8,7 +8,7 @@ import webpack from 'webpack';
 import config from './webpack.config.js';
 
 const $ = gulpLoadPlugins();
-const verbose = process.argv.includes('--verbose');
+const VERBOSE = process.argv.includes('--verbose');
 const src = {};
 
 // Keeps sass-loader from hanging https://github.com/jtangelder/sass-loader/issues/49
@@ -32,7 +32,7 @@ gulp.task('assets', function() {
 });
 
 // Build the app from source code
-gulp.task('dist', ['assets', 'bundle']);
+gulp.task('dist', ['bundle']);
 
 // Build and start watching for modifications
 gulp.task('dist:watch', ['dist'], function() {
@@ -40,7 +40,7 @@ gulp.task('dist:watch', ['dist'], function() {
 });
 
 // Bundle
-gulp.task('bundle', function(done) {
+gulp.task('bundle', ['assets'], function(done) {
   const bundler = webpack(config);
   let bundlerRunCount = 0;
 
@@ -51,14 +51,14 @@ gulp.task('bundle', function(done) {
 
     console.log(stats.toString({
       colors: $.util.colors.supportsColor,
-      hash: verbose,
-      version: verbose,
-      timings: verbose,
-      chunks: verbose,
-      chunkModules: verbose,
-      cached: verbose,
-      cachedAssets: verbose,
-      errorDetails: verbose
+      hash: VERBOSE,
+      version: VERBOSE,
+      timings: VERBOSE,
+      chunks: VERBOSE,
+      chunkModules: VERBOSE,
+      cached: VERBOSE,
+      cachedAssets: VERBOSE,
+      errorDetails: VERBOSE
     }));
 
     if (++bundlerRunCount === (watch ? config.length : 1)) {
@@ -115,6 +115,7 @@ gulp.task('serve', ['dist:watch'], function(done) {
 // Launch BrowserSync development server
 gulp.task('sync', ['serve'], function(done) {
   browserSync = require('browser-sync');
+  process.on('exit', () => browserSync.exit());
 
   browserSync({
     logPrefix: 'WP',
@@ -122,8 +123,6 @@ gulp.task('sync', ['serve'], function(done) {
     https: false,
     proxy: 'localhost:5000'
   }, done);
-
-  process.on('exit', () => browserSync.exit());
 
   gulp.watch(['dist/**'].concat(src.server.map(file => '!' + file)), file => {
     browserSync.reload(path.relative(__dirname, file.path));

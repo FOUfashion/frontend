@@ -4,7 +4,7 @@ import FluxibleComponent from 'fluxible-addons-react/FluxibleComponent';
 import debug from 'debug';
 import flux from './flux';
 
-const log = debug('client');
+const log = debug('fou:client');
 
 window.addEventListener('DOMContentLoaded', function() {
   window.Debug = debug;
@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
     log('rendering root');
-    Router.run(flux.getAppComponent(), Router.HistoryLocation, function(Handler, state) {
+    Router.run(flux.getComponent(), Router.HistoryLocation, function(Handler, state) {
       const Root = (
         <FluxibleComponent context={context.getComponentContext()}>
           <Handler />

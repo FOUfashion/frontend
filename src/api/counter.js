@@ -1,6 +1,6 @@
-import Router from 'koa-router';
+import KoaRouter from 'koa-router';
 
-const router = new Router({ prefix: '/counter' });
+const router = new KoaRouter({ prefix: '/counter' });
 let count = 0;
 
 router.get('/', function *() {

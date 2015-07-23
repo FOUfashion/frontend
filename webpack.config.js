@@ -76,9 +76,9 @@ const appConfig = Object.assign({}, config, {
       'debug',
       'fluxible',
       'fluxible-addons-react',
+      'immutable',
       'react',
       'react-router',
-      'serialize-javascript',
       'superagent'
     ]
   },
