@@ -22,6 +22,7 @@
     "indent": [2, 2, {
       "indentSwitchCase": true
     }],
+    "no-underscore-dangle": 0,
     "quotes": [2, "single"],
     "react/display-name": 0,
     "react/jsx-boolean-value": 1,

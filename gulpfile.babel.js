@@ -1,12 +1,18 @@
 import path from 'path';
 import cp from 'child_process';
+
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
-import runSequence from 'run-sequence';
+
 import webpack from 'webpack';
+import config from './webpack.config.js';
 
 const $ = gulpLoadPlugins();
-const src = Object.create(null);
+const verbose = process.argv.includes('--verbose');
+const src = {};
+
+// Keeps sass-loader from hanging https://github.com/jtangelder/sass-loader/issues/49
+process.env.UV_THREADPOOL_SIZE = 100;
 
 let watch = false;
 let browserSync;
@@ -15,35 +21,27 @@ let browserSync;
 gulp.task('default', ['sync']);
 
 // Static files
-gulp.task('assets', () => {
-  src.assets = 'src/public/**';
-  return gulp.src(src.assets)
-    .pipe($.changed('dist/public'))
-    .pipe(gulp.dest('dist/public'))
-    .pipe($.size({title: 'assets'}));
-});
-
-// Resource files
-gulp.task('resources', () => {
-  src.resources = [
-    'src/content*/**',
-    'src/templates*/**'
+gulp.task('assets', function() {
+  src.assets = [
+    'src/public/**'
   ];
 
-  return gulp.src(src.resources)
-    .pipe($.changed('dist'))
-    .pipe(gulp.dest('dist'))
-    .pipe($.size({title: 'resources'}));
+  return gulp.src(src.assets)
+    .pipe($.changed('dist/public'))
+    .pipe(gulp.dest('dist/public'));
+});
+
+// Build the app from source code
+gulp.task('dist', ['assets', 'bundle']);
+
+// Build and start watching for modifications
+gulp.task('dist:watch', ['dist'], function() {
+  gulp.watch(src.assets, ['assets']);
 });
 
 // Bundle
-gulp.task('bundle', done => {
-  // Keeps sass-loader from hanging https://github.com/jtangelder/sass-loader/issues/49
-  process.env.UV_THREADPOOL_SIZE = 100;
-
-  const config = require('./webpack.config.js');
+gulp.task('bundle', function(done) {
   const bundler = webpack(config);
-  const verbose = process.argv.includes('--verbose');
   let bundlerRunCount = 0;
 
   function bundle(err, stats) {
@@ -75,27 +73,11 @@ gulp.task('bundle', done => {
   }
 });
 
-// Build the app from source code
-gulp.task('dist', done => {
-  runSequence(['assets', 'resources'], ['bundle'], done);
-});
-
-// Build and start watching for modifications
-gulp.task('dist:watch', done => {
-  watch = true;
-  runSequence('dist', () => {
-    gulp.watch(src.assets, ['assets']);
-    gulp.watch(src.resources, ['resources']);
-    done();
-  });
-});
-
-// Launch a Node.js/Express server
-gulp.task('serve', ['dist:watch'], done => {
+// Start the server to serve the app
+gulp.task('serve', ['dist:watch'], function(done) {
   src.server = [
     'dist/server.js',
-    'dist/content/**/*',
-    'dist/templates/**/*'
+    'dist/views/**'
   ];
 
   let started = false;
@@ -104,7 +86,7 @@ gulp.task('serve', ['dist:watch'], done => {
       env: Object.assign({ NODE_ENV: 'development' }, process.env)
     });
 
-    child.once('message', message => {
+    child.once('message', function(message) {
       if (message.match(/^online$/)) {
         if (browserSync) {
           browserSync.reload();
@@ -114,7 +96,7 @@ gulp.task('serve', ['dist:watch'], done => {
           started = true;
 
           gulp.watch(src.server, function() {
-            $.util.log('Restarting development server.');
+            $.util.log('Restarting development server...');
             server.kill('SIGTERM');
             server = startup();
           });
@@ -131,11 +113,11 @@ gulp.task('serve', ['dist:watch'], done => {
 });
 
 // Launch BrowserSync development server
-gulp.task('sync', ['serve'], done => {
+gulp.task('sync', ['serve'], function(done) {
   browserSync = require('browser-sync');
 
   browserSync({
-    logPrefix: 'FF',
+    logPrefix: 'WP',
     notify: false,
     https: false,
     proxy: 'localhost:5000'
@@ -143,7 +125,7 @@ gulp.task('sync', ['serve'], done => {
 
   process.on('exit', () => browserSync.exit());
 
-  gulp.watch(['dist/**/*.*'].concat(src.server.map(file => '!' + file)), file => {
+  gulp.watch(['dist/**'].concat(src.server.map(file => '!' + file)), file => {
     browserSync.reload(path.relative(__dirname, file.path));
   });
 });

@@ -1,53 +1,67 @@
-import path from 'path';
-import db from './core/Database';
-import express from 'express';
+import koa from 'koa';
+import serve from 'koa-static';
+import debug from 'debug';
+
 import React from 'react';
-import App from './components/App';
+import Router from 'react-router';
+import FluxibleComponent from 'fluxible-addons-react/FluxibleComponent';
 
-const server = express();
-const pageTemplate = require('./templates/index.hbs');
+import serialize from 'serialize-javascript';
+import flux from './flux';
 
-// Set Express port and public folder
-server.set('port', process.env.PORT || 5000);
-server.use(express.static(path.join(__dirname, 'public')));
+const server = koa();
+const indexView = require('./views/index.hbs');
+const log = debug('server');
 
-// Register API middleware
-server.use('/api/query', require('./api/query'));
+// Serve files from the public folder
+log('serving from %s/public', __dirname);
+server.use(serve('./public'));
 
-// Register server-side rendering middleware
-server.get('*', async function(req, res, next) {
-  try {
-    if (['/', '/about', '/privacy'].indexOf(req.path) !== -1) {
-      await db.getPage(req.path);
-    }
+// Register API routes
+log('registering API routes');
 
-    let notFound = false;
-    let data = {};
+const routers = [
+  require('./api/counter')
+];
 
-    let app = (
-      <App path={req.path} context={{
-        onSetTitle: (value) => data.title = value,
-        onSetMeta: (key, value) => data[key] = value,
-        onPageNotFound: () => notFound = true
-      }}/>
-    );
-
-    if (notFound) {
-      res.status(404);
-    }
-
-    data.body = React.renderToString(app);
-    res.send(pageTemplate(data));
-  } catch (err) {
-    next(err);
-  }
+routers.forEach(function(router) {
+  log(router.prefix);
+  server.use(router.routes());
+  server.use(router.allowedMethods());
 });
 
-// Start the server
-server.listen(server.get('port'), () => {
+// Register server-side rendering
+server.get('*', function *() {
+  const [Handler, state] = yield new Promise(resolve => {
+    Router.run(flux.getAppComponent(), this.url, ...args => resolve(args));
+  });
+
+  if (state.routes.length === 0) {
+    this.status = 404;
+  }
+
+  log('serializing dehydrated flux state');
+  const context = flux.createContext();
+  const dehydratedState = serialize(flux.dehydrate(context));
+
+  log('rendering html');
+  const Root = (
+    <FluxibleComponent context={context.getComponentContext()}>
+      <Handler />
+    </FluxibleComponent>
+  );
+
+  this.body = indexView({
+    body: React.renderToString(Root),
+    script: `window.__dehydratedState = ${dehydratedState};`
+  });
+});
+
+// Start listening
+server.listen(process.env.PORT || 5000, function() {
   if (process.send) {
     process.send('online');
   } else {
-    console.log('The server is running at http://localhost:' + server.get('port'));
+    console.log('Listening on %s', server.get('port'));
   }
 });

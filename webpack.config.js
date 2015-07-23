@@ -70,13 +70,15 @@ const config = {
 // Configuration for the client-side bundle (app.js)
 const appConfig = Object.assign({}, config, {
   entry: {
-    app: './src/app.js',
+    app: './src/client.js',
     vendor: [
       'classnames',
-      'eventemitter3',
-      'fastclick',
-      'flux',
+      'debug',
+      'fluxible',
+      'fluxible-addons-react',
       'react',
+      'react-router',
+      'serialize-javascript',
       'superagent'
     ]
   },

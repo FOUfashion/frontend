@@ -1,4 +1,4 @@
-@import '../variables';
+@import '../../styles/variables';
 
 .footer {
   background: #333;
@@ -21,10 +21,9 @@
 }
 
 .link {
+  @extend .text;
   padding: 2px 5px;
   font-size: 1em;
-
-  @extend .text;
 
   &, &:active, &:visited {
     color: rgba(255, 255, 255, .6);

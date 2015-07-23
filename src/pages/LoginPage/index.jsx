@@ -1,19 +1,12 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import styles from './styles.scss';
 
-class LoginPage {
-
-  static contextTypes = {
-    onSetTitle: PropTypes.func.isRequired
-  };
+class LoginPage extends React.Component {
 
   render() {
-    const title = 'Log In';
-    this.context.onSetTitle(title);
     return (
       <div className={styles.page}>
         <div className={styles.container}>
-          <h1>{title}</h1>
           <p>...</p>
         </div>
       </div>

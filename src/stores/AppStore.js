@@ -1,81 +1,42 @@
-import EventEmitter from 'eventemitter3';
-import Dispatcher from '../core/Dispatcher';
-import ActionTypes from '../constants/ActionTypes';
+import BaseStore from 'fluxible/addons/BaseStore';
 
-const CHANGE_EVENT = 'change';
+class AppStore extends BaseStore {
 
-let pages = {};
-let loading = false;
+  static storeName = 'AppStore'
+  static handlers = {
+    'INCREMENT': 'increment',
+    'DECREMENT': 'decrement'
+  };
 
-const AppStore = Object.assign({}, EventEmitter.prototype, {
-
-  isLoading() {
-    return loading;
-  },
-
-  /**
-   * Gets page data by the given URL path.
-   *
-   * @param {String} path URL path.
-   * @returns {*} Page data.
-   */
-  getPage(path) {
-    return path in pages ? pages[path] : null;
-  },
-
-  /**
-   * Emits change event to all registered event listeners.
-   *
-   * @returns {Boolean} Indication if we've emitted an event.
-   */
-  emitChange() {
-    return this.emit(CHANGE_EVENT);
-  },
-
-  /**
-   * Register a new change event listener.
-   *
-   * @param {function} callback Callback function.
-   */
-  onChange(callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-
-  /**
-   * Remove change event listener.
-   *
-   * @param {function} callback Callback function.
-   */
-  off(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+  constructor(dispatcher) {
+    super(dispatcher);
+    this.count = 0;
   }
 
-});
-
-AppStore.dispatchToken = Dispatcher.register((action) => {
-
-  switch (action.type) {
-
-    case ActionTypes.GET_PAGE:
-      loading = true;
-      AppStore.emitChange();
-      break;
-
-    case ActionTypes.RECEIVE_PAGE:
-      loading = false;
-
-      if (!action.err) {
-        pages[action.page.path] = action.page;
-      }
-
-      AppStore.emitChange();
-      break;
-
-    default:
-      // Do nothing
-
+  increment() {
+    this.count++;
+    this.emitChange();
   }
 
-});
+  decrement() {
+    this.count--;
+    this.emitChange();
+  }
+
+  getCount() {
+    return this.count;
+  }
+
+  dehydrate() {
+    return {
+      count: this.count
+    };
+  }
+
+  rehydrate(state) {
+    this.count = state.count;
+  }
+
+}
 
 export default AppStore;
