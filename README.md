@@ -4,21 +4,30 @@
 [![Coverage](https://img.shields.io/coveralls/FOUfashion/frontend/master.svg)](https://coveralls.io/github/FOUfashion/frontend?branch=master)
 [![Dependencies](https://img.shields.io/david/FOUfashion/frontend.svg)](https://david-dm.org/FOUfashion/frontend)
 
-This project is based on [React Starter Kit](https://github.com/kriasoft/react-starter-kit). It uses [React](https://facebook.github.io/react/), [Flux](http://facebook.github.io/flux/), [WebPack](http://webpack.github.io/), [SCSS](http://sass-lang.com/) and [Babel](https://babeljs.io/).
+Fou Frontend is an isomorphic app built with modern technologies and a focus on design and performance. It uses:
+
+- [React](https://facebook.github.io/react/) for UI rendering
+- [Fluxible](http://fluxible.io/) for a Flux architecture with unidirectional data flow
+- [Immutable](https://facebook.github.io/immutable-js/) and React "pure" components for bleeding edge performance
+- [Belle](http://nikgraf.github.io/belle/) as the main components library
+- [Koa](http://koajs.com/) as the backend server for file serving and React prerendering
+- [webpack](http://webpack.github.io/) to compile and bundle everything together
+- [SCSS](http://sass-lang.com/) for sassy stylesheets
+- [Babel](https://babeljs.io/) for classy ES6+ code
 
 ## Build
 
 ```bash
-# install node.js components
+# install node dependencies
 $ npm install
 
 # start in production mode
 $ npm start
 
-# start in dev mode
+# build and start in dev mode
 $ npm run start-dev
 
-# start in dev mode with BrowserSync
+# build and start in dev mode with BrowserSync
 $ npm run start-sync
 ```
 
@@ -33,7 +42,7 @@ $ npm test
 # automatically re-run the tests on code changes
 $ npm run test-watch
 
-# run the tests and generate a report in coverage/
+# run the tests and generate a report in ./coverage/
 $ npm run coverage
 
 # automatically re-run the tests with coverage on code changes
@@ -47,4 +56,4 @@ $ npm run lint-watch
 ```
 ## IDE and linting
 
-I use [Atom](https://atom.io/) with `atom-beautify`, `autocomplete`, `language-babel`, `linter`, `linter-eslint`, `linter-scss-lint` and `css-comb`. These plugins provide code formatting, auto completion, ES6 support and linting.
+I use [Atom](https://atom.io/) with `atom-beautify`, `autocomplete`, `language-babel`, `linter`, `linter-eslint`, `linter-scss-lint` and `css-comb`. These plugins provide code formatting, auto completion, ES6+ support and linting.

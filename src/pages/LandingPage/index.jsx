@@ -1,7 +1,9 @@
 import React from 'react';
+import documentTitle from '../../decorators/documentTitle';
 import styles from './styles.scss';
 
-class LoginPage extends React.Component {
+@documentTitle('Fou')
+class LandingPage extends React.Component {
 
   render() {
     return (
@@ -15,4 +17,4 @@ class LoginPage extends React.Component {
 
 }
 
-export default LoginPage;
+export default LandingPage;
