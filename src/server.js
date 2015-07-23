@@ -27,10 +27,11 @@ routers.forEach(function(router) {
 });
 
 // Start listening
-server.listen(process.env.PORT || 5000, function() {
+const port = process.env.PORT || 5000;
+server.listen(port, function() {
   if (process.send) {
     process.send('online');
   } else {
-    console.log('Listening on %s', server.get('port'));
+    console.log('Listening on %s', port);
   }
 });

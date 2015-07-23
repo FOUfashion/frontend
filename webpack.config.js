@@ -12,9 +12,6 @@ const CSS_LOADER = DEBUG ? 'css' : 'css?minimize';
 const CSS_LOADER_PARAMS = `modules&localIdentName=${DEBUG ? '[dir]--[local]--[sourceHash:5]' : '[sourceHash]&minimize'}`;
 const SASS_LOADER = `sass?sourceMap&includePaths[]=${__dirname}/node_modules`;
 
-const extractVendorStyles = new ExtractTextPlugin('vendor.css');
-const extractAppStyles = new ExtractTextPlugin('styles.css');
-
 // Common configuration for both client-side and server-side bundles
 const config = {
   output: {
@@ -30,11 +27,19 @@ const config = {
   },
 
   plugins: [
+    new webpack.DefinePlugin(GLOBALS),
+    new ExtractTextPlugin('styles.css'),
+    new NyanProgressPlugin()
+  ].concat(DEBUG ? [] : [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new NyanProgressPlugin(),
-    extractVendorStyles,
-    extractAppStyles
-  ],
+    new webpack.optimize.AggressiveMergingPlugin()
+  ]),
 
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -69,44 +74,22 @@ const config = {
 
 // Configuration for the client-side bundle (app.js)
 const appConfig = Object.assign({}, config, {
-  entry: {
-    app: './src/client.js',
-    vendor: [
-      'classnames',
-      'debug',
-      'fluxible',
-      'fluxible-addons-react',
-      'immutable',
-      'react',
-      'react-router',
-      'superagent'
-    ]
-  },
+  entry: './src/client.js',
 
   output: Object.assign({}, config.output, {
     path: './dist/public',
-    filename: 'app.js'
+    filename: 'bundle.js'
   }),
 
   devtool: DEBUG ? 'source-map' : false,
 
-  plugins: config.plugins.concat([
-    new webpack.DefinePlugin(Object.assign({}, GLOBALS, { '__SERVER__': false })),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)
-  ].concat(DEBUG ? [] : [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.AggressiveMergingPlugin()
-  ])),
-
   module: Object.assign({}, config.module, {
     loaders: config.module.loaders.concat([{
       test: /\.css$/,
-      loader: extractVendorStyles.extract('style', CSS_LOADER)
+      loader: ExtractTextPlugin.extract('style', CSS_LOADER)
     }, {
       test: /\.scss$/,
-      loader: extractAppStyles.extract('style', `css?${CSS_LOADER_PARAMS}&sourceMap!autoprefixer!${SASS_LOADER}`)
+      loader: ExtractTextPlugin.extract('style', `css?${CSS_LOADER_PARAMS}&sourceMap!autoprefixer!${SASS_LOADER}`)
     }])
   })
 });
@@ -122,21 +105,14 @@ const serverConfig = Object.assign({}, config, {
   }),
 
   target: 'node',
-  externals: /^[a-z][a-z\.\-0-9]*$/,
+  externals: /^[a-z0-9\-]+$/,
   devtool: 'source-map',
 
-  node: {
-    console: false,
-    global: false,
-    process: false,
-    Buffer: false,
-    __filename: false,
-    __dirname: false
-  },
-
   plugins: config.plugins.concat(
-    new webpack.DefinePlugin(Object.assign({}, GLOBALS, { '__SERVER__': true })),
-    new webpack.BannerPlugin('require("source-map-support").install();', { raw: true, entryOnly: false })
+    new webpack.BannerPlugin('require("source-map-support").install();', {
+      raw: true,
+      entryOnly: false
+    })
   ),
 
   module: Object.assign({}, config.module, {
