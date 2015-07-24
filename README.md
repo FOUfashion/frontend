@@ -15,6 +15,8 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - [SCSS](http://sass-lang.com/) for sassy stylesheets
 - [Babel](https://babeljs.io/) for classy ES6+ code
 
+> I used [kriasoft/react-starter-kit](https://github.com/kriasoft/react-starter-kit) as a starting point.
+
 ## UI Features :sparkles:
 
 - elegant landing page with good copy and a clear value proposition for the target users
