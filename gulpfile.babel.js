@@ -28,26 +28,30 @@ gulp.task('assets', function() {
 gulp.task('bundle', ['assets'], function(done) {
   const watch = !process.argv.includes('--nowatch');
   const bundler = webpack(config);
-  let bundlerRunCount = 0;
+  const allStats = [];
 
   function bundle(err, stats) {
     if (err) {
       throw new $.util.PluginError('webpack', err);
     }
 
-    console.log(stats.toString({
-      colors: $.util.colors.supportsColor,
-      hash: VERBOSE,
-      version: VERBOSE,
-      timings: VERBOSE,
-      chunks: VERBOSE,
-      chunkModules: VERBOSE,
-      cached: VERBOSE,
-      cachedAssets: VERBOSE,
-      errorDetails: VERBOSE
-    }));
+    allStats.push(stats);
 
-    if (++bundlerRunCount === (watch ? config.length : 1)) {
+    if (allStats.length === (watch ? config.length : 1)) {
+      allStats.forEach(stat => {
+        console.log(stat.toString({
+          colors: $.util.colors.supportsColor,
+          hash: VERBOSE,
+          version: VERBOSE,
+          timings: VERBOSE,
+          chunks: VERBOSE,
+          chunkModules: VERBOSE,
+          cached: VERBOSE,
+          cachedAssets: VERBOSE,
+          errorDetails: VERBOSE
+        }));
+      });
+
       return done();
     }
   }
@@ -94,6 +98,8 @@ gulp.task('serve', ['watch'], function(done) {
 
     return child;
   })();
+
+  process.on('exit', () => server.kill('SIGTERM'));
 });
 
 // Launch BrowserSync development server
@@ -104,7 +110,10 @@ gulp.task('sync', ['serve'], function(done) {
     notify: false
   }, done);
 
-  gulp.watch('dist/public/**', function(file) {
-    setTimeout(() => browserSync.reload(file.path), 1000);
+  gulp.watch([
+    'dist/public/**',
+    '!dist/public/**/*.map.*'
+  ], function(file) {
+    setTimeout(() => browserSync.reload(file.path), 3000);
   });
 });
