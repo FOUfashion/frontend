@@ -1,13 +1,6 @@
-// Typography
-$font-family-base: 'Segoe UI', 'HelveticaNeue-Light', sans-serif;
-
-// Layout
-$max-content-width: 1000px;
-
-// Others
-$color-primary: #222;
-$hr-border: #ccc;
-$text-selection-color: #fff;
-$text-selection-bg: #333;
-
-$brand-color: #61dafb;
+// Disable Bourbon prefixes
+$prefix-for-webkit: false;
+$prefix-for-mozilla: false;
+$prefix-for-microsoft: false;
+$prefix-for-opera: false;
+$prefix-for-spec: false;

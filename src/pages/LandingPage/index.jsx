@@ -9,7 +9,9 @@ class LandingPage extends React.Component {
   render() {
     return (
       <div className={styles.page}>
-        <Logo className={styles.logo} />
+        <div className={styles.container}>
+          <Logo className={styles.logo} />
+        </div>
       </div>
     );
   }

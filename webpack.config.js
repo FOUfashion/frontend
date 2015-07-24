@@ -12,7 +12,11 @@ const GLOBALS = {
 
 const CSS_LOADER = DEBUG ? 'css' : 'css?minimize';
 const CSS_LOADER_PARAMS = `modules&localIdentName=${DEBUG ? '[dir]--[local]--[sourceHash:5]' : '[sourceHash]&minimize'}`;
-const SASS_LOADER = `sass?sourceMap&includePaths[]=${__dirname}/node_modules`;
+const SASS_LOADER = 'sass?sourceMap&' + [
+  path.join(__dirname, 'node_modules'),
+  path.join(__dirname, 'node_modules', 'bourbon', 'app', 'assets', 'stylesheets'),
+  path.join(__dirname, 'node_modules', 'bourbon-neat', 'app', 'assets', 'stylesheets')
+].map(p => 'includePaths[]=' + p).join('&');
 
 // Common configuration for both client-side and server-side bundles
 const config = {
@@ -25,6 +29,7 @@ const config = {
   },
 
   plugins: [
+    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin(GLOBALS),
     new ExtractTextPlugin('styles.[contenthash].css'),
     new NyanProgressPlugin()

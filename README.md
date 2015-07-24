@@ -20,6 +20,7 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 ## UI Features :sparkles:
 
 - elegant landing page with good copy and a clear value proposition for the target users
+- mobile-first responsive design that looks great on smartphones, tablets and desktops
 
 ## Technical Features :boom:
 
