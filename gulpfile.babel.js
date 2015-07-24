@@ -1,46 +1,32 @@
-import path from 'path';
 import cp from 'child_process';
 
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
+import browserSync from 'browser-sync';
 
 import webpack from 'webpack';
 import config from './webpack.config.js';
 
 const $ = gulpLoadPlugins();
+const bs = browserSync.create();
 const VERBOSE = process.argv.includes('--verbose');
-const src = {};
 
 // Keeps sass-loader from hanging jtangelder/sass-loader/issues/49
 process.env.UV_THREADPOOL_SIZE = 100;
-
-let watch = false;
-let browserSync;
 
 // The default task
 gulp.task('default', ['sync']);
 
 // Static files
 gulp.task('assets', function() {
-  src.assets = [
-    'src/public/**'
-  ];
-
-  return gulp.src(src.assets)
+  return gulp.src('src/public/**')
     .pipe($.changed('dist/public'))
     .pipe(gulp.dest('dist/public'));
 });
 
-// Build the app from source code
-gulp.task('dist', ['bundle']);
-
-// Build and start watching for modifications
-gulp.task('dist:watch', ['dist'], function() {
-  gulp.watch(src.assets, ['assets']);
-});
-
 // Bundle
 gulp.task('bundle', ['assets'], function(done) {
+  const watch = !process.argv.includes('--nowatch');
   const bundler = webpack(config);
   let bundlerRunCount = 0;
 
@@ -73,13 +59,13 @@ gulp.task('bundle', ['assets'], function(done) {
   }
 });
 
-// Start the server to serve the app
-gulp.task('serve', ['dist:watch'], function(done) {
-  src.server = [
-    'dist/server.js',
-    'dist/views/**'
-  ];
+// Build and start watching for modifications
+gulp.task('watch', ['bundle'], function() {
+  gulp.watch('src/public/**', ['assets']);
+});
 
+// Start the server to serve the app
+gulp.task('serve', ['watch'], function(done) {
   let started = false;
   let server = (function startup() {
     const child = cp.fork('dist/server.js', {
@@ -87,15 +73,15 @@ gulp.task('serve', ['dist:watch'], function(done) {
     });
 
     child.once('message', function(message) {
-      if (message.match(/^online$/)) {
-        if (browserSync) {
-          browserSync.reload();
+      if (message === 'online') {
+        if (bs.active) {
+          bs.reload();
         }
 
         if (!started) {
           started = true;
 
-          gulp.watch(src.server, function() {
+          gulp.watch('dist/server.js', function() {
             $.util.log('Restarting development server...');
             server.kill('SIGTERM');
             server = startup();
@@ -108,23 +94,17 @@ gulp.task('serve', ['dist:watch'], function(done) {
 
     return child;
   })();
-
-  process.on('exit', () => server.kill('SIGTERM'));
 });
 
 // Launch BrowserSync development server
 gulp.task('sync', ['serve'], function(done) {
-  browserSync = require('browser-sync');
-  process.on('exit', () => browserSync.exit());
-
-  browserSync({
-    logPrefix: 'WP',
-    notify: false,
-    https: false,
-    proxy: 'localhost:5000'
+  browserSync.init({
+    logPrefix: 'BS',
+    proxy: 'localhost:5000',
+    notify: false
   }, done);
 
-  gulp.watch(['dist/**'].concat(src.server.map(file => '!' + file)), file => {
-    browserSync.reload(path.relative(__dirname, file.path));
+  gulp.watch('dist/public/**', function(file) {
+    setTimeout(() => browserSync.reload(file.path), 1000);
   });
 });
