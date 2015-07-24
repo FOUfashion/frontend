@@ -1,13 +1,12 @@
 import cp from 'child_process';
+import browserSync from 'browser-sync';
 
 import gulp from 'gulp';
-import gulpLoadPlugins from 'gulp-load-plugins';
-import browserSync from 'browser-sync';
+import gutil from 'gulp-util';
 
 import webpack from 'webpack';
 import config from './webpack.config.js';
 
-const $ = gulpLoadPlugins();
 const bs = browserSync.create();
 const VERBOSE = process.argv.includes('--verbose');
 
@@ -20,7 +19,6 @@ gulp.task('default', ['sync']);
 // Static files
 gulp.task('assets', function() {
   return gulp.src('src/public/**')
-    .pipe($.changed('dist/public'))
     .pipe(gulp.dest('dist/public'));
 });
 
@@ -32,7 +30,7 @@ gulp.task('bundle', ['assets'], function(done) {
 
   function bundle(err, stats) {
     if (err) {
-      throw new $.util.PluginError('webpack', err);
+      throw new gutil.PluginError('webpack', err);
     }
 
     allStats.push(stats);
@@ -40,7 +38,7 @@ gulp.task('bundle', ['assets'], function(done) {
     if (allStats.length === (watch ? config.length : 1)) {
       allStats.forEach(stat => {
         console.log(stat.toString({
-          colors: $.util.colors.supportsColor,
+          colors: gutil.colors.supportsColor,
           hash: VERBOSE,
           version: VERBOSE,
           timings: VERBOSE,
@@ -86,7 +84,7 @@ gulp.task('serve', ['watch'], function(done) {
           started = true;
 
           gulp.watch('dist/server.js', function() {
-            $.util.log('Restarting development server...');
+            gutil.log('Restarting development server...');
             server.kill('SIGTERM');
             server = startup();
           });

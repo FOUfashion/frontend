@@ -1,5 +1,4 @@
 {
   "stage": 0,
-  "optional": ["runtime"],
-  "plugins": ["react-display-name"]
+  "optional": ["runtime"]
 }
