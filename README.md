@@ -1,4 +1,4 @@
-# Fou Frontend
+![Fou Frontend](header.png)
 
 [![Circle CI](https://img.shields.io/circleci/project/FOUfashion/frontend/master.svg)](https://circleci.com/gh/FOUfashion/frontend)
 [![Coverage](https://img.shields.io/coveralls/FOUfashion/frontend/master.svg)](https://coveralls.io/github/FOUfashion/frontend?branch=master)
