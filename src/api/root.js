@@ -21,11 +21,7 @@ fs.readFile(path.join(__dirname, 'webpack-assets.json'), 'utf8', function(err, d
     return console.error(err);
   }
 
-  try {
-    assets = JSON.parse(data).main;
-  } catch (ex) {
-    console.error('Error while trying to parse webpack-assets.json (%s)', data, ex);
-  }
+  assets = JSON.parse(data).main;
 });
 
 router.get('*', function *() {

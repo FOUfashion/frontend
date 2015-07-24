@@ -10,6 +10,7 @@
     "fluxible": "^0.5.1",
     "fluxible-addons-react": "^0.1.6",
     "halogen": "^0.1.10",
+    "img-loader": "^1.2.0",
     "immutable": "^3.7.4",
     "inherits": "^2.0.1",
     "koa": "^0.21.0",

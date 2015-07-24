@@ -27,7 +27,6 @@ const config = {
   plugins: [
     new webpack.DefinePlugin(GLOBALS),
     new ExtractTextPlugin('styles.[contenthash].css'),
-    new AssetsPlugin({ path: path.join(__dirname, 'dist') }),
     new NyanProgressPlugin()
   ].concat(DEBUG ? [] : [
     new webpack.optimize.DedupePlugin(),
@@ -52,17 +51,8 @@ const config = {
       exclude: /node_modules/,
       loader: 'babel?cacheDirectory'
     }, {
-      test: /\.jpg$/,
-      loader: 'url?limit=10000&mimetype=image/jpg'
-    }, {
-      test: /\.png$/,
-      loader: 'url?limit=10000&mimetype=image/png'
-    }, {
-      test: /\.svg$/,
-      loader: 'url?limit=10000&mimetype=image/svg+xml'
-    }, {
-      test: /\.hbs$/,
-      loader: 'handlebars'
+      test: /\.(jpe?g|png|gif|svg)$/,
+      loader: 'url?limit=10000!img'
     }]
   }
 };
@@ -78,6 +68,7 @@ const appConfig = Object.assign({}, config, {
 
   devtool: DEBUG ? 'source-map' : false,
   plugins: config.plugins.concat(
+    new AssetsPlugin({ path: path.join(__dirname, 'dist') })
     // Disabled until it's compatible with React 0.13.3 zilverline/react-tap-event-plugin/issues/22
     //new webpack.BannerPlugin('require("react-tap-event-plugin")();', { raw: true, entryOnly: false })
   ),
@@ -127,6 +118,9 @@ const serverConfig = Object.assign({}, config, {
     }, {
       test: /\.scss$/,
       loader: `css/locals?${CSS_LOADER_PARAMS}!autoprefixer!${SASS_LOADER}`
+    }, {
+      test: /\.hbs$/,
+      loader: 'handlebars'
     }])
   })
 });
