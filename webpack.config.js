@@ -32,11 +32,7 @@ const config = {
     new NyanProgressPlugin()
   ].concat(DEBUG ? [] : [
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
+    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin()
   ]),
@@ -83,6 +79,11 @@ const appConfig = Object.assign({}, config, {
 
   devtool: DEBUG ? 'source-map' : false,
 
+  plugins: config.plugins.concat(
+    // Disabled until compatible with React 0.13.3 zilverline/react-tap-event-plugin/issues/22
+    //new webpack.BannerPlugin('require("react-tap-event-plugin")();', { raw: true, entryOnly: false })
+  ),
+
   module: Object.assign({}, config.module, {
     loaders: config.module.loaders.concat([{
       test: /\.css$/,
@@ -109,10 +110,7 @@ const serverConfig = Object.assign({}, config, {
   devtool: 'source-map',
 
   plugins: config.plugins.concat(
-    new webpack.BannerPlugin('require("source-map-support").install();', {
-      raw: true,
-      entryOnly: false
-    })
+    new webpack.BannerPlugin('require("source-map-support").install();', { raw: true, entryOnly: false })
   ),
 
   module: Object.assign({}, config.module, {

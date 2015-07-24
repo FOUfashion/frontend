@@ -11,7 +11,7 @@ const $ = gulpLoadPlugins();
 const VERBOSE = process.argv.includes('--verbose');
 const src = {};
 
-// Keeps sass-loader from hanging https://github.com/jtangelder/sass-loader/issues/49
+// Keeps sass-loader from hanging jtangelder/sass-loader/issues/49
 process.env.UV_THREADPOOL_SIZE = 100;
 
 let watch = false;
