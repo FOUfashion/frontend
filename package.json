@@ -4,7 +4,6 @@
   "description": "Fou Frontend",
   "dependencies": {
     "babel-runtime": "^5.8.3",
-    "belle": "^1.0.2",
     "boron": "^0.1.2",
     "classnames": "^2.1.3",
     "debug": "^2.2.0",
