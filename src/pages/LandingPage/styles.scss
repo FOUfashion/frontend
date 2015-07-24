@@ -4,11 +4,16 @@
 
 .page {
   @include size(100%);
-  background: url('../../images/backgrounds/landing.png') center / cover;
+  background: url('../../images/backgrounds/landing.png') center/cover;
 }
 
 .container {
   @include outer-container;
+  padding: 70px 20px;
+
+  @include media($tablet) {
+    padding-top: 100px;
+  }
 }
 
 .logo {
@@ -16,4 +21,8 @@
   margin-right: auto;
   margin-left: auto;
   width: 180px;
+
+  @include media($tablet) {
+    width: 200px;
+  }
 }

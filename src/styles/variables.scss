@@ -4,3 +4,8 @@ $prefix-for-mozilla: false;
 $prefix-for-microsoft: false;
 $prefix-for-opera: false;
 $prefix-for-spec: false;
+
+// Breakpoints
+$mobile: max-width 719px 4;
+$tablet: min-width 720px 8;
+$desktop: min-width 1280px 12;
