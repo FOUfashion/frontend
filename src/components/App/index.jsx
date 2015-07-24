@@ -2,23 +2,21 @@ import './styles.scss';
 
 import React from 'react';
 import {RouteHandler} from 'react-router';
-import muiTheme from '../../decorators/muiTheme';
+//import muiTheme from '../../decorators/muiTheme';
 
-import {RaisedButton} from 'material-ui';
+import {Button} from 'belle';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-@muiTheme
+//@muiTheme
 class App extends React.Component {
-
-
 
   render() {
     return (
       <div>
         <Header />
-        <RaisedButton>Default</RaisedButton>
+        <Button>Default</Button>
         <RouteHandler/>
         <Footer />
       </div>
