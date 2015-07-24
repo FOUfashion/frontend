@@ -8,9 +8,21 @@ import serialize from 'serialize-javascript';
 import flux from '../flux';
 import debug from 'debug';
 
+import fs from 'fs';
+import path from 'path';
+
 const indexView = require('../views/index.hbs');
 const router = new KoaRouter({ prefix: '/' });
 const log = debug('fou:server:root');
+let assets = {};
+
+fs.readFile(path.join(__dirname, 'webpack-assets.json'), 'utf8', function(err, data) {
+  if (err) {
+    return console.error(err);
+  }
+
+  assets = JSON.parse(data).main;
+});
 
 router.get('*', function *() {
   const [Handler, state] = yield new Promise(resolve => {
@@ -36,7 +48,9 @@ router.get('*', function *() {
   this.body = indexView({
     body: React.renderToString(Root),
     script: `window.__dehydratedState = ${dehydratedState};`,
-    title: DocumentTitle.rewind()
+    title: DocumentTitle.rewind(),
+    jsBundle: assets.js,
+    cssBundle: assets.css
   });
 });
 

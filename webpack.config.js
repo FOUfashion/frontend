@@ -1,6 +1,8 @@
 import NyanProgressPlugin from 'nyan-progress-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import AssetsPlugin from 'assets-webpack-plugin';
 import webpack from 'webpack';
+import path from 'path';
 
 const DEBUG = !process.argv.includes('--release');
 const GLOBALS = {
@@ -14,10 +16,6 @@ const SASS_LOADER = `sass?sourceMap&includePaths[]=${__dirname}/node_modules`;
 
 // Common configuration for both client-side and server-side bundles
 const config = {
-  output: {
-    publicPath: './'
-  },
-
   cache: DEBUG,
   debug: DEBUG,
 
@@ -28,7 +26,8 @@ const config = {
 
   plugins: [
     new webpack.DefinePlugin(GLOBALS),
-    new ExtractTextPlugin('styles.css'),
+    new ExtractTextPlugin('styles.[contenthash].css'),
+    new AssetsPlugin({ path: path.join(__dirname, 'dist') }),
     new NyanProgressPlugin()
   ].concat(DEBUG ? [] : [
     new webpack.optimize.DedupePlugin(),
@@ -72,15 +71,14 @@ const config = {
 const appConfig = Object.assign({}, config, {
   entry: './src/client.js',
 
-  output: Object.assign({}, config.output, {
+  output: {
     path: './dist/public',
-    filename: 'bundle.js'
-  }),
+    filename: 'bundle.[hash].js'
+  },
 
   devtool: DEBUG ? 'source-map' : false,
-
   plugins: config.plugins.concat(
-    // Disabled until compatible with React 0.13.3 zilverline/react-tap-event-plugin/issues/22
+    // Disabled until it's compatible with React 0.13.3 zilverline/react-tap-event-plugin/issues/22
     //new webpack.BannerPlugin('require("react-tap-event-plugin")();', { raw: true, entryOnly: false })
   ),
 
@@ -99,11 +97,20 @@ const appConfig = Object.assign({}, config, {
 const serverConfig = Object.assign({}, config, {
   entry: './src/server.js',
 
-  output: Object.assign({}, config.output, {
+  output: {
     path: './dist',
     filename: 'server.js',
     libraryTarget: 'commonjs2'
-  }),
+  },
+
+  node: {
+    console: false,
+    global: false,
+    process: false,
+    Buffer: false,
+    __filename: false,
+    __dirname: false
+  },
 
   target: 'node',
   externals: /^[a-z0-9\-]+$/,
