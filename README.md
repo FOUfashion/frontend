@@ -9,10 +9,10 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - [React](https://facebook.github.io/react/) for UI rendering
 - [Fluxible](http://fluxible.io/) for a [Flux architecture](https://facebook.github.io/flux/docs/overview.html) with unidirectional data flow
 - [Immutable](https://facebook.github.io/immutable-js/) and React "pure" components for bleeding edge performance
-- [Belle](http://nikgraf.github.io/belle/) as the main components library
+- [Material UI](http://material-ui.com/) for the building blocks to build upon
 - [Koa](http://koajs.com/) as the backend server for file serving and React pre-rendering
 - [webpack](http://webpack.github.io/) to compile and bundle everything together, hot reload included :fire:
-- [SCSS](http://sass-lang.com/) for sassy stylesheets
+- [SCSS](http://sass-lang.com/), [Bourbon](http://bourbon.io/) and [Neat](http://neat.bourbon.io/) for sassy stylesheets
 - [Babel](https://babeljs.io/) for classy ES6+ code
 
 > I used [kriasoft/react-starter-kit](https://github.com/kriasoft/react-starter-kit) as a starting point.
@@ -25,6 +25,8 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 ## Technical Features :boom:
 
 - resource bundles contain a hash in their name for cache busting => efficient, long-term caching
+- each component has a local stylesheet => concise and shallow stylesheets, reduced conflicts
+- webpack-dev-server reloads components and stylesheets instantly => faster dev, improved productivity
 - server side pre-rendering => SPA app with unaffected SEO
 
 ## Build :pray:
@@ -73,3 +75,15 @@ $ npm run lint-watch
 ## IDE and linting :star:
 
 I use [Atom](https://atom.io/) with `atom-beautify`, `autocomplete`, `language-babel`, `linter`, `linter-eslint`, `linter-scss-lint` and `css-comb`. These plugins provide code formatting, auto completion, ES6+ support and linting.
+
+## Dev Guide :notebook_with_decorative_cover:
+
+- Components
+  - composition > inheritance
+  - use decorators and higher order components
+
+- Component styles
+  - each component has a local stylesheet `styles.scss`, preferred over JS
+  - all the class names in a component must come from the local stylesheet
+  - to reuse styles, use `scss` mixins and define new classes in the local stylesheet
+  - if a certain element and style is used frequently, consider making it a component
