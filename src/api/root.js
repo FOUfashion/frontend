@@ -16,7 +16,7 @@ const router = new KoaRouter({ prefix: '/' });
 const log = debug('fou:server:root');
 let assets = {};
 
-if (process.env.NODE_ENV === 'production') {
+if (!__DEV__) {
   fs.readFile(path.join(__dirname, 'webpack-assets.json'), 'utf8', function(err, data) {
     if (err) {
       return console.error(err);
@@ -51,8 +51,8 @@ router.get('*', function *() {
     body: React.renderToString(Root),
     script: `window.__dehydratedState = ${dehydratedState};`,
     title: DocumentTitle.rewind(),
-    jsBundle: assets.js || 'bundle.js',
-    cssBundle: assets.css || 'styles.css'
+    jsBundle: assets.js || `http://${process.env.HOSTNAME || '0.0.0.0'}:8080/bundle.js`,
+    cssBundle: assets.css
   });
 });
 

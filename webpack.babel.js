@@ -31,9 +31,9 @@ const config = {
   plugins: [
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin(GLOBALS),
-    new ExtractTextPlugin(DEBUG ? 'styles.css' : 'styles.[contenthash].css'),
     new NyanProgressPlugin()
   ].concat(DEBUG ? [] : [
+    new ExtractTextPlugin('styles.[contenthash].css'),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -68,7 +68,7 @@ const appConfig = Object.assign({}, config, {
 
   output: {
     path: './dist/public',
-    publicPath: DEBUG ? 'http://0.0.0.0:8080/' : '',
+    publicPath: DEBUG ? `http://${process.env.HOSTNAME || '0.0.0.0'}:8080/` : '',
     filename: DEBUG ? 'bundle.js' : 'bundle.[hash].js'
   },
 
@@ -82,10 +82,12 @@ const appConfig = Object.assign({}, config, {
   module: Object.assign({}, config.module, {
     loaders: config.module.loaders.concat([{
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract('style', CSS_LOADER)
+      loader: DEBUG ? `style!${CSS_LOADER}` : ExtractTextPlugin.extract('style', CSS_LOADER)
     }, {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('style', `css?${CSS_LOADER_PARAMS}&sourceMap!autoprefixer!${SASS_LOADER}`)
+      loader: DEBUG
+        ? `style!css?${CSS_LOADER_PARAMS}&sourceMap!autoprefixer!${SASS_LOADER}`
+        : ExtractTextPlugin.extract('style', `css?${CSS_LOADER_PARAMS}&sourceMap!autoprefixer!${SASS_LOADER}`)
     }])
   })
 });

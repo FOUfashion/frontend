@@ -73,6 +73,11 @@ $ npm run lint
 # and if you can't help from typing...
 $ npm run lint-watch
 ```
+
+## LAN access :airplane:
+
+While in dev mode, the servers will run on `0.0.0.0`. If you want access from another device, set the `HOSTNAME` env var to the appropriate IP (LAN or public).
+
 ## IDE and linting :star:
 
 I use [Atom](https://atom.io/) with `atom-beautify`, `autocomplete`, `language-babel`, `linter`, `linter-eslint`, `linter-scss-lint` and `css-comb`. These plugins provide code formatting, auto completion, ES6+ support and linting.
