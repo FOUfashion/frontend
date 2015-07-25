@@ -66,7 +66,7 @@
     "coverage-watch": "npm run babel-watch && nodemon --watch build --exec 'jest --coverage'",
     "bundle-client": "webpack --config webpack.client.js --release",
     "bundle-server": "webpack --config webpack.server.js --release",
-    "bundle": "rm -rf dist && cp -rf public dist/public && npm run bundle-client && npm run bundle-server",
+    "bundle": "rm -rf dist && mkdir dist && cp -rf public dist/public && npm run bundle-client && npm run bundle-server",
     "start": "node dist/server.js",
     "watch-client": "webpack-dev-server --config webpack.client.js --content-base http://localhost:9090 --inline --hot",
     "watch-server": "(webpack --config webpack.server.js --watch &) && nodemon --watch 'dist/server.js' dist/server.js"
