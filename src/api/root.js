@@ -51,8 +51,8 @@ router.get('*', function *() {
     body: React.renderToString(Root),
     script: `window.__dehydratedState = ${dehydratedState};`,
     title: DocumentTitle.rewind(),
-    jsBundle: assets.js || 'http://localhost:8080/bundle.js',
-    cssBundle: assets.css || 'http://localhost:8080/styles.css'
+    jsBundle: assets.js || 'bundle.js',
+    cssBundle: assets.css || 'styles.css'
   });
 });
 

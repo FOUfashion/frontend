@@ -1,0 +1,6 @@
+// Center-align a block
+@mixin center-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}

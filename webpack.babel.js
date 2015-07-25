@@ -68,6 +68,7 @@ const appConfig = Object.assign({}, config, {
 
   output: {
     path: './dist/public',
+    publicPath: DEBUG ? 'http://0.0.0.0:8080/' : '',
     filename: DEBUG ? 'bundle.js' : 'bundle.[hash].js'
   },
 

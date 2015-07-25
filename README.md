@@ -45,9 +45,10 @@ $ npm run watch-server
 
 # build the client bundle with hot reload
 $ npm run watch-client
-```
 
-The server will be running on localhost at port `process.env.PORT` or 8080;
+# run BrowserSync as a proxy
+$ npm run browser-sync
+```
 
 ## Tests :ok_hand:
 

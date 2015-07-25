@@ -1,4 +1,5 @@
 import koa from 'koa';
+import proxy from 'koa-proxy';
 import serve from 'koa-static';
 import logger from 'koa-logger';
 import debug from 'debug';
@@ -12,6 +13,14 @@ server.use(logger());
 // Serve files from the public folder
 log('serving from ./public');
 server.use(serve('./public', { defer: false }));
+
+// Serve webpack bundles from webpack-dev-server
+if (process.env.NODE_ENV !== 'production') {
+  server.use(proxy({
+    host: 'http://0.0.0.0:8080',
+    match: /^\/(bundle\.js|styles\.css)/
+  }));
+}
 
 // Register routes
 log('registering routes');
@@ -28,6 +37,8 @@ routers.forEach(function(router) {
 
 // Start listening
 const port = process.env.PORT || 9090;
-server.listen(port, function() {
-  console.log('Listening on http://localhost:%s', port);
+const host = '0.0.0.0';
+
+server.listen(port, host, function() {
+  console.log('Listening on http://%s:%s', host, port);
 });
