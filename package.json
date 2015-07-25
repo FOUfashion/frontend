@@ -58,18 +58,20 @@
     "webpack": "^1.10.3"
   },
   "scripts": {
-    "build": "rm -rf build && babel --out-dir build src",
-    "watch": "rm -rf build && (babel --watch --out-dir build src &) && sleep 2",
-    "lint": "eslint src gulpfile.babel.js webpack.config.js",
-    "lint-watch": "nodemon --watch src --exec 'eslint src'",
-    "test": "npm run build && jest",
-    "test-watch": "npm run watch && nodemon --watch build --exec 'jest'",
-    "coverage": "npm run build && jest --coverage",
-    "coverage-watch": "npm run watch && nodemon --watch build --exec 'jest --coverage'",
-    "dist": "rm -rf dist && gulp bundle --release --nowatch",
+    "babel-build": "rm -rf build && babel --out-dir build src",
+    "babel-watch": "rm -rf build && (babel --watch --out-dir build src &) && sleep 2",
+    "lint": "eslint src gulpfile.babel.js webpack.config.js && scss-lint src",
+    "lint-watch": "nodemon --watch src --exec 'eslint src && scss-lint src'",
+    "test": "npm run babel-build && jest",
+    "test-watch": "npm run babel-watch && nodemon --watch build --exec 'jest'",
+    "coverage": "npm run babel-build && jest --coverage",
+    "coverage-watch": "npm run babel-watch && nodemon --watch build --exec 'jest --coverage'",
+    "bundle-client": "webpack --config webpack.client.js --release",
+    "bundle-server": "webpack --config webpack.server.js --release",
+    "bundle": "rm -rf dist && cp -rf public dist/public && npm run bundle-client && npm run bundle-server",
     "start": "node dist/server.js",
-    "start-dev": "rm -rf dist && gulp serve",
-    "start-sync": "rm -rf dist && gulp sync"
+    "watch-client": "webpack-dev-server --config webpack.client.js --content-base http://localhost:9090 --inline --hot",
+    "watch-server": "(webpack --config webpack.server.js --watch &) && nodemon --watch 'dist/server.js' dist/server.js"
   },
   "jest": {
     "testPathDirs": [

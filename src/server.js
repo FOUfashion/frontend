@@ -11,7 +11,7 @@ server.use(logger());
 
 // Serve files from the public folder
 log('serving from ./public');
-server.use(serve('./dist/public', { defer: false }));
+server.use(serve('./public', { defer: false }));
 
 // Register routes
 log('registering routes');
@@ -27,11 +27,7 @@ routers.forEach(function(router) {
 });
 
 // Start listening
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 9090;
 server.listen(port, function() {
-  if (process.send) {
-    process.send('online');
-  } else {
-    console.log('Listening on %s', port);
-  }
+  console.log('Listening on http://localhost:%s', port);
 });

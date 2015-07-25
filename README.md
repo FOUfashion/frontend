@@ -11,7 +11,7 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - [Immutable](https://facebook.github.io/immutable-js/) and React "pure" components for bleeding edge performance
 - [Belle](http://nikgraf.github.io/belle/) as the main components library
 - [Koa](http://koajs.com/) as the backend server for file serving and React pre-rendering
-- [webpack](http://webpack.github.io/) to compile and bundle everything together
+- [webpack](http://webpack.github.io/) to compile and bundle everything together, hot reload included :fire:
 - [SCSS](http://sass-lang.com/) for sassy stylesheets
 - [Babel](https://babeljs.io/) for classy ES6+ code
 
@@ -29,18 +29,20 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 
 ## Build :pray:
 
+For the server you need `node.js` with generators support or `io.js`.
+
 ```bash
 # install node dependencies
 $ npm install
 
-# start in production mode
-$ npm start
+# build in production mode and start
+$ npm run bundle && npm run start
 
-# build and start in dev mode
-$ npm run start-dev
+# build the server bundle with auto-restart
+$ npm run watch-server
 
-# build and start in dev mode with BrowserSync
-$ npm run start-sync
+# build the client bundle with hot reload
+$ npm run watch-client
 ```
 
 ## Tests :ok_hand:

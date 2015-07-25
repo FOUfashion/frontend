@@ -31,7 +31,7 @@ const config = {
   plugins: [
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin(GLOBALS),
-    new ExtractTextPlugin('styles.[contenthash].css'),
+    new ExtractTextPlugin(DEBUG ? 'styles.css' : 'styles.[contenthash].css'),
     new NyanProgressPlugin()
   ].concat(DEBUG ? [] : [
     new webpack.optimize.DedupePlugin(),
@@ -68,7 +68,7 @@ const appConfig = Object.assign({}, config, {
 
   output: {
     path: './dist/public',
-    filename: 'bundle.[hash].js'
+    filename: DEBUG ? 'bundle.js' : 'bundle.[hash].js'
   },
 
   devtool: DEBUG ? 'source-map' : false,
@@ -130,4 +130,7 @@ const serverConfig = Object.assign({}, config, {
   })
 });
 
-export default [appConfig, serverConfig];
+export default {
+  appConfig,
+  serverConfig
+};
