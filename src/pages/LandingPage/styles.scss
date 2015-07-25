@@ -9,11 +9,18 @@
 }
 
 .container {
-  @include outer-container;
-  padding: 190px 20px;
+  @include center-block;
+
+  width: 100%;
+  max-width: 1080px;
+  padding: 60px;
 
   @include media($tablet) {
     padding-top: 100px;
+  }
+
+  @include media($desktop) {
+    padding-top: 120px;
   }
 }
 
@@ -27,17 +34,20 @@
 }
 
 .ribbon {
-  background: $color-dark-main;
+  @include outer-container;
+  margin: 150px 0;
+  background: $color-secondary;
+  color: #fff;
+}
+
+.ribbonItem {
+  @include span-columns(4);
 }
 
 .buttons {
+  text-align: center;
 
-}
-
-.signInButton {
-  background: $color-dark-main;
-}
-
-.signUpButton {
-  background: $color-dark-main;
+  > div + div {
+    margin-left: 20px;
+  }
 }

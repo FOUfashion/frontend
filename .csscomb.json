@@ -400,7 +400,8 @@
       "max-zoom",
       "min-zoom",
       "user-zoom",
-      "orientation"
+      "orientation",
+      "user-select"
     ]
   ]
 }
