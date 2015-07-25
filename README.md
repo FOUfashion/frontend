@@ -45,6 +45,8 @@ $ npm run watch-server
 $ npm run watch-client
 ```
 
+The server will be running on localhost at port `process.env.PORT` or 8080;
+
 ## Tests :ok_hand:
 
 Facebook's [Jest](https://facebook.github.io/jest/) is used to run unit tests.
