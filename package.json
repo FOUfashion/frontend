@@ -49,6 +49,7 @@
     "node-sass": "^3.2.0",
     "nodemon": "^1.3.8",
     "nyan-progress-webpack-plugin": "^1.0.0",
+    "react-hot-loader": "^1.2.8",
     "sass-loader": "^1.0.3",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.6",

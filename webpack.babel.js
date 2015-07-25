@@ -54,7 +54,7 @@ const config = {
     loaders: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'babel?cacheDirectory'
+      loader: 'react-hot!babel?cacheDirectory'
     }, {
       test: /\.(jpe?g|png|gif|svg)$/,
       loader: 'url?limit=10000!img'
