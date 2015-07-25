@@ -1,63 +1,43 @@
 'use strict';
 
+var _regeneratorRuntime = require('babel-runtime/regenerator')['default'];
+
+var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _superagent = require('superagent');
-
-var _superagent2 = _interopRequireDefault(_superagent);
-
-var _reactLibExecutionEnvironment = require('react/lib/ExecutionEnvironment');
-
-var _coreDispatcher = require('../core/Dispatcher');
-
-var _coreDispatcher2 = _interopRequireDefault(_coreDispatcher);
+exports['default'] = incrementCounter;
+exports['default'] = decrementCounter;
 
 var _constantsActionTypes = require('../constants/ActionTypes');
 
 var _constantsActionTypes2 = _interopRequireDefault(_constantsActionTypes);
 
-exports['default'] = {
+function incrementCounter(actionContext) {
+  return _regeneratorRuntime.async(function incrementCounter$(context$1$0) {
+    while (1) switch (context$1$0.prev = context$1$0.next) {
+      case 0:
+        actionContext.dispatch(_constantsActionTypes2['default'].INCREMENT);
 
-  navigateTo: function navigateTo(path, options) {
-    this.loadPage(path, function () {
-      if (_reactLibExecutionEnvironment.canUseDOM) {
-        if (options && options.replace) {
-          window.history.replaceState({}, document.title, path);
-        } else {
-          window.history.pushState({}, document.title, path);
-        }
-      }
+      case 1:
+      case 'end':
+        return context$1$0.stop();
+    }
+  }, null, this);
+}
 
-      _coreDispatcher2['default'].dispatch({
-        type: _constantsActionTypes2['default'].CHANGE_LOCATION,
-        path: path
-      });
-    });
-  },
+function decrementCounter(actionContext) {
+  return _regeneratorRuntime.async(function decrementCounter$(context$1$0) {
+    while (1) switch (context$1$0.prev = context$1$0.next) {
+      case 0:
+        actionContext.dispatch(_constantsActionTypes2['default'].DECREMENT);
 
-  loadPage: function loadPage(path, callback) {
-    _coreDispatcher2['default'].dispatch({
-      type: _constantsActionTypes2['default'].GET_PAGE,
-      path: path
-    });
+      case 1:
+      case 'end':
+        return context$1$0.stop();
+    }
+  }, null, this);
+}
 
-    _superagent2['default'].get('/api/query?path=' + encodeURI(path)).accept('application/json').end(function (err, res) {
-      _coreDispatcher2['default'].dispatch({
-        type: _constantsActionTypes2['default'].RECEIVE_PAGE,
-        path: path,
-        err: err,
-        page: res ? res.body : null
-      });
-
-      if (callback) {
-        callback();
-      }
-    });
-  }
-
-};
 module.exports = exports['default'];

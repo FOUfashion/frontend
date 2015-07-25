@@ -1,148 +1,45 @@
 'use strict';
 
-var _this2 = this;
+var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _koa = require('koa');
 
-require('babel/polyfill');
+var _koa2 = _interopRequireDefault(_koa);
 
-var _lodash = require('lodash');
+var _koaStatic = require('koa-static');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _koaStatic2 = _interopRequireDefault(_koaStatic);
 
-var _fs = require('fs');
+var _koaLogger = require('koa-logger');
 
-var _fs2 = _interopRequireDefault(_fs);
+var _koaLogger2 = _interopRequireDefault(_koaLogger);
 
-var _path = require('path');
+var _debug = require('debug');
 
-var _path2 = _interopRequireDefault(_path);
+var _debug2 = _interopRequireDefault(_debug);
 
-var _express = require('express');
+var server = (0, _koa2['default'])();
+var log = (0, _debug2['default'])('fou:server');
 
-var _express2 = _interopRequireDefault(_express);
+// Log requests
+server.use((0, _koaLogger2['default'])());
 
-var _react = require('react');
+// Serve files from the public folder
+log('serving from ./public');
+server.use((0, _koaStatic2['default'])('./public', { defer: false }));
 
-var _react2 = _interopRequireDefault(_react);
+// Register routes
+log('registering routes');
+var routers = [require('./api/counter'), require('./api/root')];
 
-require('./core/Dispatcher');
-
-require('./stores/AppStore');
-
-var _coreDatabase = require('./core/Database');
-
-var _coreDatabase2 = _interopRequireDefault(_coreDatabase);
-
-var _componentsApp = require('./components/App');
-
-var _componentsApp2 = _interopRequireDefault(_componentsApp);
-
-var server = (0, _express2['default'])();
-
-server.set('port', process.env.PORT || 5000);
-server.use(_express2['default']['static'](_path2['default'].join(__dirname, 'public')));
-
-//
-// Register API middleware
-// -----------------------------------------------------------------------------
-server.use('/api/query', require('./api/query'));
-
-//
-// Register server-side rendering middleware
-// -----------------------------------------------------------------------------
-
-// The top-level React component + HTML template for it
-var templateFile = _path2['default'].join(__dirname, 'templates/index.html');
-var template = _lodash2['default'].template(_fs2['default'].readFileSync(templateFile, 'utf8'));
-
-server.get('*', function callee$0$0(req, res, next) {
-  return regeneratorRuntime.async(function callee$0$0$(context$1$0) {
-    var _this = this;
-
-    while (1) switch (context$1$0.prev = context$1$0.next) {
-      case 0:
-        context$1$0.prev = 0;
-        context$1$0.next = 3;
-        return regeneratorRuntime.awrap((function callee$1$0() {
-          var notFound, css, data, app, html;
-          return regeneratorRuntime.async(function callee$1$0$(context$2$0) {
-            while (1) switch (context$2$0.prev = context$2$0.next) {
-              case 0:
-                if (!(['/', '/about', '/privacy'].indexOf(req.path) !== -1)) {
-                  context$2$0.next = 3;
-                  break;
-                }
-
-                context$2$0.next = 3;
-                return regeneratorRuntime.awrap(_coreDatabase2['default'].getPage(req.path));
-
-              case 3:
-                notFound = false;
-                css = [];
-                data = { description: '' };
-                app = _react2['default'].createElement(_componentsApp2['default'], {
-                  path: req.path,
-                  context: {
-                    onInsertCss: function onInsertCss(value) {
-                      return css.push(value);
-                    },
-                    onSetTitle: function onSetTitle(value) {
-                      return data.title = value;
-                    },
-                    onSetMeta: function onSetMeta(key, value) {
-                      return data[key] = value;
-                    },
-                    onPageNotFound: function onPageNotFound() {
-                      return notFound = true;
-                    }
-                  } });
-
-                data.body = _react2['default'].renderToString(app);
-                data.css = css.join('');
-
-                if (notFound) {
-                  res.status(404);
-                }
-
-                html = template(data);
-
-                res.send(html);
-
-              case 12:
-              case 'end':
-                return context$2$0.stop();
-            }
-          }, null, _this);
-        })());
-
-      case 3:
-        context$1$0.next = 8;
-        break;
-
-      case 5:
-        context$1$0.prev = 5;
-        context$1$0.t0 = context$1$0['catch'](0);
-
-        next(context$1$0.t0);
-
-      case 8:
-      case 'end':
-        return context$1$0.stop();
-    }
-  }, null, _this2, [[0, 5]]);
+routers.forEach(function (router) {
+  log(router.opts.prefix);
+  server.use(router.routes());
+  server.use(router.allowedMethods());
 });
 
-//
-// Launch the server
-// -----------------------------------------------------------------------------
-
-server.listen(server.get('port'), function () {
-  if (process.send) {
-    process.send('online');
-  } else {
-    console.log('The server is running at http://localhost:' + server.get('port'));
-  }
+// Start listening
+var port = process.env.PORT || 9090;
+server.listen(port, function () {
+  console.log('Listening on http://localhost:%s', port);
 });
-
-// TODO: Temporary fix #159
