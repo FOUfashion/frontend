@@ -35,7 +35,13 @@ class Logo extends React.Component {
     if (this.props.children) {
       return (<span className={className}>{this.props.children}</span>);
     } else {
-      return (<span className={className}>F<span className={styles.o}>O</span>U</span>);
+      return (
+        <span className={className}>
+          <span className={styles.f}>F</span>
+          <span className={styles.o}>O</span>
+          <span className={styles.u}>U</span>
+        </span>
+      );
     }
   }
 

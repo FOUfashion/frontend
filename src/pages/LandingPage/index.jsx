@@ -13,11 +13,16 @@ class LandingPage extends React.Component {
       <div className={styles.page}>
         <section className={styles.row}>
           <Logo className={styles.logo} outline />
+
           <div className={styles.buttons}>
             <Button className={styles.button} light outline link href={'/login'}>SIGN IN</Button>
             <Button className={styles.button} light outline link href={'/register'}>SIGN UP</Button>
           </div>
-          <p className={styles.tagline}>fashion.inspiration.</p>
+
+          <p className={styles.tagline}>
+            <span className={styles.segment}>fashion.</span>
+            <span className={styles.segment}>inspiration.</span>
+          </p>
         </section>
 
         <section className={styles.row}>
@@ -29,9 +34,9 @@ class LandingPage extends React.Component {
 
         <section className={styles.row}>
           <div className={styles.copy}>
-            <p className={styles.line}><span>Get inspired by places,</span></p>
-            <p className={styles.line}><span>cultures,</span></p>
-            <p className={styles.line}><span>people.</span></p>
+            <span className={styles.line}><span>Get inspired by places,</span></span>
+            <span className={styles.line}><span>cultures,</span></span>
+            <span className={styles.line}><span>people.</span></span>
           </div>
         </section>
 
