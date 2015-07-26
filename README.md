@@ -40,6 +40,9 @@ $ npm install
 # build in production mode and start
 $ npm run bundle && npm run start
 
+# set HOSTNAME for local dev
+$ export HOSTNAME=0.0.0.0
+
 # build the server bundle with auto-restart
 $ npm run watch-server
 
