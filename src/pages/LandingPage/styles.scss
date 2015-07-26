@@ -53,7 +53,7 @@
   background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/backgrounds/patterns.jpg') center/cover;
 
   .copy {
-    padding: 30vh 0 32vh;
+    padding: 30vh 0 40vh;
   }
 
   .line {
@@ -66,7 +66,7 @@
   background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/backgrounds/landscape.jpg') left/cover;
 
   .copy {
-    padding-top: 25vh;
+    padding: 30vh 0 40vh;
     color: #b19573;
     text-align: right;
 
@@ -76,7 +76,7 @@
   }
 
   .line {
-    font-size: 8vw;
+    font-size: 14vmin;
     margin: 0;
   }
 }
@@ -85,11 +85,18 @@
   background: fake-gradient(rgba(0, 0, 0, .4)), url('../../images/backgrounds/meet.jpg') right/cover;
   text-align: center;
 
+  .copy {
+    padding: 30vh 0 15vh;
+  }
+
   .line {
-    font-size: 8vw;
-    padding-top: 25vh;
+    font-size: 14vmin;
     text-align: center;
     margin: 0;
+  }
+
+  .buttons {
+    padding-bottom: 35vh;
   }
 }
 
@@ -99,7 +106,7 @@
   .credits {
     margin: 0;
     padding: 30px;
-    font-size: 1.4vh;
+    font-size: 1.5vh;
     text-align: center;
     color: #ccc;
 
