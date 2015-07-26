@@ -12,10 +12,10 @@ class LandingPage extends React.Component {
     return (
       <div className={styles.page}>
         <section className={styles.row}>
-          <Logo className={styles.logo} outline={true} />
+          <Logo className={styles.logo} outline />
           <div className={styles.buttons}>
-            <Button className={styles.button} light={true} outline={true} link={true} href={'/login'}>SIGN IN</Button>
-            <Button className={styles.button} light={true} outline={true} link={true} href={'/register'}>SIGN UP</Button>
+            <Button className={styles.button} light outline link href={'/login'}>SIGN IN</Button>
+            <Button className={styles.button} light outline link href={'/register'}>SIGN UP</Button>
           </div>
           <p className={styles.tagline}>fashion.inspiration.</p>
         </section>
@@ -38,8 +38,8 @@ class LandingPage extends React.Component {
         <section className={styles.row}>
           <p className={styles.line}>Meet designers, creators, models, artists.</p>
           <div className={styles.buttons}>
-            <Button className={styles.button} light={true} outline={true} link={true} href={'/login'}>SIGN IN</Button>
-            <Button className={styles.button} light={true} outline={true} link={true} href={'/register'}>SIGN UP</Button>
+            <Button className={styles.button} light outline link href={'/login'}>SIGN IN</Button>
+            <Button className={styles.button} light outline link href={'/register'}>SIGN UP</Button>
           </div>
         </section>
 
