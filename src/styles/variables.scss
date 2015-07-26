@@ -1,15 +1,12 @@
-// Disable Bourbon prefixing
-$prefix-for-webkit: false;
-$prefix-for-mozilla: false;
-$prefix-for-microsoft: false;
-$prefix-for-opera: false;
-$prefix-for-spec: false;
-
 // Breakpoints
-$mobile: max-width 719px 4;
-$tablet: min-width 720px 8;
-$desktop: min-width 1280px 12;
+$tablet: min-width 920px;
+$desktop: min-width 1040px;
 
 // Colours
 $color-primary: #bfa94e;
 $color-secondary: #1a1a1a;
+
+// Typefaces
+$font-sans-fallback: 'Open Sans', 'Tahoma', sans-serif;
+$font-sans-1: 'Azedo', 'Helvetica Neue', 'Helvetica', $font-sans-fallback;
+$font-sans-2: 'Shadows Into Light', $font-sans-fallback;

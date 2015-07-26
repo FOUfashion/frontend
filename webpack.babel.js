@@ -14,8 +14,9 @@ const CSS_LOADER = DEBUG ? 'css' : 'css?minimize';
 const CSS_LOADER_PARAMS = `modules&localIdentName=${DEBUG ? '[dir]--[local]--[sourceHash:5]' : '[sourceHash]&minimize'}`;
 const SASS_LOADER = 'sass?sourceMap&' + [
   path.join(__dirname, 'node_modules'),
-  path.join(__dirname, 'node_modules', 'bourbon', 'app', 'assets', 'stylesheets'),
-  path.join(__dirname, 'node_modules', 'bourbon-neat', 'app', 'assets', 'stylesheets')
+  path.join(__dirname, 'node_modules', 'susy', 'sass'),
+  path.join(__dirname, 'node_modules', 'breakpoint-sass', 'stylesheets'),
+  path.join(__dirname, 'src', 'styles')
 ].map(p => 'includePaths[]=' + p).join('&');
 
 // Common configuration for both client-side and server-side bundles
@@ -56,8 +57,11 @@ const config = {
       exclude: /node_modules/,
       loader: 'react-hot!babel?cacheDirectory'
     }, {
-      test: /\.(jpe?g|png|gif|svg)$/,
+      test: /\.(jpe?g|png|gif)$/,
       loader: 'url?limit=10000!img'
+    }, {
+      test: /\.(svg)$/,
+      loader: 'raw!img'
     }]
   }
 };

@@ -1,7 +1,19 @@
+@import '~variables';
+@import '~susy';
+
 :global {
   html, body, #app {
     width: 100%;
     height: 100%;
+    font-size: 84%;
+
+    @include susy-breakpoint($tablet) {
+      font-size: 88%;
+    }
+
+    @include susy-breakpoint($desktop) {
+      font-size: 100%;
+    }
   }
 
   :focus {

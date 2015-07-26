@@ -1,13 +1,21 @@
 linters:
   ColorVariable:
     enabled: false
+  DeclarationOrder:
+    enabled: false
   EmptyRule:
     enabled: false
   IdSelector:
     enabled: false
+  MergeableSelector:
+    enabled: false
+  NestingDepth:
+    enabled: false
   PlaceholderInExtend:
     enabled: false
   PropertySortOrder:
+    enabled: false
+  SelectorDepth:
     enabled: false
   SelectorFormat:
     enabled: false

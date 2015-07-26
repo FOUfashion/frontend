@@ -1,53 +1,133 @@
-@import '../../styles/variables';
-@import '../../styles/mixins';
-@import '~bourbon';
-@import '~neat';
+@import '~variables';
+@import '~functions';
+@import '~mixins';
+@import '~susy';
+
+$susy: (
+  container: 100%,
+  columns: 12,
+  gutters: 0
+);
 
 .page {
-  @include size(100%);
-  background: url('../../images/backgrounds/landing.png') center/cover;
+  @include container;
 }
 
-.container {
-  @include center-block;
-
-  width: 100%;
-  max-width: 1080px;
-  padding: 60px;
-
-  @include media($tablet) {
-    padding-top: 100px;
-  }
-
-  @include media($desktop) {
-    padding-top: 120px;
-  }
-}
-
-.logo {
-  @include center-block;
-  width: 180px;
-
-  @include media($tablet) {
-    width: 200px;
-  }
-}
-
-.ribbon {
-  @include outer-container;
-  margin: 150px 0;
-  background: $color-secondary;
+.tile {
+  height: 100%;
+  position: relative;
   color: #fff;
 }
 
-.ribbonItem {
-  @include span-columns(4);
+.row {
+  @include bp-heights(300px, 300px, 350px, $susy);
+
+  &:nth-child(2n+1) {
+    .tile:nth-child(1) {
+      @include bp-spans(12, 6, 6, $susy);
+    }
+
+    .tile:nth-child(2) {
+      @include bp-spans(12, 6, 6, $susy);
+    }
+  }
+
+  &:nth-child(2n) {
+    .tile:nth-child(1) {
+      @include bp-spans(12, 6, 6, $susy);
+    }
+
+    .tile:nth-child(2) {
+      @include bp-spans(12, 6, 6, $susy);
+    }
+  }
+
+  .copy {
+    width: 100%;
+    max-width: 250px;
+    font-size: 2.5em;
+    text-align: center;
+    font-family: $font-sans-2;
+    font-weight: 600;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    text-shadow: 1px 1px 0 hsla(0, 0, 0, .2);
+    position: absolute;
+    margin-left: -125px;
+    margin-top: -70px;
+    left: 50%;
+    top: 50%;
+  }
 }
 
-.buttons {
-  text-align: center;
+.row:nth-child(1) {
+  @include bp-heights(400px, 450px, 600px, $susy);
 
-  > div + div {
-    margin-left: 20px;
+  .tile:nth-child(1) {
+    @include bp-spans(12, 8, 9, $susy);
+    background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/tiles/main.jpg') center/cover;
+    text-align: center;
+
+    .logo {
+      border: 9px solid #fff;
+      padding: 10px 10px 5px 28px;
+      font-size: 10em;
+      font-family: $font-sans-1;
+      font-weight: bold;
+      position: absolute;
+      margin-left: -125px;
+      margin-top: -100px;
+      left: 50%;
+      top: 50%;
+    }
   }
+
+  .tile:nth-child(2) {
+    @include bp-spans(12, 4, 3, $susy);
+    background: url('../../images/tiles/mountains.jpg') center/cover, linear-gradient(10deg, #7f99be, $color-primary 70%);
+
+    .copy {
+      margin-top: -200px;
+    }
+  }
+}
+
+.row:nth-child(2) {
+  .tile:nth-child(1) {
+    background: rgb(220, 121, 114);
+  }
+
+  .tile:nth-child(2) {
+    background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/tiles/art.jpg') center/cover;
+  }
+}
+
+.row:nth-child(3) {
+  .tile:nth-child(1) {
+    background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/tiles/patterns.jpg') center/cover;
+  }
+
+  .tile:nth-child(2) {
+    background: rgb(173, 148, 107);
+  }
+}
+
+.row:nth-child(4) {
+  .tile:nth-child(1) {
+    background: rgb(104, 180, 223);
+  }
+
+  .tile:nth-child(2) {
+    background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/tiles/portrait.jpg') center/cover;
+  }
+}
+
+.callToActionBar {
+  height: 100px;
+  background: #fff;
+}
+
+.footer {
+  height: 100px;
+  background: #333;
 }

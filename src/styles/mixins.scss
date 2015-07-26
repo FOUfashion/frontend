@@ -1,6 +1,34 @@
+@import '~susy';
+
 // Center-align a block
 @mixin center-block {
   display: block;
   margin-right: auto;
   margin-left: auto;
+}
+
+// Shorter syntax to declare a column span for each breakpoint
+@mixin bp-spans($mobile-span, $tablet-span, $desktop-span, $susy) {
+  @include span($mobile-span);
+
+  @include susy-breakpoint($tablet, $susy) {
+    @include span($tablet-span);
+  }
+
+  @include susy-breakpoint($desktop, $susy) {
+    @include span($desktop-span);
+  }
+}
+
+// Shorter syntax to declare a height for each breakpoint
+@mixin bp-heights($mobile-height, $tablet-height, $desktop-height, $susy) {
+  height: $mobile-height;
+
+  @include susy-breakpoint($tablet, $susy) {
+    height: $tablet-height;
+  }
+
+  @include susy-breakpoint($desktop, $susy) {
+    height: $desktop-height;
+  }
 }

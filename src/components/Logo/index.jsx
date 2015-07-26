@@ -3,7 +3,7 @@ import React from 'react';
 class Logo extends React.Component {
 
   render() {
-    return <img src={require('../../images/logo.svg')} {...this.props} />;
+    return <span {...this.props} dangerouslySetInnerHTML={{__html: require('../../images/logo.svg')}} />;
   }
 
 }

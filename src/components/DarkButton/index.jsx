@@ -42,7 +42,7 @@ class DarkButton extends React.Component {
     if (!this.props.link) {
       return (
         <button
-          onClick={this.handleClick.bind(this)}
+          onClick={this.handleClick}
           className={className}
           style={this.props.style}>{this.props.children}
         </button>

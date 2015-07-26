@@ -1,0 +1,4 @@
+// Returns a linear gradient that looks like the given color
+@function fake-gradient($color) {
+  @return linear-gradient($color, $color);
+}

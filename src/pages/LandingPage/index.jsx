@@ -3,9 +3,6 @@ import React from 'react';
 import documentTitle from '../../decorators/documentTitle';
 import styles from './styles.scss';
 
-import Logo from '../../components/Logo';
-import DarkButton from '../../components/DarkButton';
-
 @documentTitle('Fou')
 class LandingPage extends React.Component {
 
@@ -13,16 +10,38 @@ class LandingPage extends React.Component {
     return (
       <div className={styles.page}>
         <div className={styles.container}>
-          <Logo className={styles.logo} />
-          <div className={styles.ribbon}>
-            <p className={styles.ribbonItem}>Discover new patterns, colours and ideas.</p>
-            <p className={styles.ribbonItem}>Get inspired by places, cultures and people.</p>
-            <p className={styles.ribbonItem}>Follow and chat with other designers.</p>
+          <div className={styles.row}>
+            <section className={styles.tile}>
+              <span className={styles.logo}>FOU</span>
+            </section>
+            <section className={styles.tile}>
+              <p className={styles.copy}>The social network for fashion designers. Built to inspire.</p>
+            </section>
           </div>
-          <div className={styles.buttons}>
-            <DarkButton href="/login">SIGN IN</DarkButton>
-            <DarkButton href="/register" link={true} outline={true} style={{marginLeft: 30}}>SIGN UP</DarkButton>
+          <div className={styles.row}>
+            <section className={styles.tile}>
+              <p className={styles.copy}>Discover new patterns, colours and ideas.</p>
+            </section>
+            <section className={styles.tile} />
           </div>
+          <div className={styles.row}>
+            <section className={styles.tile} />
+            <section className={styles.tile}>
+              <p className={styles.copy}>Get inspired by places, cultures and people.</p>
+            </section>
+          </div>
+          <div className={styles.row}>
+            <section className={styles.tile}>
+              <p className={styles.copy}>Follow and chat with other designers.</p>
+            </section>
+            <section className={styles.tile} />
+          </div>
+          <div className={styles.callToActionBar}>
+
+          </div>
+          <footer className={styles.footer}>
+
+          </footer>
         </div>
       </div>
     );
