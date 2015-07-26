@@ -3,131 +3,121 @@
 @import '~mixins';
 @import '~susy';
 
-$susy: (
-  container: 100%,
-  columns: 12,
-  gutters: 0
-);
-
 .page {
   @include container;
-}
-
-.tile {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   height: 100%;
-  position: relative;
-  color: #fff;
 }
 
 .row {
-  @include bp-heights(300px, 300px, 350px, $susy);
+  width: 100vw;
+  height: 100vh;
+  color: #fff;
 
-  &:nth-child(2n+1) {
-    .tile:nth-child(1) {
-      @include bp-spans(12, 6, 6, $susy);
-    }
-
-    .tile:nth-child(2) {
-      @include bp-spans(12, 6, 6, $susy);
-    }
+  &:not(:first-child) {
+    max-height: 1000px;
   }
 
-  &:nth-child(2n) {
-    .tile:nth-child(1) {
-      @include bp-spans(12, 6, 6, $susy);
+  .buttons {
+    margin: 15vh 0 0;
+
+    .button + .button {
+      margin-left: 30px;
     }
 
-    .tile:nth-child(2) {
-      @include bp-spans(12, 6, 6, $susy);
+    .button {
+      font-size: 18px;
+      padding: 5px 30px 4px;
+      height: auto;
     }
-  }
-
-  .copy {
-    width: 100%;
-    max-width: 250px;
-    font-size: 2.5em;
-    text-align: center;
-    font-family: $font-sans-2;
-    font-weight: 600;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    text-shadow: 1px 1px 0 hsla(0, 0, 0, .2);
-    position: absolute;
-    margin-left: -125px;
-    margin-top: -70px;
-    left: 50%;
-    top: 50%;
   }
 }
 
 .row:nth-child(1) {
-  @include bp-heights(400px, 450px, 600px, $susy);
+  background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/backgrounds/main.jpg') center/cover;
+  text-align: center;
 
-  .tile:nth-child(1) {
-    @include bp-spans(12, 8, 9, $susy);
-    background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/tiles/main.jpg') center/cover;
-    text-align: center;
-
-    .logo {
-      border: 9px solid #fff;
-      padding: 10px 10px 5px 28px;
-      font-size: 10em;
-      font-family: $font-sans-1;
-      font-weight: bold;
-      position: absolute;
-      margin-left: -125px;
-      margin-top: -100px;
-      left: 50%;
-      top: 50%;
-    }
+  .logo {
+    border: 9px solid #fff;
+    padding: 30px 20px 25px 34px;
+    display: inline-block;
+    font-size: 10em;
+    font-family: $font-sans-2;
+    font-weight: bold;
+    margin: 20vh 0 0;
   }
 
-  .tile:nth-child(2) {
-    @include bp-spans(12, 4, 3, $susy);
-    background: url('../../images/tiles/mountains.jpg') center/cover, linear-gradient(10deg, #7f99be, $color-primary 70%);
-
-    .copy {
-      margin-top: -200px;
-    }
+  .tagline {
+    font-size: 11.8vw;
+    position: absolute;
+    bottom: 30px;
+    margin: 0;
   }
 }
 
 .row:nth-child(2) {
-  .tile:nth-child(1) {
-    background: rgb(220, 121, 114);
+  background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/backgrounds/patterns.jpg') center/cover;
+
+  .copy {
+    padding-top: 25vh;
   }
 
-  .tile:nth-child(2) {
-    background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/tiles/art.jpg') center/cover;
+  .line {
+    font-size: 8vw;
+    margin: 0;
   }
 }
 
 .row:nth-child(3) {
-  .tile:nth-child(1) {
-    background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/tiles/patterns.jpg') center/cover;
+  background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/backgrounds/landscape.jpg') left/cover;
+
+  .copy {
+    padding-top: 25vh;
+    color: #b19573;
+    text-align: right;
+
+    span {
+      background: #b14d5a;
+    }
   }
 
-  .tile:nth-child(2) {
-    background: rgb(173, 148, 107);
+  .line {
+    font-size: 8vw;
+    margin: 0;
   }
 }
 
 .row:nth-child(4) {
-  .tile:nth-child(1) {
-    background: rgb(104, 180, 223);
-  }
+  background: fake-gradient(rgba(0, 0, 0, .4)), url('../../images/backgrounds/meet.jpg') right/cover;
+  text-align: center;
 
-  .tile:nth-child(2) {
-    background: fake-gradient(rgba(0, 0, 0, .3)), url('../../images/tiles/portrait.jpg') center/cover;
+  .line {
+    font-size: 8vw;
+    padding-top: 25vh;
+    text-align: center;
+    margin: 0;
   }
-}
-
-.callToActionBar {
-  height: 100px;
-  background: #fff;
 }
 
 .footer {
-  height: 100px;
-  background: #333;
+  background: $color-secondary;
+
+  .credits {
+    margin: 0;
+    padding: 30px;
+    font-size: 1.4vh;
+    text-align: center;
+    color: #ccc;
+
+    a {
+      color: #ccc;
+      text-decoration: none;
+      border-bottom: 1px solid #ccc;
+
+      &:hover, &focus {
+        color: #fff;
+      }
+    }
+  }
 }

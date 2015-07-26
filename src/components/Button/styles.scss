@@ -1,0 +1,82 @@
+@import '~variables';
+
+.filled {
+  display: inline-block;
+  border: 3px solid;
+  height: 50px;
+  padding: 0 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  font-weight: bold;
+  line-height: 46px;
+  cursor: pointer;
+  transition: background 200ms, border-color 200ms;
+  user-select: none;
+
+  &.dark {
+    color: #fff;
+    border-color: $color-secondary;
+    background: $color-secondary;
+
+    &:hover, &:focus {
+      border-color: lighten($color-secondary, 10%);
+      background: lighten($color-secondary, 10%);
+    }
+
+    &:active {
+      border-color: lighten($color-secondary, 20%);
+      background: lighten($color-secondary, 20%);
+    }
+  }
+
+  &.light {
+    color: $color-secondary;
+    border-color: #fff;
+    background: #fff;
+
+    &:hover, &:focus {
+      border-color: darken(#fff, 10%);
+      background: darken(#fff, 10%);
+    }
+
+    &:active {
+      border-color: darken(#fff, 20%);
+      background: darken(#fff, 20%);
+    }
+  }
+}
+
+.outline {
+  @extend .filled;
+
+  &.dark {
+    border-color: $color-secondary;
+    background: #fff;
+
+    &:hover, &:focus {
+      border-color: #fff;
+      background: rgba(0, 0, 0, .1);
+    }
+
+    &:active {
+      border-color: #fff;
+      background: rgba(0, 0, 0, .2);
+    }
+  }
+
+  &.light {
+    color: #fff;
+    border-color: #fff;
+    background: transparent;
+
+    &:hover, &:focus {
+      border-color: #fff;
+      background: rgba(255, 255, 255, .1);
+    }
+
+    &:active {
+      border-color: #fff;
+      background: rgba(255, 255, 255, .2);
+    }
+  }
+}

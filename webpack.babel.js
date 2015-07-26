@@ -60,6 +60,9 @@ const config = {
       test: /\.(jpe?g|png|gif)$/,
       loader: 'url?limit=10000!img'
     }, {
+      test: /\.ttf$/,
+      loader: 'url'
+    }, {
       test: /\.(svg)$/,
       loader: 'raw!img'
     }]

@@ -7,6 +7,6 @@ $color-primary: #bfa94e;
 $color-secondary: #1a1a1a;
 
 // Typefaces
-$font-sans-fallback: 'Open Sans', 'Tahoma', sans-serif;
-$font-sans-1: 'Azedo', 'Helvetica Neue', 'Helvetica', $font-sans-fallback;
-$font-sans-2: 'Shadows Into Light', $font-sans-fallback;
+$font-sans-fallback: 'Arial', 'Open Sans', 'Tahoma', sans-serif;
+$font-sans-1: 'Helvetica', $font-sans-fallback;
+$font-sans-2: 'Azedo', $font-sans-1;
