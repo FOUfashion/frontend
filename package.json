@@ -68,10 +68,10 @@
     "coverage-watch": "npm run babel-watch && nodemon --watch build --exec 'jest --coverage'",
     "bundle-client": "webpack --config webpack.client.js --release",
     "bundle-server": "webpack --config webpack.server.js --release",
-    "bundle": "rm -rf dist && mkdir dist && cp -rf public dist/public && npm run bundle-client && npm run bundle-server",
+    "bundle": "UV_THREADPOOL_SIZE=100 rm -rf dist && mkdir dist && cp -rf public dist/public && npm run bundle-client && npm run bundle-server",
     "start": "node dist/server.js",
-    "watch-client": "webpack-dev-server --config webpack.client.js --content-base http://0.0.0.0:9090 --inline --hot --host $HOSTNAME",
-    "watch-server": "nodemon -w 'src/server.js' -w 'src/api' -w 'src/views' -x 'webpack --config webpack.server.js && node dist/server.js'",
+    "watch-client": "UV_THREADPOOL_SIZE=100 webpack-dev-server --config webpack.client.js --content-base http://0.0.0.0:9090 --inline --hot --host $HOSTNAME",
+    "watch-server": "UV_THREADPOOL_SIZE=100 nodemon -w 'src/server.js' -w 'src/api' -w 'src/views' -x 'webpack --config webpack.server.js && node dist/server.js'",
     "browser-sync": "browser-sync start --proxy 0.0.0.0:9090"
   },
   "jest": {
