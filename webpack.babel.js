@@ -36,7 +36,7 @@ const config = {
   ].concat(DEBUG ? [] : [
     new ExtractTextPlugin('styles.[contenthash].css'),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
+    new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin()
   ]),
