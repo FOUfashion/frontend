@@ -16,7 +16,6 @@ server.use(serve('./public', { defer: false }));
 // Register routes
 log('registering routes');
 const routers = [
-  require('./api/counter'),
   require('./api/root')
 ];
 
