@@ -36,6 +36,18 @@
   font-size: 14px;
 }
 
+.names {
+  @include container;
+
+  .nameField:nth-child(1) {
+    @include span(2 first);
+  }
+
+  .nameField:nth-child(2) {
+    @include span(2 last);
+  }
+}
+
 .buttons {
   @include container;
   margin: 25px 0;

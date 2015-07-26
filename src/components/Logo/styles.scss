@@ -1,0 +1,22 @@
+@import '~variables';
+
+.type {
+  display: inline-block;
+  font-family: $font-sans-2;
+  font-weight: bold;
+  font-size: 10em;
+}
+
+.outline {
+  border: 9px solid #fff;
+  padding: 30px 20px 25px 34px;
+  box-sizing: border-box;
+}
+
+.styled {
+  color: $color-secondary;
+
+  .o {
+    color: $color-primary;
+  }
+}

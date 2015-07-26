@@ -11,9 +11,11 @@ import classNames from 'classnames';
  * @light     White instead of black.
  * @outline   Don't fill the button.
  * @external  Internal buttons use react-router's Link instead of <a> or <button>.
- * @className Add classes to the element.
  * @children  Text to display inside the button.
+ * @className Add classes to the element.
+ * @type      Button type.
  * @href      A link to redirect to.
+ * @style     Apply styles on the base components.
  */
 class Button extends React.Component {
 
@@ -25,6 +27,7 @@ class Button extends React.Component {
     children: PropTypes.string,
     className: PropTypes.string,
     href: PropTypes.string,
+    type: PropTypes.string,
     style: PropTypes.object
   }
 
@@ -36,6 +39,7 @@ class Button extends React.Component {
     children: '',
     className: '',
     href: '#',
+    type: 'button',
     style: {}
   }
 
@@ -44,30 +48,32 @@ class Button extends React.Component {
   }
 
   render() {
-    const backStyle = this.props.outline ? styles.outline : styles.filled;
-    const colorStyle = this.props.light ? styles.light : styles.dark;
+    const fillClass = this.props.outline ? styles.outline : styles.filled;
+    const colorClass = this.props.light ? styles.light : styles.dark;
+    const className = classNames(fillClass, colorClass, this.props.className);
 
     if (!this.props.link) {
       return (
         <button
+          className={className}
+          type={this.props.type}
           onClick={this.handleClick.bind(this)}
-          className={classNames(backStyle, colorStyle, this.props.className)}
           style={this.props.style}>{this.props.children}
         </button>
       );
     } else if (this.props.external) {
       return (
         <a
+          className={className}
           href={this.props.href}
-          className={classNames(backStyle, colorStyle, this.props.className)}
           style={this.props.style}>{this.props.children}
         </a>
       );
     } else {
       return (
         <Link
+          className={className}
           to={this.props.href}
-          className={classNames(backStyle, colorStyle, this.props.className)}
           style={this.props.style}>{this.props.children}
         </Link>
       );

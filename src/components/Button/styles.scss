@@ -2,6 +2,8 @@
 
 .filled {
   display: inline-block;
+  text-align: center;
+  box-sizing: border-box;
   border: 3px solid;
   height: 50px;
   padding: 0 20px;
@@ -50,16 +52,17 @@
   @extend .filled;
 
   &.dark {
+    color: $color-secondary;
     border-color: $color-secondary;
     background: #fff;
 
     &:hover, &:focus {
-      border-color: #fff;
+      border-color: $color-secondary;
       background: rgba(0, 0, 0, .1);
     }
 
     &:active {
-      border-color: #fff;
+      border-color: $color-secondary;
       background: rgba(0, 0, 0, .2);
     }
   }

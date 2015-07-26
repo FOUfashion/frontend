@@ -1,19 +1,33 @@
 import React from 'react';
 import mui from 'material-ui';
+import colors from '../colors';
+
+const ThemeManager = new mui.Styles.ThemeManager();
+ThemeManager.setPalette({
+  primary1Color: colors.primary,
+  disabledColor: '#555',
+  borderColor: '#555',
+  textColor: '#555'
+});
 
 function muiTheme(ComposedComponent) {
-  class MuiThemeDecorator extends ComposedComponent {
-    getChildContext() {
-      const context = super.getChildContext && super.getChildContext() || {};
-      context.muiTheme = new mui.Styles.ThemeManager().getCurrentTheme();
-      return context;
+  return class MuiThemeDecorator extends React.Component {
+
+    static childContextTypes = {
+      muiTheme: React.PropTypes.object
     }
-  }
 
-  MuiThemeDecorator.childContextTypes = ComposedComponent.childContextTypes || {};
-  MuiThemeDecorator.childContextTypes.muiTheme = React.PropTypes.object;
+    getChildContext() {
+      return {
+        muiTheme: ThemeManager.getCurrentTheme()
+      };
+    }
 
-  return MuiThemeDecorator;
+    render() {
+      return <ComposedComponent />;
+    }
+
+  };
 }
 
 export default muiTheme;

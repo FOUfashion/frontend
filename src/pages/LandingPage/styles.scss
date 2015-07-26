@@ -1,13 +1,10 @@
 @import '~variables';
 @import '~functions';
 @import '~mixins';
-@import '~susy';
 
 .page {
-  @include container;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  height: 100%;
 }
 
 .row {
@@ -39,12 +36,6 @@
   text-align: center;
 
   .logo {
-    border: 9px solid #fff;
-    padding: 30px 20px 25px 34px;
-    display: inline-block;
-    font-size: 10em;
-    font-family: $font-sans-2;
-    font-weight: bold;
     margin: 20vh 0 0;
   }
 
