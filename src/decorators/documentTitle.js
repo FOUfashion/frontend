@@ -6,7 +6,7 @@ function documentTitle(title) {
     render() {
       return (
         <DocumentTitle title={title}>
-          <ComposedComponent />
+          <ComposedComponent {...this.props} />
         </DocumentTitle>
       );
     }

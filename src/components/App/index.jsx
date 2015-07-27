@@ -1,16 +1,29 @@
 import 'normalize.css/normalize.css';
 import './styles.scss';
 
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {RouteHandler} from 'react-router';
-// import {CSSTransitionGroup} from 'react/addons';
+
 import muiTheme from '../../decorators/muiTheme';
+import muiPalette from '../../decorators/muiPalette';
+import palette from '../../styling/palette';
+
+const CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 @muiTheme
+@muiPalette(palette)
 class App extends React.Component {
 
+  static propTypes = {
+    path: PropTypes.string
+  }
+
   render() {
-    return (<RouteHandler />);
+    return (
+      <CSSTransitionGroup transitionName='routerTransition' transitionAppear>
+        <RouteHandler key={this.props.path} />
+      </CSSTransitionGroup>
+    );
   }
 
 }

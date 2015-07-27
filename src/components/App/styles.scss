@@ -10,22 +10,38 @@
   :focus {
     outline: none;
   }
+}
 
-  .example-enter {
+:global {
+  .routerTransition-enter {
     opacity: .01;
-    transition: opacity .5s ease-in;
+    transition: $transition-router;
+    transition-delay: $transition-router-duration / 2;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+
+    &.routerTransition-enter-active {
+      opacity: 1;
+    }
   }
 
-  .example-enter.example-enter-active {
+  .routerTransition-leave {
     opacity: 1;
+    transition: $transition-router;
+    z-index: -10;
+
+    &.routerTransition-leave-active {
+      opacity: .01;
+    }
   }
 
-  .example-leave {
-    opacity: 1;
-    transition: opacity .5s ease-in;
-  }
+  .routerTransition-appear {
+    opacity: .01;
+    transition: $transition-router;
 
-  .example-leave.example-leave-active {
-    opacity: 0;
+    &.routerTransition-appear-active {
+      opacity: 1;
+    }
   }
 }

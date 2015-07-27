@@ -16,7 +16,7 @@ const SASS_LOADER = 'sass?sourceMap&' + [
   path.join(__dirname, 'node_modules'),
   path.join(__dirname, 'node_modules', 'susy', 'sass'),
   path.join(__dirname, 'node_modules', 'breakpoint-sass', 'stylesheets'),
-  path.join(__dirname, 'src', 'styles')
+  path.join(__dirname, 'src', 'sass')
 ].map(p => 'includePaths[]=' + p).join('&');
 
 // Common configuration for both client-side and server-side bundles

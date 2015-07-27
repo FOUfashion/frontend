@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', function() {
     Router.run(flux.getComponent(), Router.HistoryLocation, function(Handler, state) {
       const Root = (
         <FluxibleComponent context={context.getComponentContext()}>
-          <Handler />
+          <Handler {...state} />
         </FluxibleComponent>
       );
 

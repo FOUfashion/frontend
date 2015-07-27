@@ -43,7 +43,7 @@ router.get('*', function *() {
   log('rendering html');
   const Root = (
     <FluxibleComponent context={context.getComponentContext()}>
-      <Handler />
+      <Handler {...state} />
     </FluxibleComponent>
   );
 

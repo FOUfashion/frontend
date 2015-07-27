@@ -11,3 +11,7 @@ $color-bg-light: #ebebeb;
 $font-sans-fallback: 'Arial', 'Open Sans', 'Tahoma', sans-serif;
 $font-sans-1: 'Helvetica', $font-sans-fallback;
 $font-sans-2: 'Azedo', $font-sans-1;
+
+// Transitions
+$transition-router-duration: 400ms;
+$transition-router: opacity $transition-router-duration cubic-bezier(.23, 1, .32, 1);
