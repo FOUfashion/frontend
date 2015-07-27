@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react';
 import classNames from 'classnames';
 import styles from './styles.scss';
 
-class Card extends React.Component {
+class Paper extends React.Component {
 
   static propTypes = {
     children: PropTypes.node,
@@ -12,9 +12,9 @@ class Card extends React.Component {
 
   render() {
     const {className, ...props} = this.props;
-    return (<div className={classNames(styles.card, className)} {...props}>{this.props.children}</div>);
+    return (<div className={classNames(styles.paper, className)} {...props}>{this.props.children}</div>);
   }
 
 }
 
-export default Card;
+export default Paper;

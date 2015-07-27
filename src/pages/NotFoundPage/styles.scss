@@ -1,10 +1,14 @@
+@import '~variables';
+
 .page {
-  background: #000 url('../../images/backgrounds/404.jpg') no-repeat right;
+  width: 100vw;
+  height: 100vh;
+  background: $color-bg-dark url('../../images/backgrounds/404.jpg') no-repeat right;
   background-size: auto 100vh;
 }
 
 .container {
-  background: rgba(0, 0, 0, .5);
+  background: fade-out(#000, .5);
   height: 100%;
   width: 100%;
 }

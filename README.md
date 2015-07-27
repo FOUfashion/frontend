@@ -90,10 +90,10 @@ I use [Atom](https://atom.io/) with `atom-beautify`, `autocomplete`, `language-b
 - Components
   - composition > inheritance
   - use decorators and higher order components
-  - if you're `render()`ing only one element, always wrap it in `()`
 
-- Component styles
+- Component styling
   - each component has a local stylesheet `styles.scss`, preferred over JS
   - all the class names in a component must come from the local stylesheet
   - to reuse styles, use `scss` mixins and define new classes in the local stylesheet
   - if a certain element and style is used frequently, consider making it a component
+  - if the root element has a class, try to name it the same as the component

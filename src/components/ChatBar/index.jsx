@@ -1,5 +1,9 @@
 import React, {PropTypes} from 'react';
 
+import Paper from '../Paper';
+import Header from '../Paper/Header';
+import List from '../Paper/List';
+
 import classNames from 'classnames';
 import styles from './styles.scss';
 
@@ -10,11 +14,31 @@ class ChatBar extends React.Component {
   }
 
   render() {
+    const className = classNames(styles.chatBar, this.props.className);
+    const people = [
+      {
+        name: 'Sun Moore',
+        href: '/people/username'
+      }, {
+        name: 'Jade Johnson',
+        href: '/people/username'
+      }, {
+        name: 'Monica Düsseldorf',
+        href: '/people/username'
+      }, {
+        name: 'George Anthony',
+        href: '/people/username'
+      }
+    ];
+
     return (
-      <div className={classNames(styles.chatBar, this.props.className)}></div>
+      <Paper className={className}>
+        <Header>CHAT</Header>
+        <List entries={people} />
+      </Paper>
     );
   }
 
 }
-
-export default ChatBar;
+export
+default ChatBar;

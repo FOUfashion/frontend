@@ -6,12 +6,13 @@ $desktop: min-width 1040px;
 $color-primary: #bfa94e;
 $color-secondary: #1a1a1a;
 $color-bg-light: #ebebeb;
+$color-bg-dark: #000;
+$color-text: #ebebeb;
 
 // Typefaces
-$font-sans-fallback: Arial, Tahoma, sans-serif;
-$font-sans-1: Helvetica, $font-sans-fallback;
-$font-sans-2: Azedo, $font-sans-1;
-$font-sans-3: Yorker, Lato, $font-sans-1;
+$font-sans: Helvetica, Arial, sans-serif;
+$font-serif: Yorker, Lato, Palatino, serif;
+$font-hero: Azedo, $font-sans;
 
 // Transitions
 $transition-router-duration: 400ms;

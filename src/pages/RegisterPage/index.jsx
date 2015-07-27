@@ -1,7 +1,7 @@
 import React from 'react';
 import {TextField} from 'material-ui';
 
-import Card from '../../components/Card';
+import Paper from '../../components/Paper';
 import Button from '../../components/Button';
 import Logo from '../../components/Logo';
 
@@ -16,8 +16,8 @@ class RegisterPage extends React.Component {
       <div className={styles.page}>
         <div className={styles.container}>
           <Logo className={styles.logo} styled />
-          <Card className={styles.card}>
-            <h2 className={styles.title}>Sign Up</h2>
+          <Paper className={styles.paper}>
+            <h3 className={styles.title}>SIGN UP</h3>
             <form className={styles.form}>
               <div className={styles.names}>
                 <TextField className={styles.nameField} style={{width: undefined}} floatingLabelText="First Name" />
@@ -32,7 +32,7 @@ class RegisterPage extends React.Component {
                 <Button className={styles.button} link href={'/login'} outline>SIGN IN</Button>
               </div>
             </form>
-          </Card>
+          </Paper>
         </div>
       </div>
     );

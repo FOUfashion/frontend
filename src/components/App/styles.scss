@@ -4,14 +4,14 @@
 
 .app {
   @include size(100%);
-  background: $color-bg-light;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
 :global {
-  body {
-    font-family: $font-sans-1;
+  html, body, #app {
+    background: $color-bg-light;
+    font-family: $font-sans;
   }
 
   :focus {

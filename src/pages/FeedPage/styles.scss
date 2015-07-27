@@ -2,20 +2,21 @@
 @import '~variables';
 @import '~susy';
 
+$susy: (
+  columns: 12,
+  container: 1120px
+);
+
 .page {
   @extend %page;
 }
 
+.topBar {
+  @include container($susy);
+}
+
 .container {
-  @include container();
-}
-
-.header {
-  @include span(12);
-}
-
-.content {
-  @include span(12);
+  @include container;
   margin-top: 30px;
 }
 
@@ -24,9 +25,9 @@
 }
 
 .feed {
-  @include span(3);
+  @include span(6);
 }
 
 .chatBar {
-  @include span(6 last);
+  @include span(3 last);
 }

@@ -62,9 +62,6 @@ const config = {
     }, {
       test: /\.ttf$/,
       loader: 'url'
-    }, {
-      test: /\.(svg)$/,
-      loader: 'raw!img'
     }]
   }
 };
