@@ -10,8 +10,9 @@ const log = debug('fou:server');
 server.use(logger());
 
 // Serve files from the public folder
-log('serving from ./public');
-server.use(serve('./public', { defer: false }));
+const publicPath = __DEV__ ? './public' : './dist/public';
+log('serving from %s', publicPath);
+server.use(serve(publicPath, { defer: false }));
 
 // Register routes
 log('registering routes');
