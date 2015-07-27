@@ -1,20 +1,67 @@
 import React, {PropTypes} from 'react';
 
+import Post from '../Post';
+
 import classNames from 'classnames';
 import styles from './styles.scss';
 
-class ChatBar extends React.Component {
+class Feed extends React.Component {
 
   static propTypes = {
     className: PropTypes.string
   }
 
   render() {
+    const {className, ...props} = this.props;
+    const classes = classNames(styles.feed, className);
+
+    const posts = [
+      {
+        author: {
+          name: {
+            full: 'John Doe'
+          },
+          gravatarHash: 'HASH'
+        },
+        createdAt: new Date(),
+        body: 'Test :)',
+        imageUrl: 'http://www.gravatar.com/avatar/HASH5?s=1024&d=retro',
+        likes: [
+          {
+            name: {
+              full: 'Mike Nicholson'
+            }
+          }
+        ]
+      }, {
+        author: {
+          name: {
+            full: 'Diana Crane'
+          },
+          gravatarHash: 'HASH2'
+        },
+        createdAt: new Date(),
+        body: 'This is awesome, guys.',
+        imageUrl: 'http://www.gravatar.com/avatar/HASH3?s=1024&d=retro',
+        likes: [
+          {
+            name: {
+              full: 'Superman Sporty'
+            }
+          }
+        ]
+      }
+    ];
+
     return (
-      <div className={classNames(styles.chatBar, this.props.className)}></div>
+      <ul className={classes}>
+        {posts.map(function(post) {
+          return (<Post post={post} />);
+        })}
+      </ul>
     );
   }
 
 }
 
-export default ChatBar;
+export default Feed;
