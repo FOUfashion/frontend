@@ -1,10 +1,9 @@
+@import '~placeholders';
 @import '~variables';
-@import '~mixins';
 @import '~susy';
 
 .page {
-  @include size(100%);
-  background: $color-bg-light;
+  @extend %page;
 }
 
 .container {
