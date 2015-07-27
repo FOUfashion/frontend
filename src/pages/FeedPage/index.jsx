@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Feed from '../../components/Feed';
-import Header from '../../components/Header';
+import TopBar from '../../components/TopBar';
 import MenuBar from '../../components/MenuBar';
 import ChatBar from '../../components/ChatBar';
 
@@ -15,7 +15,7 @@ class FeedPage extends React.Component {
     return (
       <div className={styles.page}>
         <div className={styles.container}>
-          <Header className={styles.header} />
+          <TopBar className={styles.header} />
           <div className={styles.content}>
             <MenuBar className={styles.menuBar} />
             <Feed className={styles.feed} />
