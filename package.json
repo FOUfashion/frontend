@@ -28,7 +28,8 @@
     "serialize-javascript": "^1.0.0",
     "source-map-support": "^0.3.2",
     "superagent": "^1.2.0",
-    "susy": "^2.2.5"
+    "susy": "^2.2.5",
+    "timeout-transition-group": "^1.0.3"
   },
   "devDependencies": {
     "assets-webpack-plugin": "^2.2.0",

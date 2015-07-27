@@ -34,6 +34,8 @@ const loaderElem = document.getElementById('loader');
 const appElem = document.getElementById('app');
 
 if (loaderElem) {
+  appElem.style.overflow = 'hidden';
+
   Promise.all([
     new Promise(resolve => window.onload = resolve),
     new Promise(mainResolve => {

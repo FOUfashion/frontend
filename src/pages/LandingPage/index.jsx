@@ -11,7 +11,7 @@ class LandingPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.page}>
         <section className={styles.row}>
           <Logo className={styles.logo} outline />
 

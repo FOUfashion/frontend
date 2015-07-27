@@ -3,6 +3,10 @@
 @import '~mixins';
 @import '~susy';
 
+.page {
+  @include size(100%);
+}
+
 .row {
   width: 100vw;
   color: #fff;

@@ -13,12 +13,14 @@ class FeedPage extends React.Component {
 
   render() {
     return (
-      <div className={styles.container}>
-        <Header className={styles.header} />
-        <div className={styles.content}>
-          <MenuBar className={styles.menuBar} />
-          <Feed className={styles.feed} />
-          <ChatBar className={styles.chatBar} />
+      <div className={styles.page}>
+        <div className={styles.container}>
+          <Header className={styles.header} />
+          <div className={styles.content}>
+            <MenuBar className={styles.menuBar} />
+            <Feed className={styles.feed} />
+            <ChatBar className={styles.chatBar} />
+          </div>
         </div>
       </div>
     );

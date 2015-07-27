@@ -13,7 +13,8 @@ class LoginPage extends React.Component {
 
   render() {
     return (
-      <div className={styles.container}>
+      <div className={styles.page}>
+        <div className={styles.container}>
         <Logo className={styles.logo} styled />
         <Card className={styles.card}>
           <h2 className={styles.title}>Sign In</h2>
@@ -27,6 +28,7 @@ class LoginPage extends React.Component {
             </div>
           </form>
         </Card>
+      </div>
       </div>
     );
   }
