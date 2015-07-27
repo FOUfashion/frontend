@@ -27,10 +27,34 @@
     <meta name="msapplication-TileImage" content="/mstile-144x144.png">
     <meta name="theme-color" content="#fff">
 
+    <style>{{{ inlineCss }}}</style>
     <link rel="stylesheet" type="text/css" href="{{ cssBundle }}">
   </head>
   <body>
     <div id="app">{{{ body }}}</div>
+
+    <!-- Preloader -->
+    {{#if showPreloader}}
+      <div id="loader">
+        <div class="timer">
+          <div class="circles">
+            <svg height="554" width="554" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 276.9436843591783 0.5000057349935787 A 276.5 276.5 0 1 1 276.6159470471232 0.5002667210519576 Z" fill="transparent" stroke-width="1" stroke="#052439"></path>
+              <path d="M 276.9436843591783 0.5000057349935787 A 276.5 276.5 0 1 1 19.978076281941185 378.941064975153" fill="transparent" stroke-width="1" stroke="#4c6558"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="square"></div>
+        <div class="diamond">
+          <svg height="700" viewBox="0 0 700 700" width="700" xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd"
+              d="M21.003 350L350 21.003 678.997 350 350 678.997 21.003 350zM271.994 492.012V207.988h156.012V492.01H271.994zM428.006 492.012l54.326 54.326M271.994 492.012l-54.743 54.743M428.006 207.988l54.366-54.366M271.994 207.988l-54.866-54.866M21.003 350h250.664M428.333 350h250.664"
+              fill-rule="evenodd" fill="none" stroke-miterlimit="10" stroke="#141111"></path>
+          </svg>
+        </div>
+        <p class="title"><span>F</span><span>O</span><span>U</span></p>
+      </div>
+    {{/if}}
 
     <script>{{{ script }}}</script>
     <script src="{{ jsBundle }}"></script>

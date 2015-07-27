@@ -2,9 +2,8 @@
 @import '~fonts';
 
 :global {
-  html, body, #app {
-    width: 100%;
-    height: 100%;
+  body {
+    font-family: $font-sans-1;
   }
 
   :focus {

@@ -20,7 +20,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <CSSTransitionGroup transitionName='routerTransition' transitionAppear>
+      <CSSTransitionGroup transitionName='routerTransition'>
         <RouteHandler key={this.props.path} />
       </CSSTransitionGroup>
     );

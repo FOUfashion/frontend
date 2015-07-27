@@ -1,13 +1,20 @@
 @font-face {
-  font-family: 'Azedo';
-  src: url('../../fonts/azedo-bold-webfont.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
+  font-family: Azedo;
+  src: url('../../fonts/azedo-bold.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Azedo';
-  src: url('../../fonts/azedo-light-webfont.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-family: Azedo;
+  src: url('../../fonts/azedo-light.ttf') format('truetype');
+}
+
+@font-face {
+  font-weight: 400;
+  font-style: normal;
+  font-family: Yorker;
+  src: url('../../fonts/yorker.ttf') format('truetype');
 }
