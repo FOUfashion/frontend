@@ -1,0 +1,28 @@
+@import '~variables';
+@import '~mixins';
+@import '~susy';
+
+.container {
+  @include container();
+}
+
+.header {
+  @include span(12);
+}
+
+.content {
+  @include span(12);
+  margin-top: 30px;
+}
+
+.menuBar {
+  @include span(3 first);
+}
+
+.feed {
+  @include span(3);
+}
+
+.chatBar {
+  @include span(6 last);
+}

@@ -1,5 +1,5 @@
 import 'normalize.css/normalize.css';
-import './styles.scss';
+import styles from './styles.scss';
 
 import React, {PropTypes} from 'react';
 import {RouteHandler} from 'react-router';
@@ -20,7 +20,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <CSSTransitionGroup transitionName='routerTransition'>
+      <CSSTransitionGroup transitionName="routerTransition" className={styles.app}>
         <RouteHandler key={this.props.path} />
       </CSSTransitionGroup>
     );

@@ -12,7 +12,7 @@ class Card extends React.Component {
 
   render() {
     const {className, ...props} = this.props;
-    return (<div className={classNames(styles.paper, className)} {...props}>{this.props.children}</div>);
+    return (<div className={classNames(styles.card, className)} {...props}>{this.props.children}</div>);
   }
 
 }

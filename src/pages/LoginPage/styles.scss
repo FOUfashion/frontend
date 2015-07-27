@@ -2,11 +2,6 @@
 @import '~mixins';
 @import '~susy';
 
-.page {
-  @include size(100%);
-  background: $color-bg-light;
-}
-
 .container {
   @include container(400px);
   padding: 30px;

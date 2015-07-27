@@ -1,5 +1,13 @@
 @import '~variables';
+@import '~mixins';
 @import '~fonts';
+
+.app {
+  @include size(100%);
+  background: $color-bg-light;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
 
 :global {
   body {

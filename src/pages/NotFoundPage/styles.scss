@@ -1,7 +1,6 @@
 @import '~mixins';
 
 .page {
-  @include size(100%);
   background: #000 url('../../images/backgrounds/404.jpg') no-repeat right;
   background-size: auto 100vh;
 }

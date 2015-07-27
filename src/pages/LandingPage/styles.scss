@@ -3,11 +3,6 @@
 @import '~mixins';
 @import '~susy';
 
-.page {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-}
-
 .row {
   width: 100vw;
   color: #fff;
