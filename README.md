@@ -90,6 +90,7 @@ I use [Atom](https://atom.io/) with `atom-beautify`, `autocomplete`, `language-b
 - Components
   - composition > inheritance
   - use decorators and higher order components
+  - if you're `render()`ing only one element, always wrap it in `()`
 
 - Component styles
   - each component has a local stylesheet `styles.scss`, preferred over JS

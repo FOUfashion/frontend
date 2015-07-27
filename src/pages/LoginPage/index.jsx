@@ -1,6 +1,7 @@
 import React from 'react';
 import {TextField} from 'material-ui';
 
+import Card from '../../components/Card';
 import Button from '../../components/Button';
 import Logo from '../../components/Logo';
 
@@ -15,7 +16,7 @@ class LoginPage extends React.Component {
       <div className={styles.page}>
         <div className={styles.container}>
           <Logo className={styles.logo} styled />
-          <div className={styles.card}>
+          <Card className={styles.card}>
             <h2 className={styles.title}>Sign In</h2>
             <form className={styles.form}>
               <TextField fullWidth zDepth={0} floatingLabelText="Username" />
@@ -26,7 +27,7 @@ class LoginPage extends React.Component {
                 <Button className={styles.button} link href={'/register'} outline>SIGN UP</Button>
               </div>
             </form>
-          </div>
+          </Card>
         </div>
       </div>
     );
