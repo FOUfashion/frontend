@@ -13,10 +13,11 @@ const GLOBALS = {
 const CSS_LOADER = DEBUG ? 'css' : 'css?minimize';
 const CSS_LOADER_PARAMS = `modules&localIdentName=${DEBUG ? '[dir]--[local]--[sourceHash:5]' : '[sourceHash]&minimize'}`;
 const SASS_LOADER = 'sass?sourceMap&' + [
+  path.join(__dirname, 'src', 'sass'),
   path.join(__dirname, 'node_modules'),
   path.join(__dirname, 'node_modules', 'susy', 'sass'),
   path.join(__dirname, 'node_modules', 'breakpoint-sass', 'stylesheets'),
-  path.join(__dirname, 'src', 'sass')
+  path.join(__dirname, 'node_modules', 'loaders.css', 'src')
 ].map(p => 'includePaths[]=' + p).join('&');
 
 // Common configuration for both client-side and server-side bundles

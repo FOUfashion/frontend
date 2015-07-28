@@ -1,7 +1,9 @@
 @import '~variables';
+@import '~loaders';
 
 .filled {
   display: inline-block;
+  position: relative;
   text-align: center;
   box-sizing: border-box;
   border: 3px solid;
@@ -82,4 +84,10 @@
       background: rgba(255, 255, 255, .2);
     }
   }
+}
+
+.loader {
+  @extend .ball-clip-rotate-pulse;
+  position: absolute;
+  left: 50%;
 }

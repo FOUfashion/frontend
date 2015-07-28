@@ -11,6 +11,7 @@ import classNames from 'classnames';
  * @type  light     White instead of black.
  * @type  outline   Don't fill the button.
  * @type  external  Internal buttons use react-router's Link instead of <a> or <button>.
+ * @type  loading   Whether a loading indicator should be shown instead of text.
  * @type  children  Text to display inside the button.
  * @type  className Add classes to the element.
  * @type  type      Button type.
@@ -23,6 +24,7 @@ class Button extends React.Component {
     light: PropTypes.bool,
     outline: PropTypes.bool,
     external: PropTypes.bool,
+    loading: PropTypes.bool,
     children: PropTypes.node,
     className: PropTypes.string,
     onClick: PropTypes.func,
@@ -31,23 +33,28 @@ class Button extends React.Component {
   }
 
   handleClick = () => {
-    if (this.props.href) {
+    if (!this.props.loading && this.props.href) {
       document.location = this.props.href;
     }
   }
 
   render() {
-    const {link, light, outline, external, children, className, onClick, href, ...props} = this.props;
+    let {link, light, outline, external, loading, children, className, onClick, href, ...props} = this.props;
 
     const fillClass = outline ? styles.outline : styles.filled;
     const colorClass = light ? styles.light : styles.dark;
     const classes = classNames(fillClass, colorClass, className);
+
+    if (loading) {
+      children = (<div className={styles.loader}><div></div><div></div></div>);
+    }
 
     if (!link) {
       return (
         <button
           className={classes}
           onClick={onClick || this.handleClick}
+          disabled={loading}
           {...props}>
             {children}
         </button>
