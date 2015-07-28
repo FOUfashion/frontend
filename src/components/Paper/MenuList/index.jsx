@@ -17,13 +17,13 @@ class List extends React.Component {
 
     items.forEach(function(item, index) {
       entries.push(
-        <li>
+        <li key={entries.length}>
           <Link to={item.href} className={styles.entry}>{item.name}</Link>
         </li>
       );
 
       if (index < items.length - 1) {
-        entries.push(<li className={styles.divider}></li>);
+        entries.push(<li key={entries.length} className={styles.divider}></li>);
       }
     });
 
