@@ -55,7 +55,7 @@ router.get('*', function *() {
     script: `window.__dehydratedState = ${dehydratedState};`,
     title: DocumentTitle.rewind(),
     showPreloader: this.url === '/',
-    jsBundle: assets.js || `http://${process.env.HOSTNAME || '0.0.0.0'}:8080/bundle.js`,
+    jsBundle: assets.js || `http://${process.env.FRONTEND_HOSTNAME || '0.0.0.0'}:${process.env.FRONTEND_WP_PORT || 8080}/bundle.js`,
     cssBundle: assets.css,
     inlineCss: inlineCss
   });

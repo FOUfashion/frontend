@@ -25,12 +25,12 @@ class Button extends React.Component {
     external: PropTypes.bool,
     children: PropTypes.node,
     className: PropTypes.string,
-    onClick: PropTypes.function,
+    onClick: PropTypes.func,
     href: PropTypes.string,
     type: PropTypes.string
   }
 
-  handleClick() {
+  handleClick = () => {
     if (this.props.href) {
       document.location = this.props.href;
     }
@@ -47,7 +47,7 @@ class Button extends React.Component {
       return (
         <button
           className={classes}
-          onClick={onClick || this.handleClick.bind(this)}
+          onClick={onClick || this.handleClick}
           {...props}>
             {children}
         </button>

@@ -57,6 +57,9 @@ const config = {
       exclude: /node_modules/,
       loader: 'react-hot!babel?cacheDirectory'
     }, {
+      test: /\.json$/,
+      loader: 'json'
+    }, {
       test: /\.(jpe?g|png|gif|svg)$/,
       loader: 'url?limit=10000!img'
     }, {
@@ -72,7 +75,7 @@ const appConfig = Object.assign({}, config, {
 
   output: {
     path: './dist/public',
-    publicPath: DEBUG ? `http://${process.env.HOSTNAME || '0.0.0.0'}:8080/` : '',
+    publicPath: DEBUG ? `http://${process.env.FRONTEND_HOSTNAME || '0.0.0.0'}:${process.env.FRONTEND_WP_PORT || 8080}/` : '',
     filename: DEBUG ? 'bundle.js' : 'bundle.[hash].js'
   },
 

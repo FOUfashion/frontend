@@ -1,10 +1,22 @@
-import koa from 'koa';
-import serve from 'koa-static';
-import logger from 'koa-logger';
+import manifest from '../package.json';
 import debug from 'debug';
+
+import koa from 'koa';
+import logger from 'koa-logger';
+import serve from 'koa-static';
+
+import mount from 'koa-mount';
+import proxy from 'koa-proxy';
+
+import session from 'koa-generic-session';
+import redis from 'koa-redis';
 
 const server = koa();
 const log = debug('fou:server');
+
+// Meta
+server.name = manifest.name;
+server.keys = process.env.FRONTEND_SESSION_KEYS.split(',');
 
 // Log requests
 server.use(logger());
@@ -13,6 +25,37 @@ server.use(logger());
 const publicPath = __DEV__ ? './public' : './dist/public';
 log('serving from %s', publicPath);
 server.use(serve(publicPath, { defer: false }));
+
+// Session config
+server.use(session({
+  store: redis({
+    host: process.env.FRONTEND_REDIS_HOST,
+    port: process.env.FRONTEND_REDIS_PORT
+  })
+}));
+
+// API proxy
+const FIRST_PARTY_REQUESTS = [
+  ['GET', '/account']
+];
+
+server.use(mount('/api', function *(next) {
+  let fpToken = null;
+
+  FIRST_PARTY_REQUESTS.forEach(req => {
+    if (this.method === req[0] && this.path === req[1]) {
+      fpToken = process.env.FRONTEND_API_TOKEN;
+    }
+  });
+
+  const token = fpToken || this.session.api_token;
+  this.header.authorization = `Bearer ${token}`;
+  yield* next;
+}));
+
+server.use(mount('/api', proxy({
+  host: process.env.FRONTEND_API_URI
+})));
 
 // Register routes
 log('registering routes');
@@ -27,7 +70,7 @@ routers.forEach(function(router) {
 });
 
 // Start listening
-const port = process.env.PORT || 9090;
+const port = process.env.FRONTEND_PORT || 9090;
 const host = '0.0.0.0';
 
 server.listen(port, host, function() {

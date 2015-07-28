@@ -29,9 +29,23 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - webpack-dev-server reloads components and stylesheets instantly => faster dev, improved productivity
 - server side pre-rendering => SPA app with unaffected SEO
 
-## Build :pray:
+## Pre-Requisites :computer:
 
-For the server you need `node.js` with generators support or `io.js`.
+You need the following:
+
+- `node.js` with generators support or `io.js`
+- a Redis server running on localhost
+- the `FOUfashion/api` server
+
+If you're using the `FOUfashion/development` repo set-up, run these commands to start the database and the reverse proxy:
+
+```bash
+$ docker-compose up -d redis
+$ docker-compose up -d nginx
+$ source ../.env
+```
+
+## Build :pray:
 
 ```bash
 # install node dependencies
@@ -40,8 +54,8 @@ $ npm install
 # build in production mode and start
 $ npm run bundle && npm run start
 
-# set HOSTNAME for local dev
-$ export HOSTNAME=0.0.0.0
+# source config env vars
+$ source ../.env
 
 # build the server bundle with auto-restart
 $ npm run watch-server
