@@ -47,6 +47,11 @@ server.use(mount('/api', function *(next) {
     token = process.env.FRONTEND_API_TOKEN;
   }
 
+  // Simulate delay
+  if (process.env.FRONTEND_SIMULATE_DELAY) {
+    yield new Promise(resolve => setTimeout(resolve, 1500));
+  }
+
   this.header.authorization = `Bearer ${token}`;
   yield* next;
 }));
