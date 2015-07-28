@@ -1,7 +1,9 @@
 import React, {PropTypes} from 'react';
 import {Form} from 'formsy-react';
 import {Navigation} from 'react-router';
+
 import AppActions from '../../actions/AppActions';
+import Immutable from 'immutable';
 
 import Paper from '../../components/Paper';
 import Button from '../../components/Button';
@@ -73,7 +75,7 @@ class RegisterPage extends React.Component {
 
         try {
           const account = await request.post('/api/account').send(data).promise();
-          this.context.executeAction(AppActions.USER_SIGNED_IN, account);
+          this.context.executeAction(AppActions.USER_SIGNED_IN, new Immutable.Map(account));
           log('account created', account);
           this.isLoading(false);
           this.replaceWith('/feed');
