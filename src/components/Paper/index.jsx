@@ -12,7 +12,13 @@ class Paper extends React.Component {
 
   render() {
     const {className, ...props} = this.props;
-    return (<div className={classNames(styles.paper, className)} {...props}>{this.props.children}</div>);
+    const classes = classNames(styles.paper, className);
+
+    return (
+      <div className={classes} {...props}>
+        {this.props.children}
+      </div>
+    );
   }
 
 }
