@@ -57,7 +57,7 @@ const config = {
       exclude: /node_modules/,
       loader: 'react-hot!babel?cacheDirectory'
     }, {
-      test: /\.(jpe?g|png|gif)$/,
+      test: /\.(jpe?g|png|gif|svg)$/,
       loader: 'url?limit=10000!img'
     }, {
       test: /\.ttf$/,
