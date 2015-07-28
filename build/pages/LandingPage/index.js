@@ -18,6 +18,14 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _componentsFooter = require('../../components/Footer');
+
+var _componentsFooter2 = _interopRequireDefault(_componentsFooter);
+
+var _componentsButton = require('../../components/Button');
+
+var _componentsButton2 = _interopRequireDefault(_componentsButton);
+
 var _componentsLogo = require('../../components/Logo');
 
 var _componentsLogo2 = _interopRequireDefault(_componentsLogo);
@@ -46,10 +54,119 @@ var LandingPage = (function (_React$Component) {
         'div',
         { className: _stylesScss2['default'].page },
         _react2['default'].createElement(
-          'div',
-          { className: _stylesScss2['default'].container },
-          _react2['default'].createElement(_componentsLogo2['default'], { className: _stylesScss2['default'].logo })
-        )
+          'section',
+          { className: _stylesScss2['default'].row },
+          _react2['default'].createElement(_componentsLogo2['default'], { className: _stylesScss2['default'].logo, outline: true }),
+          _react2['default'].createElement(
+            'div',
+            { className: _stylesScss2['default'].buttons },
+            _react2['default'].createElement(
+              _componentsButton2['default'],
+              { className: _stylesScss2['default'].button, light: true, outline: true, link: true, href: '/login' },
+              'SIGN IN'
+            ),
+            _react2['default'].createElement(
+              _componentsButton2['default'],
+              { className: _stylesScss2['default'].button, light: true, outline: true, link: true, href: '/register' },
+              'SIGN UP'
+            )
+          ),
+          _react2['default'].createElement(
+            'p',
+            { className: _stylesScss2['default'].tagline },
+            _react2['default'].createElement(
+              'span',
+              { className: _stylesScss2['default'].segment },
+              'fashion.'
+            ),
+            _react2['default'].createElement(
+              'span',
+              { className: _stylesScss2['default'].segment },
+              'inspiration.'
+            )
+          )
+        ),
+        _react2['default'].createElement(
+          'section',
+          { className: _stylesScss2['default'].row },
+          _react2['default'].createElement(
+            'div',
+            { className: _stylesScss2['default'].copy },
+            _react2['default'].createElement(
+              'p',
+              { className: _stylesScss2['default'].line },
+              'Discover new patterns,'
+            ),
+            _react2['default'].createElement(
+              'p',
+              { className: _stylesScss2['default'].line },
+              'colours and ideas.'
+            )
+          )
+        ),
+        _react2['default'].createElement(
+          'section',
+          { className: _stylesScss2['default'].row },
+          _react2['default'].createElement(
+            'div',
+            { className: _stylesScss2['default'].copy },
+            _react2['default'].createElement(
+              'p',
+              { className: _stylesScss2['default'].line },
+              _react2['default'].createElement(
+                'span',
+                null,
+                'Get inspired by places,'
+              )
+            ),
+            _react2['default'].createElement(
+              'p',
+              { className: _stylesScss2['default'].line },
+              _react2['default'].createElement(
+                'span',
+                null,
+                'cultures,'
+              )
+            ),
+            _react2['default'].createElement(
+              'p',
+              { className: _stylesScss2['default'].line },
+              _react2['default'].createElement(
+                'span',
+                null,
+                'people.'
+              )
+            )
+          )
+        ),
+        _react2['default'].createElement(
+          'section',
+          { className: _stylesScss2['default'].row },
+          _react2['default'].createElement(
+            'div',
+            { className: _stylesScss2['default'].copy },
+            _react2['default'].createElement(
+              'p',
+              { className: _stylesScss2['default'].line },
+              'Meet designers, creators, models, artists.'
+            )
+          ),
+          _react2['default'].createElement(
+            'div',
+            { className: _stylesScss2['default'].buttons },
+            _react2['default'].createElement(
+              _componentsButton2['default'],
+              { className: _stylesScss2['default'].button, light: true, outline: true, link: true, href: '/login' },
+              'SIGN IN'
+            ),
+            _react2['default'].createElement(
+              _componentsButton2['default'],
+              { className: _stylesScss2['default'].button, light: true, outline: true, link: true, href: '/register' },
+              'SIGN UP'
+            )
+          )
+        ),
+        _react2['default'].createElement(_componentsFooter2['default'], null)
       );
     }
   }]);

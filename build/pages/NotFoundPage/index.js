@@ -18,6 +18,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = require('react-router');
+
 var _stylesScss = require('./styles.scss');
 
 var _stylesScss2 = _interopRequireDefault(_stylesScss);
@@ -36,19 +38,20 @@ var NotFoundPage = (function (_React$Component) {
     value: function render() {
       return _react2['default'].createElement(
         'div',
-        { className: _stylesScss2['default'].container },
+        { className: _stylesScss2['default'].page },
         _react2['default'].createElement(
           'div',
-          { className: _stylesScss2['default'].center },
+          { className: _stylesScss2['default'].container },
           _react2['default'].createElement(
-            'h1',
-            null,
-            'Not Found'
-          ),
-          _react2['default'].createElement(
-            'p',
-            null,
-            'Sorry, but the page you were trying to view does not exist.'
+            _reactRouter.Link,
+            { to: "/", className: _stylesScss2['default'].link },
+            '404.',
+            _react2['default'].createElement('br', null),
+            'inspiration',
+            _react2['default'].createElement('br', null),
+            'not',
+            _react2['default'].createElement('br', null),
+            'found'
           )
         )
       );

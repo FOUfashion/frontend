@@ -1,5 +1,7 @@
 'use strict';
 
+var _Promise = require('babel-runtime/core-js/promise')['default'];
+
 var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
 
 var _react = require('react');
@@ -24,6 +26,7 @@ var _flux2 = _interopRequireDefault(_flux);
 
 var log = (0, _debug2['default'])('fou:client');
 
+// Load the app
 window.addEventListener('DOMContentLoaded', function () {
   window.Debug = _debug2['default'];
 
@@ -38,7 +41,7 @@ window.addEventListener('DOMContentLoaded', function () {
       var Root = _react2['default'].createElement(
         _fluxibleAddonsReactFluxibleComponent2['default'],
         { context: context.getComponentContext() },
-        _react2['default'].createElement(Handler, null)
+        _react2['default'].createElement(Handler, state)
       );
 
       _react2['default'].render(Root, document.getElementById('app'), function () {
@@ -47,3 +50,27 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+// Loader animation
+var loaderElem = document.getElementById('loader');
+var appElem = document.getElementById('app');
+
+if (loaderElem) {
+  appElem.style.overflow = 'hidden';
+
+  _Promise.all([new _Promise(function (resolve) {
+    return window.onload = resolve;
+  }), new _Promise(function (mainResolve) {
+    _Promise.all([new _Promise(function (resolve) {
+      return setTimeout(resolve, 500);
+    }), new _Promise(function (resolve) {
+      return window.addEventListener('DOMContentLoaded', resolve);
+    })]).then(function () {
+      loaderElem.classList.add('animated');
+      setTimeout(mainResolve, 1500);
+    });
+  })]).then(function () {
+    loaderElem.classList.add('hide');
+    appElem.style.overflow = 'auto';
+  });
+}

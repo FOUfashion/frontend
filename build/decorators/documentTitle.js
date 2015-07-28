@@ -31,7 +31,7 @@ function documentTitle(title) {
           return _react2['default'].createElement(
             _reactDocumentTitle2['default'],
             { title: title },
-            _react2['default'].createElement(ComposedComponent, null)
+            _react2['default'].createElement(ComposedComponent, this.props)
           );
         }
       }]);

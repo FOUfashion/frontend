@@ -11,7 +11,6 @@ var _reactLibKeyMirror = require('react/lib/keyMirror');
 var _reactLibKeyMirror2 = _interopRequireDefault(_reactLibKeyMirror);
 
 exports['default'] = (0, _reactLibKeyMirror2['default'])({
-  INCREMENT: null,
-  DECREMENT: null
+  USER_SIGNED_IN: null
 });
 module.exports = exports['default'];

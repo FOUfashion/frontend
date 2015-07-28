@@ -52,12 +52,20 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-var indexView = require('../views/index.hbs');
+var _viewsIndexHbs = require('../views/index.hbs');
+
+var _viewsIndexHbs2 = _interopRequireDefault(_viewsIndexHbs);
+
+var _cssMinimizeAutoprefixerSassSassInlineScss = require('!!css?minimize!autoprefixer!sass!../sass/inline.scss');
+
+var _cssMinimizeAutoprefixerSassSassInlineScss2 = _interopRequireDefault(_cssMinimizeAutoprefixerSassSassInlineScss);
+
 var router = new _koaRouter2['default']({ prefix: '/' });
 var log = (0, _debug2['default'])('fou:server:root');
 var assets = {};
 
-if (process.env.NODE_ENV === 'production') {
+if (!__DEV__) {
+  // Read asset names
   _fs2['default'].readFile(_path2['default'].join(__dirname, 'webpack-assets.json'), 'utf8', function (err, data) {
     if (err) {
       return console.error(err);
@@ -107,15 +115,17 @@ router.get('*', _regeneratorRuntime.mark(function callee$0$0() {
         Root = _react2['default'].createElement(
           _fluxibleAddonsReactFluxibleComponent2['default'],
           { context: context.getComponentContext() },
-          _react2['default'].createElement(Handler, null)
+          _react2['default'].createElement(Handler, state)
         );
 
-        this.body = indexView({
+        this.body = (0, _viewsIndexHbs2['default'])({
           body: _react2['default'].renderToString(Root),
           script: 'window.__dehydratedState = ' + dehydratedState + ';',
           title: _reactDocumentTitle2['default'].rewind(),
-          jsBundle: assets.js || 'http://localhost:8080/bundle.js',
-          cssBundle: assets.css || 'http://localhost:8080/styles.css'
+          showPreloader: this.url === '/',
+          jsBundle: assets.js || 'http://' + (process.env.FRONTEND_HOSTNAME || '0.0.0.0') + ':' + (process.env.FRONTEND_WP_PORT || 8080) + '/bundle.js',
+          cssBundle: assets.css,
+          inlineCss: _cssMinimizeAutoprefixerSassSassInlineScss2['default']
         });
 
       case 13:

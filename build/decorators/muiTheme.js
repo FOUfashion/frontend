@@ -22,9 +22,11 @@ var _materialUi = require('material-ui');
 
 var _materialUi2 = _interopRequireDefault(_materialUi);
 
+var ThemeManager = new _materialUi2['default'].Styles.ThemeManager();
+
 function muiTheme(ComposedComponent) {
-  var MuiThemeDecorator = (function (_ComposedComponent) {
-    _inherits(MuiThemeDecorator, _ComposedComponent);
+  return (function (_React$Component) {
+    _inherits(MuiThemeDecorator, _React$Component);
 
     function MuiThemeDecorator() {
       _classCallCheck(this, MuiThemeDecorator);
@@ -35,20 +37,27 @@ function muiTheme(ComposedComponent) {
     _createClass(MuiThemeDecorator, [{
       key: 'getChildContext',
       value: function getChildContext() {
-        var context = _get(Object.getPrototypeOf(MuiThemeDecorator.prototype), 'getChildContext', this) && _get(Object.getPrototypeOf(MuiThemeDecorator.prototype), 'getChildContext', this).call(this) || {};
-        context.muiTheme = new _materialUi2['default'].Styles.ThemeManager().getCurrentTheme();
-        return context;
+        return {
+          muiTheme: ThemeManager.getCurrentTheme()
+        };
       }
+    }, {
+      key: 'render',
+      value: function render() {
+        return _react2['default'].createElement(ComposedComponent, this.props);
+      }
+    }], [{
+      key: 'childContextTypes',
+      value: {
+        muiTheme: _react2['default'].PropTypes.object
+      },
+      enumerable: true
     }]);
 
     return MuiThemeDecorator;
-  })(ComposedComponent);
-
-  MuiThemeDecorator.childContextTypes = ComposedComponent.childContextTypes || {};
-  MuiThemeDecorator.childContextTypes.muiTheme = _react2['default'].PropTypes.object;
-
-  return MuiThemeDecorator;
+  })(_react2['default'].Component);
 }
 
+muiTheme.ThemeManager = ThemeManager;
 exports['default'] = muiTheme;
 module.exports = exports['default'];
