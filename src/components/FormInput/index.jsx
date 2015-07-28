@@ -19,7 +19,7 @@ class FormInput extends React.Component {
   render() {
     const children = this.props.password ? <input type="password" /> : undefined;
     const {className, ...props} = this.props;
-    let classes = classNames(className);
+    let classes = classNames(styles.field, className);
 
     if (this.props.shake && this.showRequired()) {
       classes = classNames(classes, styles.shake);
@@ -28,6 +28,7 @@ class FormInput extends React.Component {
     return (
       <TextField
         className={classes}
+        style={{width: undefined}}
         errorText={this.getErrorMessage()}
         onChange={event => this.setValue(event.currentTarget.value)}
         value={this.getValue()}

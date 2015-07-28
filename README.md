@@ -15,19 +15,24 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - [SCSS](http://sass-lang.com/), [Bourbon](http://bourbon.io/) and [Neat](http://neat.bourbon.io/) for sassy stylesheets
 - [Babel](https://babeljs.io/) for classy ES6+ code
 
-> I used [kriasoft/react-starter-kit](https://github.com/kriasoft/react-starter-kit) as a starting point.
+> I used [kriasoft/react-starter-kit](https://github.com/kriasoft/react-starter-kit) as a starting point (hence the many commits).
 
 ## UI Features :sparkles:
 
 - elegant landing page with good copy and a clear value proposition for the target users
 - mobile-first responsive design that looks great on smartphones, tablets and desktops
+- page transitions, loaders, smooth animations and UX enhancements
+- form validation
+  - client-side checks for length and valid characters
+  - server-side for uniqueness
 
 ## Technical Features :boom:
 
 - resource bundles contain a hash in their name for cache busting => efficient, long-term caching
 - each component has a local stylesheet => concise and shallow stylesheets, reduced conflicts
 - webpack-dev-server reloads components and stylesheets instantly => faster dev, improved productivity
-- server side pre-rendering => SPA app with unaffected SEO
+- server side pre-rendering => speedy SPA app with unaffected SEO
+- [debug](https://github.com/visionmedia/debug) is used for error logging => easier to read logs
 
 ## Pre-Requisites :computer:
 

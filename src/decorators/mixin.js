@@ -12,10 +12,14 @@ function autobind(methodNames) {
   };
 }
 
-function mixinDecorator(mixin) {
+function mixinDecorator(...mixins) {
   return (ComposedComponent) => {
-    reactMixin.onClass(ComposedComponent, mixin);
-    reactMixin.onClass(ComposedComponent, autobind(Object.keys(mixin)));
+    mixins.forEach(mixin => {
+      reactMixin.onClass(ComposedComponent, mixin);
+      reactMixin.onClass(ComposedComponent, autobind(Object.keys(mixin)));
+    });
+
+    return ComposedComponent;
   };
 }
 

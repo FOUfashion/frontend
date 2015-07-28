@@ -1,5 +1,9 @@
 @import '~keyframes';
 
+.field {
+  width: 100%;
+}
+
 .shake {
   animation: shake .5s ease-in;
 }

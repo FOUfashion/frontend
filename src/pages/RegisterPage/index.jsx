@@ -1,4 +1,5 @@
 import React from 'react';
+import {Navigation} from 'react-router';
 import {Form} from 'formsy-react';
 
 import Paper from '../../components/Paper';
@@ -7,10 +8,16 @@ import FormInput from '../../components/FormInput';
 import Logo from '../../components/Logo';
 
 import request from 'superagent-bluebird-promise';
+import debug from 'debug';
+
+import mixin from '../../decorators/mixin';
 import documentTitle from '../../decorators/documentTitle';
 import styles from './styles.scss';
 
+const log = debug('fou:registration');
+
 @documentTitle('Sign Up')
+@mixin(Navigation)
 class RegisterPage extends React.Component {
 
   constructor(props) {
@@ -18,16 +25,59 @@ class RegisterPage extends React.Component {
     this.state = {};
   }
 
-  onValidSubmit = (model) => {
+  isLoading = (loading) => {
+    log('isLoading', loading);
     this.setState({
-      loading: true
+      loading: loading
     });
+  }
 
-    request
-      .get('/api/profile')
-      .query({ email: model.email })
-      .then(::console.log)
-      .error(::console.log);
+  onValidSubmit = async (data, resetForm, invalidateForm) => {
+    this.isLoading(true);
+    log('onValidSubmit');
+
+    try {
+      await request.get('/api/profile').query({ email: data.email }).promise();
+      this.isLoading(false);
+      log('email already taken');
+      invalidateForm({
+        email: 'This email is already registerd.'
+      });
+    } catch(profileError) {
+      if (profileError.status !== 404) {
+        this.isLoading(false);
+        return log('unexpected error', profileError);
+      }
+
+      log('email not taken, checking username');
+
+      try {
+        await request.get('/api/account/' + data.username).promise();
+        this.isLoading(false);
+        log('username already taken');
+        invalidateForm({
+          username: 'This username is already registerd.'
+        });
+      } catch(accError) {
+        if (accError.status !== 404) {
+          this.isLoading(false);
+          return log('unexpected error', accError);
+        }
+
+        log('username not taken, creating account');
+
+        try {
+          const account = await request.post('/api/account').send(data).promise();
+          log('account created', account);
+
+          this.isLoading(false);
+          this.transitionTo('/feed');
+        } catch(creationError) {
+          this.isLoading(false);
+          log('unexpected error', creationError);
+        }
+      }
+    }
   }
 
   onInvalidSubmit = () => {
@@ -44,11 +94,38 @@ class RegisterPage extends React.Component {
   }
 
   render() {
+    const validations = {
+      email: 'isEmail',
+      username: {
+        isAlphanum: true,
+        minLength: 4,
+        maxLength: 12
+      },
+      password: {
+        isAlphanum: true,
+        minLength: 6,
+        maxLength: 32
+      },
+      name: 'isWords,maxLength:32'
+    };
+
     const errors = {
-      email: 'Please use a valid email address.',
-      username: '4-12 letters and numbers only.',
-      password: 'Use at least 6 characters.',
-      name: 'Please use a valid name.'
+      email: {
+        isEmail: 'Use a valid email address.'
+      },
+      username: {
+        isAlphanum: 'Only letters and numbers are allowed.',
+        minLength: 'Use a longer username.',
+        maxLength: 'Oops! Your username is too long.'
+      },
+      password: {
+        minLength: 'Use a longer password.',
+        maxLength: 'Oops! Your password is too long.'
+      },
+      name: {
+        isWords: 'Only letters are allowed.',
+        maxLength: 'Oops! Your name is too long.'
+      }
     };
 
     return (
@@ -59,18 +136,18 @@ class RegisterPage extends React.Component {
             <h3 className={styles.title}>SIGN UP</h3>
             <Form onValidSubmit={this.onValidSubmit} onInvalidSubmit={this.onInvalidSubmit}>
               <div className={styles.names}>
-                <FormInput fullWidth shake={this.state.shouldShake} name="firstName" className={styles.nameField}
-                  floatingLabelText="First Name" validations="isWords" validationError={errors.name} style={{width: undefined}} required />
-                <FormInput fullWidth shake={this.state.shouldShake} name="lastName" className={styles.nameField}
-                  floatingLabelText="Last Name" validations="isWords" validationError={errors.name} style={{width: undefined}} required />
+                <FormInput shake={this.state.shouldShake} name="firstName" className={styles.nameField}
+                  floatingLabelText="First Name" validations={validations.name} validationErrors={errors.name} required />
+                <FormInput shake={this.state.shouldShake} name="lastName" className={styles.nameField}
+                  floatingLabelText="Last Name" validations={validations.name} validationErrors={errors.name} required />
               </div>
 
-              <FormInput fullWidth floatingLabelText="Email" shake={this.state.shouldShake}
-                name="email" validations="isEmail" validationError={errors.email} required />
-              <FormInput fullWidth floatingLabelText="Username" shake={this.state.shouldShake}
-                name="username" validations="isUsername" validationError={errors.username} required />
-              <FormInput fullWidth floatingLabelText="Password" shake={this.state.shouldShake}
-                name="password" validations="isPassword" validationError={errors.password} required password />
+              <FormInput floatingLabelText="Email" shake={this.state.shouldShake}
+                name="email" validations={validations.email} validationErrors={errors.email} required />
+              <FormInput floatingLabelText="Username" shake={this.state.shouldShake}
+                name="username" validations={validations.username} validationErrors={errors.username} required />
+              <FormInput floatingLabelText="Password" shake={this.state.shouldShake}
+                name="password" validations={validations.password} validationErrors={errors.password} required password />
 
               <p className={styles.consent}>By signing up you agree to our<br /><u>Terms of Service</u> and <u>Privacy Policy</u>.</p>
 

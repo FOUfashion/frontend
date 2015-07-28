@@ -35,21 +35,30 @@ server.use(session({
 }));
 
 // API proxy
-const FP_REQUESTS = {
-  GET: ['/profile'],
-  POST: ['/account']
+const FIRST_PARTY_REQUESTS = {
+  GET: [/^\/account\/\w+$/, /^\/profile$/],
+  POST: [/^\/account$/]
+};
+
+const checkRoute = function() {
+  const exps = FIRST_PARTY_REQUESTS[this.method];
+
+  if (exps) {
+    for (let i = 0; i < exps.length; i++) {
+      const exp = exps[i];
+      if (exp.test(this.path)) {
+        return process.env.FRONTEND_API_TOKEN;
+      }
+    }
+  }
 };
 
 server.use(mount('/api', function *(next) {
-  let token = this.session.api_token;
-
-  if (FP_REQUESTS[this.method] && FP_REQUESTS[this.method].indexOf(this.path) !== -1) {
-    token = process.env.FRONTEND_API_TOKEN;
-  }
+  const token = checkRoute.call(this) || this.session.api_token;
 
   // Simulate delay
   if (process.env.FRONTEND_SIMULATE_DELAY) {
-    yield new Promise(resolve => setTimeout(resolve, 1500));
+    yield new Promise(resolve => setTimeout(resolve, 500));
   }
 
   this.header.authorization = `Bearer ${token}`;
