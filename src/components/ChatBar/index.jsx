@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 
 import Paper from '../Paper';
 import Header from '../Paper/Header';
-import List from '../Paper/List';
+import PeopleList from '../Paper/PeopleList';
 
 import classNames from 'classnames';
 import styles from './styles.scss';
@@ -34,7 +34,7 @@ class ChatBar extends React.Component {
     return (
       <Paper className={className}>
         <Header>CHAT</Header>
-        <List entries={people} />
+        <PeopleList entries={people} />
       </Paper>
     );
   }

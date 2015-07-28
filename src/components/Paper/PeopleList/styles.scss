@@ -6,15 +6,15 @@
 }
 
 .entry {
-  padding: 10px 15px 10px 12px;
+  padding: 10px 12px 10px 15px;
   transition: background 200ms, border-color 200ms;
-  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
   color: $color-secondary;
   text-decoration: none;
   display: block;
 
-  &:global(.active) {
-    border-left-color: $color-primary;
+  &.active {
+    border-color: rgb(26, 152, 57);
   }
 
   &:hover, &:focus {
@@ -23,6 +23,10 @@
 
   &:active {
     background: darken(#fff, 10%);
+  }
+
+  .text {
+    margin-left: 10px;
   }
 }
 

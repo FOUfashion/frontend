@@ -1,0 +1,34 @@
+@import '~variables';
+
+.entries {
+  list-style: none;
+  padding: 0;
+}
+
+.entry {
+  padding: 10px 15px 10px 12px;
+  transition: background 200ms, border-color 200ms;
+  border-left: 3px solid transparent;
+  color: $color-secondary;
+  text-decoration: none;
+  display: block;
+
+  &:global(.active) {
+    border-color: $color-primary;
+  }
+
+  &:hover, &:focus {
+    background: darken(#fff, 5%);
+  }
+
+  &:active {
+    background: darken(#fff, 10%);
+  }
+}
+
+.divider {
+  height: 1px;
+  background: #eee;
+  display: block;
+  margin: 0 15px;
+}
