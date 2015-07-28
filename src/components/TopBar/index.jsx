@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import {Avatar} from 'material-ui';
 
 import Item from './Item';
 import Logo from '../Logo';
@@ -35,7 +36,7 @@ class TopBar extends React.Component {
         </Item>
 
         <Item href="/me" float="right" className={styles.profileItem}>
-          <img src="http://www.gravatar.com/avatar/HASH?s=28&d=retro" className={styles.profileAvatar} />
+          <Avatar size={28}>A</Avatar>
           <span className={styles.profileName}>Alexandru</span>
         </Item>
       </Paper>

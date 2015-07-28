@@ -14,12 +14,6 @@
   margin-right: 10px;
 }
 
-.profileAvatar {
-  @include size(28px);
-  background: $color-secondary;
-  border-radius: 50px;
-}
-
 .profileName {
   margin-left: 15px;
   color: $color-secondary;
