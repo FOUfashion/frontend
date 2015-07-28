@@ -35,20 +35,18 @@ server.use(session({
 }));
 
 // API proxy
-const FIRST_PARTY_REQUESTS = [
-  ['GET', '/account']
-];
+const FP_REQUESTS = {
+  GET: ['/profile'],
+  POST: ['/account']
+};
 
 server.use(mount('/api', function *(next) {
-  let fpToken = null;
+  let token = this.session.api_token;
 
-  FIRST_PARTY_REQUESTS.forEach(req => {
-    if (this.method === req[0] && this.path === req[1]) {
-      fpToken = process.env.FRONTEND_API_TOKEN;
-    }
-  });
+  if (FP_REQUESTS[this.method] && FP_REQUESTS[this.method].indexOf(this.path) !== -1) {
+    token = process.env.FRONTEND_API_TOKEN;
+  }
 
-  const token = fpToken || this.session.api_token;
   this.header.authorization = `Bearer ${token}`;
   yield* next;
 }));
