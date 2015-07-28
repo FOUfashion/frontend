@@ -1,6 +1,7 @@
-import React from 'react';
-import {Navigation} from 'react-router';
+import React, {PropTypes} from 'react';
 import {Form} from 'formsy-react';
+import {Navigation} from 'react-router';
+import AppActions from '../../actions/AppActions';
 
 import Paper from '../../components/Paper';
 import Button from '../../components/Button';
@@ -19,6 +20,10 @@ const log = debug('fou:registration');
 @documentTitle('Sign Up')
 @mixin(Navigation)
 class RegisterPage extends React.Component {
+
+  static contextTypes = {
+    executeAction: PropTypes.func.isRequired
+  }
 
   constructor(props) {
     super(props);
@@ -68,10 +73,10 @@ class RegisterPage extends React.Component {
 
         try {
           const account = await request.post('/api/account').send(data).promise();
+          this.context.executeAction(AppActions.USER_SIGNED_IN, account);
           log('account created', account);
-
           this.isLoading(false);
-          this.transitionTo('/feed');
+          this.replaceWith('/feed');
         } catch(creationError) {
           this.isLoading(false);
           log('unexpected error', creationError);

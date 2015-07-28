@@ -1,40 +1,32 @@
-import BaseStore from 'fluxible/addons/BaseStore';
+import ActionTypes from '../constants/ActionTypes';
+import BaseStore from './BaseStore';
 
 class AppStore extends BaseStore {
 
   static storeName = 'AppStore'
   static handlers = {
-    'INCREMENT': 'increment',
-    'DECREMENT': 'decrement'
+    [ActionTypes.USER_SIGNED_IN]: '_userSignedIn',
+    [ActionTypes.USER_SIGNED_OUT]: '_userSignedOut'
   };
 
-  constructor(dispatcher) {
-    super(dispatcher);
-    this.count = 0;
-  }
-
-  increment() {
-    this.count++;
+  _userSignedIn(account) {
+    this.state.account = account;
+    this.state.isSignedIn = true;
     this.emitChange();
   }
 
-  decrement() {
-    this.count--;
+  _userSignedOut() {
+    this.state.account = undefined;
+    this.state.isSignedIn = false;
     this.emitChange();
   }
 
-  getCount() {
-    return this.count;
+  getAccount() {
+    return this.state.account;
   }
 
-  dehydrate() {
-    return {
-      count: this.count
-    };
-  }
-
-  rehydrate(state) {
-    this.count = state.count;
+  isSignedIn() {
+    return !!this.state.isSignedIn;
   }
 
 }

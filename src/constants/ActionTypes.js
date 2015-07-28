@@ -1,6 +1,5 @@
 import keyMirror from 'react/lib/keyMirror';
 
 export default keyMirror({
-  INCREMENT: null,
-  DECREMENT: null
+  USER_SIGNED_IN: null
 });
