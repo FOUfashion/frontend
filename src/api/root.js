@@ -3,6 +3,7 @@ import Router from 'react-router';
 import KoaRouter from 'koa-router';
 import FluxibleComponent from 'fluxible-addons-react/FluxibleComponent';
 import DocumentTitle from 'react-document-title';
+import * as AppActions from '../actions/AppActions';
 
 import serialize from 'serialize-javascript';
 import flux from '../flux';
@@ -19,7 +20,7 @@ const log = debug('fou:server:root');
 let assets = {};
 
 if (!__DEV__) {
-  // Read asset names
+  log('reading asset names');
   fs.readFile(path.join(__dirname, 'webpack-assets.json'), 'utf8', function(err, data) {
     if (err) {
       return console.error(err);
@@ -39,8 +40,13 @@ router.get('*', function *() {
     this.status = 404;
   }
 
-  log('serializing dehydrated flux state');
+  log('initializing flux state');
   const context = flux.createContext();
+  yield context.executeAction(AppActions.serverInit, {
+    account: this.session.account
+  });
+
+  log('serializing dehydrated flux state');
   const dehydratedState = serialize(flux.dehydrate(context));
 
   log('rendering html');

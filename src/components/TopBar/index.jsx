@@ -6,13 +6,11 @@ import Item from './Item';
 import Logo from '../Logo';
 import Paper from '../Paper';
 
-import connectToStores from 'fluxible-addons-react/connectToStores';
+import pureRender from 'pure-render-decorator';
 import classNames from 'classnames';
 import styles from './styles.scss';
 
-@connectToStores([AppStore], (context) => ({
-  account: context.getStore(AppStore).getAccount()
-}))
+@pureRender
 class TopBar extends React.Component {
 
   static propTypes = {
@@ -20,8 +18,13 @@ class TopBar extends React.Component {
     className: PropTypes.string
   }
 
+  static contextTypes = {
+    getStore: PropTypes.func.isRequired
+  }
+
   render() {
-    const {className, account, ...props} = this.props;
+    const account = this.context.getStore(AppStore).getAccount();
+    const {className, ...props} = this.props;
     const classes = classNames(styles.topBar, className);
 
     return (
@@ -43,8 +46,8 @@ class TopBar extends React.Component {
         </Item>
 
         <Item href="/me" float="right" className={styles.profileItem}>
-          <Avatar size={28}>{account.name.first[0]}</Avatar>
-          <span className={styles.profileName}>{account.name.first}</span>
+          <Avatar size={28}>{account.profile.name.first[0]}</Avatar>
+          <span className={styles.profileName}>{account.profile.name.first}</span>
         </Item>
       </Paper>
     );

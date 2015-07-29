@@ -17,6 +17,7 @@ class Feed extends React.Component {
 
     const posts = [
       {
+        id: '123',
         author: {
           name: {
             full: 'John Doe'
@@ -34,6 +35,7 @@ class Feed extends React.Component {
           }
         ]
       }, {
+        id: '456',
         author: {
           name: {
             full: 'Diana Crane'
@@ -56,7 +58,7 @@ class Feed extends React.Component {
     return (
       <ul className={classes}>
         {posts.map(function(post) {
-          return (<Post post={post} />);
+          return (<Post post={post} key={post.id} />);
         })}
       </ul>
     );

@@ -73,7 +73,7 @@ class RegisterPage extends React.Component {
 
         try {
           const account = await request.post('/api/account').send(data).promise();
-          this.context.executeAction(AppActions.userSignedIn, account);
+          this.context.executeAction(AppActions.userSignedIn, account.body);
           log('account created', account);
           this.isLoading(false);
           this.replaceWith('/feed');
@@ -107,7 +107,6 @@ class RegisterPage extends React.Component {
         maxLength: 12
       },
       password: {
-        isAlphanum: true,
         minLength: 6,
         maxLength: 32
       },
