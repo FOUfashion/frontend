@@ -22,6 +22,7 @@ class AppStore extends BaseStore {
   }
 
   getAccount() {
+    console.log('getAccount', this.state);
     return this.state.account;
   }
 
