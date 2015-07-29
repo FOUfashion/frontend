@@ -1,6 +1,7 @@
 import manifest from '../package.json';
-import request from 'request-promise';
+import request from 'superagent-bluebird-promise';
 import debug from 'debug';
+import path from 'path';
 
 import koa from 'koa';
 import serve from 'koa-static';
@@ -76,50 +77,36 @@ server.use(mount('/api', function *(next) {
   if (this.method === 'POST' && this.path === '/account' && this.status === 201) {
     log('exchanging credentials for token');
 
-    const result = yield request({
-      method: 'POST',
-      baseUrl: process.env.FRONTEND_API_URI,
-      uri: '/oauth/exchange/credentials',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${requestToken}`
-      },
-      json: {
+    const result = yield request
+      .post(path.join(process.env.FRONTEND_API_URI, '/oauth/exchange/credentials'))
+      .send({
         username: this.request.body.username,
         password: this.request.body.password
-      }
-    });
+      })
+      .set('Authorization', `Bearer ${requestToken}`)
+      .accept('json')
+      .promise();
 
     const userToken = result.value;
     log('got token', userToken.substr(0, 6) + '...');
 
     // Get the account object
-    const account = yield request({
-      baseUrl: process.env.FRONTEND_API_URI,
-      uri: '/account',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${userToken}`
-      },
-      json: true
-    });
+    const account = yield request
+      .get(path.join(process.env.FRONTEND_API_URI, '/account'))
+      .set('Authorization', `Bearer ${userToken}`)
+      .accept('json')
+      .promise();
 
-    log('token owned by account', account);
+    log('token owned by account', account, userToken);
     this.session.account = account;
 
     // Get the profile
-    const profile = yield request({
-      baseUrl: process.env.FRONTEND_API_URI,
-      uri: '/profile',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${userToken}`
-      },
-      qs: {
-        email: this.request.body.email
-      },
-      json: true
-    });
+    const profile = yield request
+      .get(path.join(process.env.FRONTEND_API_URI, '/profile'))
+      .query({ email: this.request.body.email })
+      .set('Authorization', `Bearer ${userToken}`)
+      .accept('json')
+      .promise();
 
     log('token owned by profile', profile);
     this.session.account.profile = profile;

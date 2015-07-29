@@ -9,7 +9,6 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - [React](https://facebook.github.io/react/) for UI rendering
 - [Fluxible](http://fluxible.io/) for a [Flux architecture](https://facebook.github.io/flux/docs/overview.html) with unidirectional data flow
 - [Immutable](https://facebook.github.io/immutable-js/) and React "pure" components for bleeding edge performance
-- [Material UI](http://material-ui.com/) for the building blocks to build upon
 - [Koa](http://koajs.com/) as the backend server for file serving and React pre-rendering
 - [webpack](http://webpack.github.io/) to compile and bundle everything together, hot reload included :fire:
 - [SCSS](http://sass-lang.com/), [Bourbon](http://bourbon.io/) and [Neat](http://neat.bourbon.io/) for sassy stylesheets
@@ -32,14 +31,17 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - each component has a local stylesheet => concise and shallow stylesheets, reduced conflicts
 - webpack-dev-server reloads components and stylesheets instantly => faster dev, improved productivity
 - server side pre-rendering => speedy SPA app with unaffected SEO
-- [debug](https://github.com/visionmedia/debug) is used for error logging => easier to read logs
-- `@inject` and `@provide` decorators for DI based on React contexts => better code
 
 ## To-Do :dizzy:
 
-- automated E2E tests with [Nightwatch.js](http://nightwatchjs.org/)
-- refactor components; try to move form logic into Flux stores
+- pages: profile, conversations, settings
+- functionality: write posts/comments, like posts/comments, messaging
 - integrate with "inspiration sources" such as 500px, Artsy, Instagram, Pinterest
+- automated E2E tests with [Nightwatch.js](http://nightwatchjs.org/)
+- refactoring
+  - components, decorators, server
+  - try to move form logic into Flux stores
+  - get rid of material-ui; use own or dedicated components
 
 ## Pre-Requisites :computer:
 
@@ -78,6 +80,15 @@ $ npm run watch-client
 # run BrowserSync as a proxy
 $ npm run browser-sync
 ```
+
+## Debugging :bug:
+
+I use [debug](https://github.com/visionmedia/debug) to log detailed messages for app debugging. To enable logging:
+
+- Client side: run `Debug.enabled('fou:*')` in the console and refresh the page
+- Server side: run `export DEBUG="fou:*"` and restart the server
+
+If logging is not enabled, log calls are just no-ops.
 
 ## Tests :ok_hand:
 

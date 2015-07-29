@@ -1,8 +1,10 @@
 import React from 'react';
+import palette from '../styling/palette';
 import mui from 'material-ui';
 
-const ThemeManager = new mui.Styles.ThemeManager();
-
+/**
+ * Wrap the component with a HoC that inserts the Material UI theme into the context.
+ */
 function muiTheme(ComposedComponent) {
   return class MuiThemeDecorator extends React.Component {
 
@@ -11,8 +13,14 @@ function muiTheme(ComposedComponent) {
     }
 
     getChildContext() {
+      const ThemeManager = new mui.Styles.ThemeManager();
+      ThemeManager.setPalette(palette);
+
+      const theme = ThemeManager.getCurrentTheme();
+      theme.contentFontFamily = 'Helvetica, Arial, sans-serif';
+
       return {
-        muiTheme: ThemeManager.getCurrentTheme()
+        muiTheme: theme
       };
     }
 
@@ -23,5 +31,4 @@ function muiTheme(ComposedComponent) {
   };
 }
 
-muiTheme.ThemeManager = ThemeManager;
 export default muiTheme;

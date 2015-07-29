@@ -1,31 +1,34 @@
 import React from 'react';
 import Router from 'react-router';
+import BrowserHistory from 'react-router/lib/BrowserHistory';
 import FluxibleComponent from 'fluxible-addons-react/FluxibleComponent';
+
 import debug from 'debug';
+import routes from './routes';
 import flux from './flux';
 
-const log = debug('fou:client');
+const log = debug('fou:bootstrap');
+window.Debug = debug;
 
 // Load the app
 window.addEventListener('DOMContentLoaded', function() {
-  window.Debug = debug;
-
   log('rehydrating from window.__dehydratedState');
-  flux.rehydrate(window.__dehydratedState, function(err, context) {
-    if (err) {
-      return log(err);
+  flux.rehydrate(window.__dehydratedState, function(error, context) {
+    if (error) {
+      return log('unexpected error', error);
     }
 
-    log('rendering root');
-    Router.run(flux.getComponent(), Router.HistoryLocation, function(Handler, state) {
-      const Root = (
-        <FluxibleComponent context={context.getComponentContext()}>
-          <Handler {...state} />
-        </FluxibleComponent>
-      );
+    log('rendering root...');
+    const componentContext = context.getComponentContext();
+    const history = new BrowserHistory();
 
-      React.render(Root, document.getElementById('app'), () => log(`rendered ${state.pathname}`));
-    });
+    const Root = (
+      <FluxibleComponent context={componentContext}>
+        <Router history={history} children={routes(componentContext)} onError={routes.onError} />
+      </FluxibleComponent>
+    );
+
+    React.render(Root, document.getElementById('app'), () => log(`rendered root`));
   });
 });
 

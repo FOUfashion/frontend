@@ -5,9 +5,11 @@ import Paper from '../../components/Paper';
 import Button from '../../components/Button';
 import Logo from '../../components/Logo';
 
+import muiTheme from '../../decorators/muiTheme';
 import documentTitle from '../../decorators/documentTitle';
 import styles from './styles.scss';
 
+@muiTheme
 @documentTitle('Sign In')
 class LoginPage extends React.Component {
 

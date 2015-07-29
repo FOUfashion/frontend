@@ -2,32 +2,43 @@ import React, {PropTypes} from 'react';
 import {Form} from 'formsy-react';
 import {Navigation} from 'react-router';
 import * as AppActions from '../../actions/AppActions';
+import AppStore from '../../stores/AppStore';
 
 import Paper from '../../components/Paper';
 import Button from '../../components/Button';
 import FormInput from '../../components/FormInput';
 import Logo from '../../components/Logo';
 
-import request from 'superagent-bluebird-promise';
-import debug from 'debug';
-
-import mixin from '../../decorators/mixin';
+import mixins from '../../decorators/mixins';
+import muiTheme from '../../decorators/muiTheme';
 import documentTitle from '../../decorators/documentTitle';
 import styles from './styles.scss';
 
+import request from 'superagent-bluebird-promise';
+import debug from 'debug';
+
 const log = debug('fou:registration');
 
+@muiTheme
 @documentTitle('Sign Up')
-@mixin(Navigation)
+@mixins(Navigation)
 class RegisterPage extends React.Component {
 
   static contextTypes = {
-    executeAction: PropTypes.func.isRequired
+    executeAction: PropTypes.func.isRequired,
+    getStore: PropTypes.func.isRequired
   }
 
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  componentDidMount() {
+    if (this.context.getStore(AppStore).isSignedIn()) {
+      log('already signed in, redirecting');
+      this.replaceWith('/feed');
+    }
   }
 
   isLoading = (loading) => {
@@ -42,7 +53,7 @@ class RegisterPage extends React.Component {
     log('onValidSubmit');
 
     try {
-      await request.get('/api/profile').query({ email: data.email }).promise();
+      await request.head('/api/profile').query({ email: data.email }).promise();
       this.isLoading(false);
       log('email already taken');
       invalidateForm({
@@ -57,7 +68,7 @@ class RegisterPage extends React.Component {
       log('email not taken, checking username');
 
       try {
-        await request.get('/api/account/' + data.username).promise();
+        await request.head('/api/account/' + data.username).promise();
         this.isLoading(false);
         log('username already taken');
         invalidateForm({
@@ -73,7 +84,7 @@ class RegisterPage extends React.Component {
 
         try {
           const account = await request.post('/api/account').send(data).promise();
-          this.context.executeAction(AppActions.userSignedIn, account.body);
+          await this.context.executeAction(AppActions.userSignedIn, account.body);
           log('account created', account);
           this.isLoading(false);
           this.replaceWith('/feed');

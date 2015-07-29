@@ -14,7 +14,6 @@ import styles from './styles.scss';
 class TopBar extends React.Component {
 
   static propTypes = {
-    account: PropTypes.object.isRequired,
     className: PropTypes.string
   }
 
@@ -22,15 +21,67 @@ class TopBar extends React.Component {
     getStore: PropTypes.func.isRequired
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    const appStore = this.context.getStore(AppStore);
+    console.log('wtf!!', appStore);
+
+    if (appStore.isSignedIn()) {
+      console.log('yess!!!');
+      this.state.account = appStore.getAccount();
+    }
+
+    console.log('dcomponentDidMount');
+    this.context.getStore(AppStore).addChangeListener(this._onStoreChange);
+  }
+
+  componentWillReceiveProps() {
+    console.log('componentWillReceiveProps', {
+      account: this.context.getStore(AppStore).getAccount()
+    });
+    this.setState({
+      account: this.context.getStore(AppStore).getAccount()
+    });
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+    this.context.getStore(AppStore).removeChangeListener(this._onStoreChange);
+  }
+
+  _onStoreChange = () => {
+    console.log('_onStoreChange', {
+      account: this.context.getStore(AppStore).getAccount()
+    });
+    this.setState({
+      account: this.context.getStore(AppStore).getAccount()
+    });
+  }
+
   render() {
-    const account = this.context.getStore(AppStore).getAccount();
     const {className, ...props} = this.props;
     const classes = classNames(styles.topBar, className);
+    console.log('this.state', this.state);
+
+    const userItem = this.state.account ? (
+      <Item href="/me" float="right" className={styles.profileItem}>
+        <Avatar size={28}>{this.state.account.profile.name.first[0]}</Avatar>
+        <span className={styles.profileName}>{this.state.account.profile.name.first}</span>
+      </Item>
+    ) : undefined;
 
     return (
       <Paper className={classes} {...props}>
         <Item href="/feed" float="left">
           <Logo className={styles.logo} styled />
+        </Item>
+
+        <Item href="/logout" float="right">
+          <img src={require('../../images/actions/exit.svg')} />
         </Item>
 
         <Item href="/settings" float="right">
@@ -45,10 +96,7 @@ class TopBar extends React.Component {
           <img src={require('../../images/actions/bell.svg')} />
         </Item>
 
-        <Item href="/me" float="right" className={styles.profileItem}>
-          <Avatar size={28}>{account.profile.name.first[0]}</Avatar>
-          <span className={styles.profileName}>{account.profile.name.first}</span>
-        </Item>
+        {userItem}
       </Paper>
     );
   }

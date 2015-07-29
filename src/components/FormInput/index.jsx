@@ -3,11 +3,11 @@ import {TextField} from 'material-ui';
 import Formsy from 'formsy-react';
 import './validations';
 
-import mixin from '../../decorators/mixin';
+import mixins from '../../decorators/mixins';
 import classNames from 'classnames';
 import styles from './styles.scss';
 
-@mixin(Formsy.Mixin)
+@mixins(Formsy.Mixin)
 class FormInput extends React.Component {
 
   static propTypes = {

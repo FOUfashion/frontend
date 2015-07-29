@@ -1,5 +1,8 @@
 import reactMixin from 'react-mixin';
 
+/**
+ * Bind the methods to the component's scope.
+ */
 function autobind(methodNames) {
   return {
     componentWillMount() {
@@ -12,7 +15,10 @@ function autobind(methodNames) {
   };
 }
 
-function mixinDecorator(...mixins) {
+/**
+ * Adds support for mixins by manually copying its methods into the component.
+ */
+function mixinsDecorator(...mixins) {
   return (ComposedComponent) => {
     mixins.forEach(mixin => {
       reactMixin.onClass(ComposedComponent, mixin);
@@ -23,4 +29,4 @@ function mixinDecorator(...mixins) {
   };
 }
 
-export default mixinDecorator;
+export default mixinsDecorator;

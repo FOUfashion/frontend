@@ -2,25 +2,23 @@ import 'normalize.css/normalize.css';
 import styles from './styles.scss';
 
 import React, {PropTypes} from 'react';
-import {RouteHandler} from 'react-router';
 import TimeoutTransitionGroup from 'timeout-transition-group';
 
-import muiTheme from '../../decorators/muiTheme';
-import muiPalette from '../../decorators/muiPalette';
-import palette from '../../styling/palette';
-
-@muiTheme
-@muiPalette(palette)
 class App extends React.Component {
 
   static propTypes = {
-    path: PropTypes.string
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired
+    }),
+    children: PropTypes.node
   }
 
   render() {
     return (
       <TimeoutTransitionGroup enterTimeout={600} leaveTimeout={400} transitionName="routerTransition" className={styles.app}>
-        <RouteHandler key={this.props.path} />
+        <div key={this.props.location.pathname}>
+          {this.props.children}
+        </div>
       </TimeoutTransitionGroup>
     );
   }
