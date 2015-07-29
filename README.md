@@ -33,11 +33,13 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - webpack-dev-server reloads components and stylesheets instantly => faster dev, improved productivity
 - server side pre-rendering => speedy SPA app with unaffected SEO
 - [debug](https://github.com/visionmedia/debug) is used for error logging => easier to read logs
+- `@inject` and `@provide` decorators for DI based on React contexts => better code
 
 ## To-Do :dizzy:
 
 - automated E2E tests with [Nightwatch.js](http://nightwatchjs.org/)
 - refactor components; try to move form logic into Flux stores
+- integrate with "inspiration sources" such as 500px, Artsy, Instagram, Pinterest
 
 ## Pre-Requisites :computer:
 

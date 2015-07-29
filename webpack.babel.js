@@ -1,6 +1,8 @@
+import WebpackErrorNotificationPlugin from 'webpack-error-notification';
 import NyanProgressPlugin from 'nyan-progress-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
+
 import webpack from 'webpack';
 import path from 'path';
 
@@ -31,8 +33,8 @@ const config = {
   },
 
   plugins: [
-    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin(GLOBALS),
+    new WebpackErrorNotificationPlugin(),
     new NyanProgressPlugin()
   ].concat(DEBUG ? [] : [
     new ExtractTextPlugin('styles.[contenthash].css'),
