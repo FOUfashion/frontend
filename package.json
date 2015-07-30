@@ -82,11 +82,9 @@
     "babel-watch": "rm -rf build && (babel --watch --out-dir build src &) && sleep 2",
     "lint": "eslint src gulpfile.babel.js webpack.config.js && scss-lint src",
     "lint-watch": "nodemon --watch src --exec 'eslint src && scss-lint src'",
-    "test": "npm run babel-build && jest --verbose",
+    "test": "npm run babel-build && jest",
     "test-watch": "npm run babel-watch && nodemon --watch build --exec 'jest'",
-    "coverage": "npm run babel-build && jest --coverage",
-    "coverage-watch": "npm run babel-watch && nodemon --watch build --exec 'jest --coverage'",
-    "coveralls": "npm run coverage && cat coverage/lcov.info | coveralls",
+    "coveralls": "npm test && cat coverage/lcov.info | coveralls",
     "bundle-client": "webpack --config webpack.client.js --release",
     "bundle-server": "webpack --config webpack.server.js --release",
     "bundle": "rm -rf dist && mkdir dist && cp -rf public dist/public && npm run bundle-client && npm run bundle-server",
@@ -104,13 +102,14 @@
     "testFileExtensions": [
       "spec.js"
     ],
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
     "unmockedModulePathPatterns": [
       "/node_modules/"
-    ]
+    ],
+    "collectCoverage": true,
+    "collectCoverageOnlyFrom": {
+      "build/components/Paper/index.js": true,
+      "build/components/Button/index.js": true
+    }
   },
   "jest-webpack-config": "webpack.client.js",
   "repository": {
