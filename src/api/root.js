@@ -37,6 +37,7 @@ if (!__DEV__) {
 router.head('/logout', function *() {
   log('purging session');
   this.session = null;
+  this.status = 204;
 });
 
 router.get('*', function *() {
