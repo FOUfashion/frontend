@@ -6,6 +6,10 @@ var _reactAddons = require('react/addons');
 
 var _reactAddons2 = _interopRequireDefault(_reactAddons);
 
+var _jestMockedStyles = require('../../../jest/mockedStyles');
+
+var _jestMockedStyles2 = _interopRequireDefault(_jestMockedStyles);
+
 jest.dontMock('./index');
 
 var TestUtils = _reactAddons2['default'].addons.TestUtils;
@@ -14,13 +18,13 @@ var Button = require('./index');
 describe('Button', function () {
 
   it('should render its children', function () {
-    var paper = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(
+    var button = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(
       Button,
       null,
       'Follow'
     ));
 
-    var buttonNode = TestUtils.findRenderedDOMComponentWithTag(paper, 'button');
+    var buttonNode = TestUtils.findRenderedDOMComponentWithTag(button, 'button');
     expect(buttonNode.props.children).toEqual('Follow');
   });
 
@@ -89,5 +93,15 @@ describe('Button', function () {
     ));
     var resetButtonNode = TestUtils.findRenderedDOMComponentWithTag(resetButton, 'button');
     expect(resetButtonNode.props.type).toBe('reset');
+  });
+
+  it('should show the loader when loading=true', function () {
+    var button = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(
+      Button,
+      { loading: true },
+      'Follow'
+    ));
+
+    TestUtils.findRenderedDOMComponentWithClass(button, _jestMockedStyles2['default'].loader);
   });
 });
