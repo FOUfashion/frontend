@@ -44,7 +44,7 @@ class RegisterPage extends React.Component {
     log('onValidSubmit');
 
     try {
-      await request.get('/api/profile').query({ email: data.email }).promise();
+      await request.get('/api/profile/' + encodeURIComponent(this.request.body.email)).promise();
       this.isLoading(false);
       log('email already taken');
       invalidateForm({

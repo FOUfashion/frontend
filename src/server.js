@@ -112,8 +112,7 @@ server.use(mount('/api', function *(next) {
     const profile = yield request({
       method: 'GET',
       baseUrl: process.env.FRONTEND_API_URI,
-      url: '/profile',
-      qs: { email: this.request.body.email },
+      url: '/profile/' + encodeURIComponent(this.request.body.email),
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${userToken}`
