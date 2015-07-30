@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import {Form} from 'formsy-react';
 import {Navigation} from 'react-router';
 import * as AppActions from '../../actions/AppActions';
-import AppStore from '../../stores/AppStore';
 
 import Paper from '../../components/Paper';
 import Button from '../../components/Button';
@@ -25,20 +24,12 @@ const log = debug('fou:registration');
 class RegisterPage extends React.Component {
 
   static contextTypes = {
-    executeAction: PropTypes.func.isRequired,
-    getStore: PropTypes.func.isRequired
+    executeAction: PropTypes.func.isRequired
   }
 
   constructor(props) {
     super(props);
     this.state = {};
-  }
-
-  componentDidMount() {
-    if (this.context.getStore(AppStore).isSignedIn()) {
-      log('already signed in, redirecting');
-      this.replaceWith('/feed');
-    }
   }
 
   isLoading = (loading) => {
@@ -53,7 +44,7 @@ class RegisterPage extends React.Component {
     log('onValidSubmit');
 
     try {
-      await request.head('/api/profile').query({ email: data.email }).promise();
+      await request.get('/api/profile').query({ email: data.email }).promise();
       this.isLoading(false);
       log('email already taken');
       invalidateForm({
@@ -68,7 +59,7 @@ class RegisterPage extends React.Component {
       log('email not taken, checking username');
 
       try {
-        await request.head('/api/account/' + data.username).promise();
+        await request.get('/api/account/' + encodeURIComponent(data.username)).promise();
         this.isLoading(false);
         log('username already taken');
         invalidateForm({
@@ -97,6 +88,8 @@ class RegisterPage extends React.Component {
   }
 
   onInvalidSubmit = () => {
+    log('onValidSubmit');
+
     this.setState({
       shouldShake: true
     });

@@ -42,9 +42,13 @@ router.get('*', function *() {
   const context = flux.createContext();
   const componentContext = context.getComponentContext();
 
-  const [initialState, transition] = yield new Promise((resolve, reject) => {
-    log('running router');
+  log('initializing flux state');
+  yield context.executeAction(AppActions.serverInit, {
+    account: this.session.account
+  });
 
+  log('running router');
+  const [initialState, transition] = yield new Promise((resolve, reject) => {
     const location = new Location(this.path, this.query);
     const callback = (error, ...args) => error ? reject(error) : resolve(args);
 
@@ -58,11 +62,6 @@ router.get('*', function *() {
   } else if (!initialState) {
     this.status = 404;
   }
-
-  log('initializing flux state');
-  yield context.executeAction(AppActions.serverInit, {
-    account: this.session.account
-  });
 
   log('serializing dehydrated flux state');
   const dehydratedState = serialize(flux.dehydrate(context));

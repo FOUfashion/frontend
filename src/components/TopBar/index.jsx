@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import {Avatar} from 'material-ui';
 import AppStore from '../../stores/AppStore';
 
@@ -6,71 +7,32 @@ import Item from './Item';
 import Logo from '../Logo';
 import Paper from '../Paper';
 
+import connectToStores from '../../decorators/connectToStores';
 import pureRender from 'pure-render-decorator';
 import classNames from 'classnames';
 import styles from './styles.scss';
 
+@connectToStores([AppStore], (appStore) => ({
+  isSignedIn: appStore.isSignedIn(),
+  account: appStore.getAccount()
+}))
 @pureRender
 class TopBar extends React.Component {
 
   static propTypes = {
-    className: PropTypes.string
-  }
-
-  static contextTypes = {
-    getStore: PropTypes.func.isRequired
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {
-    const appStore = this.context.getStore(AppStore);
-    console.log('wtf!!', appStore);
-
-    if (appStore.isSignedIn()) {
-      console.log('yess!!!');
-      this.state.account = appStore.getAccount();
-    }
-
-    console.log('dcomponentDidMount');
-    this.context.getStore(AppStore).addChangeListener(this._onStoreChange);
-  }
-
-  componentWillReceiveProps() {
-    console.log('componentWillReceiveProps', {
-      account: this.context.getStore(AppStore).getAccount()
-    });
-    this.setState({
-      account: this.context.getStore(AppStore).getAccount()
-    });
-  }
-
-  componentWillUnmount() {
-    console.log('componentWillUnmount');
-    this.context.getStore(AppStore).removeChangeListener(this._onStoreChange);
-  }
-
-  _onStoreChange = () => {
-    console.log('_onStoreChange', {
-      account: this.context.getStore(AppStore).getAccount()
-    });
-    this.setState({
-      account: this.context.getStore(AppStore).getAccount()
-    });
+    className: PropTypes.string,
+    isSignedIn: PropTypes.bool,
+    account: ImmutablePropTypes.map
   }
 
   render() {
     const {className, ...props} = this.props;
     const classes = classNames(styles.topBar, className);
-    console.log('this.state', this.state);
 
-    const userItem = this.state.account ? (
+    const userItem = this.props.isSignedIn ? (
       <Item href="/me" float="right" className={styles.profileItem}>
-        <Avatar size={28}>{this.state.account.profile.name.first[0]}</Avatar>
-        <span className={styles.profileName}>{this.state.account.profile.name.first}</span>
+        <Avatar size={28}>{this.props.account.profile.name.first[0]}</Avatar>
+        <span className={styles.profileName}>{this.props.account.profile.name.first}</span>
       </Item>
     ) : undefined;
 

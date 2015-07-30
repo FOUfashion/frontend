@@ -5,9 +5,11 @@ import TopBar from '../../components/TopBar';
 import MenuBar from '../../components/MenuBar';
 import ChatBar from '../../components/ChatBar';
 
+import muiTheme from '../../decorators/muiTheme';
 import documentTitle from '../../decorators/documentTitle';
 import styles from './styles.scss';
 
+@muiTheme
 @documentTitle('Fou')
 class FeedPage extends React.Component {
 

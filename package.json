@@ -36,6 +36,7 @@
     "react-mixin": "^1.7.0",
     "react-router": "^1.0.0-beta3",
     "react-tap-event-plugin": "^0.1.7",
+    "request-promise": "^0.4.3",
     "serialize-javascript": "^1.0.0",
     "source-map-support": "^0.3.2",
     "superagent": "^1.2.0",
