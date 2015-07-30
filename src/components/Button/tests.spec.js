@@ -1,17 +1,19 @@
 jest.dontMock('./index');
 
 import React from 'react/addons';
+import styles from '../../../jest/mockedStyles';
+
 const TestUtils = React.addons.TestUtils;
 const Button = require('./index');
 
 describe('Button', () => {
 
   it('should render its children', () => {
-    const paper = TestUtils.renderIntoDocument(
+    const button = TestUtils.renderIntoDocument(
       <Button>Follow</Button>
     );
 
-    const buttonNode = TestUtils.findRenderedDOMComponentWithTag(paper, 'button');
+    const buttonNode = TestUtils.findRenderedDOMComponentWithTag(button, 'button');
     expect(buttonNode.props.children).toEqual('Follow');
   });
 
@@ -66,6 +68,14 @@ describe('Button', () => {
     );
     const resetButtonNode = TestUtils.findRenderedDOMComponentWithTag(resetButton, 'button');
     expect(resetButtonNode.props.type).toBe('reset');
+  });
+
+  it('should show the loader when loading=true', () => {
+    const button = TestUtils.renderIntoDocument(
+      <Button loading={true}>Follow</Button>
+    );
+
+    TestUtils.findRenderedDOMComponentWithClass(button, styles.loader);
   });
 
 });

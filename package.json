@@ -94,7 +94,7 @@
     "browser-sync": "browser-sync start --proxy \"0.0.0.0:$FRONTEND_PORT\""
   },
   "jest": {
-    "scriptPreprocessor": "<rootDir>/preprocessor.js",
+    "scriptPreprocessor": "<rootDir>/jest/preprocessor.js",
     "testDirectoryName": "build",
     "testPathDirs": [
       "build"

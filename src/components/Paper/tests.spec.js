@@ -1,6 +1,7 @@
 jest.dontMock('./index');
 
 import React from 'react/addons';
+
 const TestUtils = React.addons.TestUtils;
 const Paper = require('./index');
 
