@@ -1,0 +1,7 @@
+machine:
+  node:
+    version: iojs-v1.3.0
+
+test:
+  override:
+    - npm run coveralls
