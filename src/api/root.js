@@ -35,6 +35,7 @@ if (!__DEV__) {
 }
 
 router.head('/logout', function *() {
+  log('purging session');
   this.session = null;
 });
 

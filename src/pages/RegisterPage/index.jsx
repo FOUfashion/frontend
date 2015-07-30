@@ -76,10 +76,11 @@ class RegisterPage extends React.Component {
         try {
           const account = await request.post('/api/account').send(data).promise();
           await this.context.executeAction(AppActions.userSignedIn, account.body);
+
           log('account created', account);
           this.isLoading(false);
 
-          // FIXME: AppActions.userSignedIn is fired after the transition without a timeout
+          // FIXME: AppActions.userSignedIn should be fired before the transition
           setTimeout(() => this.replaceWith('/feed'), 300);
         } catch(creationError) {
           this.isLoading(false);
@@ -90,7 +91,7 @@ class RegisterPage extends React.Component {
   }
 
   onInvalidSubmit = () => {
-    log('onValidSubmit');
+    log('onInvalidSubmit');
 
     this.setState({
       shouldShake: true
