@@ -33,26 +33,22 @@ function routes(context) {
     }
   }
 
-  async function asyncLogOut(state, callback) {
-    console.log(arguments);
+  async function doLogOut(nextState, transition) {
+    log('signed out, redirecting');
+    transition.to('/');
+
     try {
       log('signed out, executing action');
       await context.executeAction(AppActions.userSignedOut);
 
-      log('signed out, notifying server...');
-      await request.head('/logout').promise();
-
-      log('signed out, logged out from server too');
-      callback(null, []);
+      if (!__SERVER__) {
+        log('signed out, notifying server...');
+        await request.head('/logout').promise();
+        log('signed out, logged out from server too');
+      }
     } catch(error) {
       log('signed out, unexpected error', error);
-      callback(error);
     }
-  }
-
-  function syncLogOut(nextState, transition) {
-    log('signed out, redirecting');
-    transition.to('/');
   }
 
   return (
@@ -60,7 +56,7 @@ function routes(context) {
       <Route path="/" component={LandingPage} />
       <Route path="/login" component={LoginPage} onEnter={requireLoggedOut} />
       <Route path="/register" component={RegisterPage} onEnter={requireLoggedOut} />
-      <Route path="/logout" getComponents={asyncLogOut} onEnter={syncLogOut} />
+      <Route path="/logout" onEnter={doLogOut} />
       <Route path="/feed" component={FeedPage} onEnter={requireLoggedIn} />
       <Route path="*" component={NotFoundPage} />
     </Route>

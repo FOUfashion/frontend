@@ -31,6 +31,7 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - each component has a local stylesheet => concise and shallow stylesheets, reduced conflicts
 - webpack-dev-server reloads components and stylesheets instantly => faster dev, improved productivity
 - server side pre-rendering => speedy SPA app with unaffected SEO
+- auth: login, logout, registration
 
 ## To-Do :dizzy:
 
@@ -40,7 +41,7 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - automated E2E tests with [Nightwatch.js](http://nightwatchjs.org/)
 - refactoring
   - components, decorators, server
-  - try to move form logic into Flux stores
+  - try to move form logic into Fluxible stores
   - get rid of material-ui; use own or dedicated components
 
 ## Pre-Requisites :computer:

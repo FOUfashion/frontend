@@ -78,7 +78,9 @@ class RegisterPage extends React.Component {
           await this.context.executeAction(AppActions.userSignedIn, account.body);
           log('account created', account);
           this.isLoading(false);
-          this.replaceWith('/feed');
+
+          // FIXME: AppActions.userSignedIn is fired after the transition without a timeout
+          setTimeout(() => this.replaceWith('/feed'), 300);
         } catch(creationError) {
           this.isLoading(false);
           log('unexpected error', creationError);

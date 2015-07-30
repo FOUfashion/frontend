@@ -20,6 +20,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
     log('rendering root...');
     const componentContext = context.getComponentContext();
+    flux.ctx = componentContext;
+
     const Root = (
       <FluxibleComponent context={componentContext}>
         <Router history={history} children={routes(componentContext)} onError={routes.onError} />

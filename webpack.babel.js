@@ -33,7 +33,6 @@ const config = {
   },
 
   plugins: [
-    new webpack.DefinePlugin(GLOBALS),
     new WebpackErrorNotificationPlugin(),
     new NyanProgressPlugin()
   ].concat(DEBUG ? [] : [
@@ -84,6 +83,7 @@ const appConfig = Object.assign({}, config, {
 
   devtool: DEBUG ? 'source-map' : false,
   plugins: config.plugins.concat(
+    new webpack.DefinePlugin(Object.assign({}, GLOBALS, { __SERVER__: false })),
     new AssetsPlugin({ path: path.join(__dirname, 'dist') })
     // Disabled until it's compatible with React 0.13.3 zilverline/react-tap-event-plugin/issues/22
     //new webpack.BannerPlugin('require("react-tap-event-plugin")();', { raw: true, entryOnly: false })
@@ -126,6 +126,7 @@ const serverConfig = Object.assign({}, config, {
   devtool: 'source-map',
 
   plugins: config.plugins.concat(
+    new webpack.DefinePlugin(Object.assign({}, GLOBALS, { __SERVER__: true })),
     new webpack.BannerPlugin('require("source-map-support").install();', { raw: true, entryOnly: false })
   ),
 

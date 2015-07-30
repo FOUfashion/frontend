@@ -5,7 +5,7 @@ import debug from 'debug';
 const log = debug('fou:AppActions');
 
 export async function userSignedIn(actionContext, account) {
-  log('userSignedIn', account);
+  log('userSignedIn');
   actionContext.dispatch(ActionTypes.USER_SIGNED_IN, Immutable.fromJS(account));
 }
 
@@ -15,7 +15,7 @@ export async function userSignedOut(actionContext) {
 }
 
 export async function serverInit(actionContext, state) {
-  log('serverInit', state);
+  log('serverInit');
 
   if (state.account) {
     await actionContext.executeAction(userSignedIn, state.account);

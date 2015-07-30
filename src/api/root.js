@@ -42,10 +42,15 @@ router.get('*', function *() {
   const context = flux.ctx;//createContext();
   const componentContext = context.getComponentContext();
 
-  log('initializing flux state');
-  yield context.executeAction(AppActions.serverInit, {
-    account: this.session.account
-  });
+  if (this.path === '/logout') {
+    log('purging session');
+    this.session = null;
+  } else {
+    log('initializing flux state');
+    yield context.executeAction(AppActions.serverInit, {
+      account: this.session.account
+    });
+  }
 
   log('running router');
   const [initialState, transition] = yield new Promise((resolve, reject) => {
