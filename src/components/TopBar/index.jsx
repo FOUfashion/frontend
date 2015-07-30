@@ -42,7 +42,7 @@ class TopBar extends React.Component {
 
     return (
       <Paper className={classes} {...props}>
-        <Item href="/feed" float="left">
+        <Item href="/feed" external float="left">
           <Logo className={styles.logo} styled />
         </Item>
 
