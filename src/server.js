@@ -47,7 +47,7 @@ server.use(jsonBody({
 // API proxy
 const FIRST_PARTY_REQUESTS = {
   GET: [/^\/account\/\w+$/, /^\/profile$/],
-  POST: [/^\/account$/]
+  POST: [/^\/account$/, /^\/login$/]
 };
 
 const checkRoute = function() {
