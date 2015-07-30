@@ -26,11 +26,6 @@ const publicPath = __DEV__ ? './public' : './dist/public';
 log('serving from %s', publicPath);
 server.use(serve(publicPath, { defer: false }));
 
-// WDS proxy
-// server.use(mount('/wds'), proxy({
-//
-// }));
-
 // Session config
 server.use(session({
   store: redis({
