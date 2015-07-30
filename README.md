@@ -11,7 +11,7 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - [Immutable](https://facebook.github.io/immutable-js/) and React "pure" components for bleeding edge performance
 - [Koa](http://koajs.com/) as the backend server for file serving and React pre-rendering
 - [webpack](http://webpack.github.io/) to compile and bundle everything together, hot reload included :fire:
-- [SCSS](http://sass-lang.com/), [Bourbon](http://bourbon.io/) and [Neat](http://neat.bourbon.io/) for sassy stylesheets
+- [SCSS](http://sass-lang.com/) and [Susy](http://susy.oddbird.net/) for sassy stylesheets
 - [Babel](https://babeljs.io/) for classy ES6+ code
 
 > I used [kriasoft/react-starter-kit](https://github.com/kriasoft/react-starter-kit) as a starting point (hence the many commits).
