@@ -53,6 +53,7 @@ class RegisterPage extends React.Component {
     } catch(profileError) {
       if (profileError.status !== 404) {
         this.isLoading(false);
+        this.setState({ error: 'Unexpected error occured.' });
         return log('unexpected error', profileError);
       }
 
@@ -68,6 +69,7 @@ class RegisterPage extends React.Component {
       } catch(accError) {
         if (accError.status !== 404) {
           this.isLoading(false);
+          this.setState({ error: 'Unexpected error occured. Check the debug logs.' });
           return log('unexpected error', accError);
         }
 
@@ -84,6 +86,7 @@ class RegisterPage extends React.Component {
           setTimeout(() => this.replaceWith('/feed'), 300);
         } catch(creationError) {
           this.isLoading(false);
+          this.setState({ error: 'Unexpected error occured. Check the debug logs.' });
           log('unexpected error', creationError);
         }
       }
@@ -103,6 +106,10 @@ class RegisterPage extends React.Component {
         shouldShake: false
       });
     }, 500);
+  }
+
+  onChange = () => {
+    this.setState({ error: undefined });
   }
 
   render() {
@@ -139,13 +146,15 @@ class RegisterPage extends React.Component {
       }
     };
 
+    const errorNotice = this.state.error ? (<p className={styles.errorNotice}>{this.state.error}</p>) : undefined;
+
     return (
       <div className={styles.page}>
         <div className={styles.container}>
           <Logo className={styles.logo} styled />
           <Paper className={styles.paper}>
             <h3 className={styles.title}>SIGN UP</h3>
-            <Form onValidSubmit={this.onValidSubmit} onInvalidSubmit={this.onInvalidSubmit}>
+            <Form onValidSubmit={this.onValidSubmit} onInvalidSubmit={this.onInvalidSubmit} onChange={this.onChange}>
               <div className={styles.names}>
                 <FormInput shake={this.state.shouldShake} name="firstName" className={styles.nameField}
                   floatingLabelText="First Name" validations={validations.name} validationErrors={errors.name} required />
@@ -161,6 +170,8 @@ class RegisterPage extends React.Component {
                 name="password" validations={validations.password} validationErrors={errors.password} required password />
 
               <p className={styles.consent}>By signing up you agree to our<br /><u>Terms of Service</u> and <u>Privacy Policy</u>.</p>
+
+              {errorNotice}
 
               <div className={styles.buttons}>
                 <Button className={styles.button} type="submit" loading={this.state.loading} formNoValidate>SIGN UP</Button>

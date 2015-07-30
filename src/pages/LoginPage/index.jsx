@@ -54,7 +54,13 @@ class LoginPage extends React.Component {
       setTimeout(() => this.replaceWith('/feed'), 300);
     } catch(error) {
       this.isLoading(false);
-      log('unexpected error', error);
+
+      if (error.status === 404) {
+        this.setState({ error: 'Oops! Wrong credentials.' });
+      } else {
+        this.setState({ error: 'Unexpected error occured.' });
+        log('unexpected error', error);
+      }
     }
   }
 
@@ -71,6 +77,10 @@ class LoginPage extends React.Component {
         shouldShake: false
       });
     }, 500);
+  }
+
+  onChange = () => {
+    this.setState({ error: undefined });
   }
 
   render() {
@@ -98,17 +108,21 @@ class LoginPage extends React.Component {
       }
     };
 
+    const errorNotice = this.state.error ? (<p className={styles.errorNotice}>{this.state.error}</p>) : undefined;
+
     return (
       <div className={styles.page}>
         <div className={styles.container}>
         <Logo className={styles.logo} styled />
         <Paper className={styles.paper}>
           <h3 className={styles.title}>SIGN IN</h3>
-          <Form onValidSubmit={this.onValidSubmit} onInvalidSubmit={this.onInvalidSubmit}>
+          <Form onValidSubmit={this.onValidSubmit} onInvalidSubmit={this.onInvalidSubmit} onChange={this.onChange}>
             <FormInput floatingLabelText="Username" shake={this.state.shouldShake}
               name="username" validations={validations.username} validationErrors={errors.username} required />
             <FormInput floatingLabelText="Password" shake={this.state.shouldShake}
               name="password" validations={validations.password} validationErrors={errors.password} required password />
+
+            {errorNotice}
 
             <div className={styles.buttons}>
               <Button className={styles.button} type="submit" loading={this.state.loading} formNoValidate>SIGN IN</Button>

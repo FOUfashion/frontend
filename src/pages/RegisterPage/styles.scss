@@ -59,3 +59,9 @@
     @include span(2 last);
   }
 }
+
+.errorNotice {
+  color: #f44336;
+  font-size: 14px;
+  text-align: center;
+}
