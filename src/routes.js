@@ -34,6 +34,7 @@ function routes(context) {
   }
 
   async function asyncLogOut(state, callback) {
+    console.log(arguments);
     try {
       log('signed out, executing action');
       await context.executeAction(AppActions.userSignedOut);

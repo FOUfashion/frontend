@@ -29,12 +29,16 @@ class TopBar extends React.Component {
     const {className, ...props} = this.props;
     const classes = classNames(styles.topBar, className);
 
-    const userItem = this.props.isSignedIn ? (
-      <Item href="/me" float="right" className={styles.profileItem}>
-        <Avatar size={28}>{this.props.account.profile.name.first[0]}</Avatar>
-        <span className={styles.profileName}>{this.props.account.profile.name.first}</span>
-      </Item>
-    ) : undefined;
+    let userItem;
+    if (this.props.isSignedIn) {
+      const name = this.props.account.get('profile').get('name').get('first');
+      userItem = (
+        <Item href="/me" float="right" className={styles.profileItem}>
+          <Avatar size={28}>{name[0]}</Avatar>
+          <span className={styles.profileName}>{name}</span>
+        </Item>
+      );
+    }
 
     return (
       <Paper className={classes} {...props}>

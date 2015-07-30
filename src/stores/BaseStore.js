@@ -1,4 +1,5 @@
 import FluxibleBaseStore from 'fluxible/addons/BaseStore';
+import Immutable from 'immutable';
 
 class BaseStore extends FluxibleBaseStore {
 
@@ -12,7 +13,9 @@ class BaseStore extends FluxibleBaseStore {
   }
 
   rehydrate(state) {
-    Object.assign(this.state, state);
+    Object.entries(state).forEach(([k, v]) => {
+      this.state[k] = Immutable.fromJS(v);
+    });
   }
 
 }

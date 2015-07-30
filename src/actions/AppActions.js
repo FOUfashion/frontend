@@ -6,7 +6,7 @@ const log = debug('fou:AppActions');
 
 export async function userSignedIn(actionContext, account) {
   log('userSignedIn', account);
-  actionContext.dispatch(ActionTypes.USER_SIGNED_IN, new Immutable.Map(account));
+  actionContext.dispatch(ActionTypes.USER_SIGNED_IN, Immutable.fromJS(account));
 }
 
 export async function userSignedOut(actionContext) {

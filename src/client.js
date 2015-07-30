@@ -1,6 +1,6 @@
 import React from 'react';
 import Router from 'react-router';
-import BrowserHistory from 'react-router/lib/BrowserHistory';
+import {history} from 'react-router/lib/BrowserHistory';
 import FluxibleComponent from 'fluxible-addons-react/FluxibleComponent';
 
 import debug from 'debug';
@@ -20,8 +20,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
     log('rendering root...');
     const componentContext = context.getComponentContext();
-    const history = new BrowserHistory();
-
     const Root = (
       <FluxibleComponent context={componentContext}>
         <Router history={history} children={routes(componentContext)} onError={routes.onError} />

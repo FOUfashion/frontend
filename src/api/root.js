@@ -39,7 +39,7 @@ router.head('/logout', function *() {
 });
 
 router.get('*', function *() {
-  const context = flux.createContext();
+  const context = flux.ctx;//createContext();
   const componentContext = context.getComponentContext();
 
   log('initializing flux state');
@@ -51,7 +51,6 @@ router.get('*', function *() {
   const [initialState, transition] = yield new Promise((resolve, reject) => {
     const location = new Location(this.path, this.query);
     const callback = (error, ...args) => error ? reject(error) : resolve(args);
-
     Router.run(routes(componentContext), location, callback);
   });
 

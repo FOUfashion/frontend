@@ -8,10 +8,23 @@ import ChatBar from '../../components/ChatBar';
 import muiTheme from '../../decorators/muiTheme';
 import documentTitle from '../../decorators/documentTitle';
 import styles from './styles.scss';
+import {ctx} from '../../flux';
 
 @muiTheme
 @documentTitle('Fou')
 class FeedPage extends React.Component {
+
+  static childContextTypes = {
+    executeAction: React.PropTypes.func.isRequired,
+    getStore: React.PropTypes.func.isRequired
+  }
+
+  getChildContext() {
+    return {
+      getStore: ctx.getStore.bind(ctx),
+      executeAction: ctx.executeAction.bind(ctx)
+    };
+  }
 
   render() {
     return (
