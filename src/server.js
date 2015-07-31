@@ -58,8 +58,45 @@ const checkRoute = function() {
   }
 };
 
+function* exchangeCredentials(requestToken) {
+  log('exchanging credentials for token');
+
+  const result = yield request({
+    method: 'POST',
+    baseUrl: process.env.FRONTEND_API_URI,
+    url: '/oauth/exchange/credentials',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${requestToken}`
+    },
+    json: {
+      username: this.request.body.username,
+      password: this.request.body.password
+    }
+  });
+
+  const userToken = result.value;
+  this.session.apiToken = userToken;
+  log('got token', userToken.substr(0, 6) + '...');
+
+  // Get the account object
+  const account = yield request({
+    method: 'GET',
+    baseUrl: process.env.FRONTEND_API_URI,
+    url: '/account',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${userToken}`
+    },
+    json: true
+  });
+
+  log('token owned by account', account, userToken);
+  this.session.account = account;
+}
+
 server.use(mount('/api', function *(next) {
-  const requestToken = checkRoute.call(this) || this.session.api_token;
+  const requestToken = checkRoute.call(this) || this.session.apiToken;
   log('proxying', this.method, this.path);
 
   // Simulate delay
@@ -72,56 +109,14 @@ server.use(mount('/api', function *(next) {
 
   yield* next;
 
-  // Exchange token
+  // Exchange token on successful registration
   if (this.method === 'POST' && this.path === '/account' && this.status === 201) {
-    log('exchanging credentials for token');
+    yield exchangeCredentials.call(this, requestToken);
+  }
 
-    const result = yield request({
-      method: 'POST',
-      baseUrl: process.env.FRONTEND_API_URI,
-      url: '/oauth/exchange/credentials',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${requestToken}`
-      },
-      json: {
-        username: this.request.body.username,
-        password: this.request.body.password
-      }
-    });
-
-    const userToken = result.value;
-    log('got token', userToken.substr(0, 6) + '...');
-
-    // Get the account object
-    const account = yield request({
-      method: 'GET',
-      baseUrl: process.env.FRONTEND_API_URI,
-      url: '/account',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${userToken}`
-      },
-      json: true
-    });
-
-    log('token owned by account', account, userToken);
-    this.session.account = account;
-
-    // Get the profile
-    const profile = yield request({
-      method: 'GET',
-      baseUrl: process.env.FRONTEND_API_URI,
-      url: '/profile',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${userToken}`
-      },
-      json: true
-    });
-
-    log('token owned by profile', profile);
-    this.session.account.profile = profile;
+  // Exchange token on successful login
+  if (this.method === 'GET' && this.path === '/login' && this.status === 200) {
+    yield exchangeCredentials.call(this, requestToken);
   }
 }));
 
