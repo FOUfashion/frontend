@@ -8,12 +8,20 @@ class Footer extends React.Component {
       name: PropTypes.shape({
         full: PropTypes.string
       })
+    })).isRequired,
+    comments: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.shape({
+        full: PropTypes.string
+      })
     })).isRequired
   }
 
   render() {
     return (
-      <p className={styles.footer}>{this.props.likes.length} lightbulbs</p>
+      <div className={styles.footer}>
+        <p className={styles.likes}>{this.props.likes} likes</p>
+        <p className={styles.comments}>{this.props.comments} comments</p>
+      </div>
     );
   }
 

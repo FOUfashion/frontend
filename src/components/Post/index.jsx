@@ -15,8 +15,7 @@ class Post extends React.Component {
       author: PropTypes.shape({
         name: PropTypes.shape({
           full: PropTypes.string
-        }),
-        gravatarHash: PropTypes.string
+        })
       }),
       createdAt: PropTypes.date,
       body: PropTypes.string,
