@@ -33,7 +33,7 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - server side pre-rendering => speedy SPA app with unaffected SEO
 - auth
   - login, logout and registration pages
-  - cookies are signed with keygrip (rotated credentials)
+  - cookies are signed with [KeyGrip](https://github.com/jed/keygrip) (rotated credentials)
   - sessions are stored in a Redis database, only a session ID is stored client-side
 
 ## To-Do :dizzy:
