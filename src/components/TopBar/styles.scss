@@ -10,14 +10,32 @@
   font-size: 45px;
 }
 
-.profileItem {
-  margin-right: 10px;
-}
-
 .profileName {
   margin-left: 15px;
   color: $color-secondary;
   line-height: 28px;
   font-size: 18px;
   vertical-align: top;
+}
+
+.notificationsBtn {
+  margin-left: 10px;
+}
+
+.logoutBtn, .settingsBtn, .messagesBtn, .notificationsBtn {
+  display: none;
+}
+
+.hamburgerBtn {
+  cursor: pointer;
+}
+
+@include susy-breakpoint($tablet) {
+  .logoutBtn, .settingsBtn, .messagesBtn, .notificationsBtn {
+    display: inline-block;
+  }
+
+  .hamburgerBtn {
+    display: none;
+  }
 }
