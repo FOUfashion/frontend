@@ -31,7 +31,10 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 - each component has a local stylesheet => concise and shallow stylesheets, reduced conflicts
 - webpack-dev-server reloads components and stylesheets instantly => faster dev, improved productivity
 - server side pre-rendering => speedy SPA app with unaffected SEO
-- auth: login, logout, registration
+- auth
+  - login, logout and registration pages
+  - cookies are signed with keygrip (rotated credentials)
+  - sessions are stored in a Redis database, only a session ID is stored client-side
 
 ## To-Do :dizzy:
 
