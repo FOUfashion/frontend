@@ -15,6 +15,7 @@
     "hoist-non-react-statics": "^1.0.2",
     "immutable": "^3.7.4",
     "inherits": "^2.0.1",
+    "keymirror": "^0.1.1",
     "koa": "^0.21.0",
     "koa-generic-session": "^1.9.0",
     "koa-json-body": "^3.0.0",
