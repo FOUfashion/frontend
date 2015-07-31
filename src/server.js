@@ -41,24 +41,29 @@ server.use(jsonBody({
 
 // API proxy
 const FIRST_PARTY_REQUESTS = {
-  GET: [/^\/account\/\w+$/, /^\/profile$/],
+  GET: [/^\/account\/\w+$/, /^\/profile\/.*/],
   POST: [/^\/account$/, /^\/login$/]
 };
 
+// Check the route to decide whether the FP token should be used
 const checkRoute = function() {
+  log('checking route');
   const exps = FIRST_PARTY_REQUESTS[this.method];
 
   if (exps) {
     for (let i = 0; i < exps.length; i++) {
       const exp = exps[i];
+
       if (exp.test(this.path)) {
+        log('found match, using FP token', this.path);
         return process.env.FRONTEND_API_TOKEN;
       }
     }
   }
 };
 
-function* exchangeCredentials(requestToken) {
+// Exchange the user's credentials for a token to be used in future requests
+function* exchangeCredentials(fpToken) {
   log('exchanging credentials for token');
 
   const result = yield request({
@@ -67,7 +72,7 @@ function* exchangeCredentials(requestToken) {
     url: '/oauth/exchange/credentials',
     headers: {
       Accept: 'application/json',
-      Authorization: `Bearer ${requestToken}`
+      Authorization: `Bearer ${fpToken}`
     },
     json: {
       username: this.request.body.username,
@@ -75,24 +80,8 @@ function* exchangeCredentials(requestToken) {
     }
   });
 
-  const userToken = result.value;
-  this.session.apiToken = userToken;
-  log('got token', userToken.substr(0, 6) + '...');
-
-  // Get the account object
-  const account = yield request({
-    method: 'GET',
-    baseUrl: process.env.FRONTEND_API_URI,
-    url: '/account',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${userToken}`
-    },
-    json: true
-  });
-
-  log('token owned by account', account, userToken);
-  this.session.account = account;
+  this.session.apiToken = result.value;
+  log('got token', result.value.substr(0, 6) + '...');
 }
 
 server.use(mount('/api', function *(next) {
@@ -109,14 +98,17 @@ server.use(mount('/api', function *(next) {
 
   yield* next;
 
-  // Exchange token on successful registration
-  if (this.method === 'POST' && this.path === '/account' && this.status === 201) {
-    yield exchangeCredentials.call(this, requestToken);
-  }
+  // Exchange token
+  if (this.method === 'POST') {
+    // Registration
+    if (this.path === '/account' && this.status === 201) {
+      yield exchangeCredentials.call(this, requestToken);
+    }
 
-  // Exchange token on successful login
-  if (this.method === 'GET' && this.path === '/login' && this.status === 200) {
-    yield exchangeCredentials.call(this, requestToken);
+    // Login
+    if (this.path === '/login' && this.status === 200) {
+      yield exchangeCredentials.call(this, requestToken);
+    }
   }
 }));
 

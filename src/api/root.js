@@ -13,6 +13,7 @@ import serialize from 'serialize-javascript';
 import flux from '../flux';
 import debug from 'debug';
 
+import request from 'request-promise';
 import path from 'path';
 import fs from 'fs';
 
@@ -49,6 +50,27 @@ router.get('*', function *() {
     this.session = null;
   } else {
     log('initializing flux state');
+
+    // Get the account if a token is saved in the session
+    if (this.session.apiToken) {
+      log('retrieving user account');
+
+      const account = yield request({
+        method: 'GET',
+        baseUrl: process.env.FRONTEND_API_URI,
+        url: '/account',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${this.session.apiToken}`
+        },
+        json: true
+      });
+
+      this.session.account = account;
+    } else {
+      log('no user token');
+    }
+
     yield context.executeAction(AppActions.serverInit, {
       account: this.session.account
     });
