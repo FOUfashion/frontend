@@ -22,6 +22,7 @@ class Feed extends React.Component {
           name: {
             full: 'John Doe'
           },
+          title: 'Professional Designer',
           gravatarHash: 'HASH'
         },
         createdAt: new Date(),
@@ -40,6 +41,7 @@ class Feed extends React.Component {
           name: {
             full: 'Diana Crane'
           },
+          title: 'Model at Zara Inc.',
           gravatarHash: 'HASH2'
         },
         createdAt: new Date(),
@@ -48,7 +50,7 @@ class Feed extends React.Component {
         likes: [
           {
             name: {
-              full: 'Superman Sporty'
+              full: 'Nick Zelmann'
             }
           }
         ]
