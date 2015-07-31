@@ -62,13 +62,15 @@ var LandingPage = (function (_React$Component) {
             { className: _stylesScss2['default'].buttons },
             _react2['default'].createElement(
               _componentsButton2['default'],
-              { className: _stylesScss2['default'].button, light: true, outline: true, link: true, href: '/login' },
-              'SIGN IN'
+              {
+                className: _stylesScss2['default'].button, light: true, outline: true, link: true, external: true,
+                href: "http://eepurl.com/buQtCT" },
+              'NEWSLETTER SIGN UP'
             ),
             _react2['default'].createElement(
-              _componentsButton2['default'],
-              { className: _stylesScss2['default'].button, light: true, outline: true, link: true, href: '/register' },
-              'SIGN UP'
+              'p',
+              { className: _stylesScss2['default'].notice },
+              'We\'ll let you know when registrations are open.'
             )
           ),
           _react2['default'].createElement(
@@ -156,13 +158,15 @@ var LandingPage = (function (_React$Component) {
             { className: _stylesScss2['default'].buttons },
             _react2['default'].createElement(
               _componentsButton2['default'],
-              { className: _stylesScss2['default'].button, light: true, outline: true, link: true, href: '/login' },
-              'SIGN IN'
+              {
+                className: _stylesScss2['default'].button, light: true, outline: true, link: true, external: true,
+                href: "http://eepurl.com/buQtCT" },
+              'NEWSLETTER SIGN UP'
             ),
             _react2['default'].createElement(
-              _componentsButton2['default'],
-              { className: _stylesScss2['default'].button, light: true, outline: true, link: true, href: '/register' },
-              'SIGN UP'
+              'p',
+              { className: _stylesScss2['default'].notice },
+              'We\'ll let you know when registrations are open.'
             )
           )
         ),

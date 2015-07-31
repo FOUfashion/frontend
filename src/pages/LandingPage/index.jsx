@@ -16,8 +16,10 @@ class LandingPage extends React.Component {
           <Logo className={styles.logo} outline />
 
           <div className={styles.buttons}>
-            <Button className={styles.button} light outline link href={'/login'}>SIGN IN</Button>
-            <Button className={styles.button} light outline link href={'/register'}>SIGN UP</Button>
+            <Button
+              className={styles.button} light outline link external
+              href="http://eepurl.com/buQtCT">NEWSLETTER SIGN UP</Button>
+            <p className={styles.notice}>We'll let you know when registrations are open.</p>
           </div>
 
           <p className={styles.tagline}>
@@ -47,8 +49,10 @@ class LandingPage extends React.Component {
           </div>
 
           <div className={styles.buttons}>
-            <Button className={styles.button} light outline link href={'/login'}>SIGN IN</Button>
-            <Button className={styles.button} light outline link href={'/register'}>SIGN UP</Button>
+            <Button
+              className={styles.button} light outline link external
+              href="http://eepurl.com/buQtCT">NEWSLETTER SIGN UP</Button>
+            <p className={styles.notice}>We'll let you know when registrations are open.</p>
           </div>
         </section>
 

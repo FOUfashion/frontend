@@ -126,22 +126,23 @@ router.get('*', _regeneratorRuntime.mark(function callee$0$0() {
 
         log('purging session');
         this.session = null;
-        context$1$0.next = 19;
+        context$1$0.next = 26;
         break;
 
       case 7:
-        log('initializing flux state');
+        log('initializing flux state...');
 
         // Get the account if a token is saved in the session
 
         if (!this.session.apiToken) {
-          context$1$0.next = 16;
+          context$1$0.next = 25;
           break;
         }
 
         log('retrieving user account');
 
-        context$1$0.next = 12;
+        context$1$0.prev = 10;
+        context$1$0.next = 13;
         return (0, _requestPromise2['default'])({
           method: 'GET',
           baseUrl: process.env.FRONTEND_API_URI,
@@ -153,26 +154,37 @@ router.get('*', _regeneratorRuntime.mark(function callee$0$0() {
           json: true
         });
 
-      case 12:
+      case 13:
         account = context$1$0.sent;
-
-        this.session.account = account;
-        context$1$0.next = 17;
-        break;
-
-      case 16:
-        log('no user token');
-
-      case 17:
-        context$1$0.next = 19;
+        context$1$0.next = 16;
         return context.executeAction(AppActions.serverInit, {
-          account: this.session.account
+          account: account
         });
 
+      case 16:
+
+        log('flux state initialized');
+        context$1$0.next = 23;
+        break;
+
       case 19:
+        context$1$0.prev = 19;
+        context$1$0.t0 = context$1$0['catch'](10);
+
+        log('unexpected error', context$1$0.t0);
+        this.session = null;
+
+      case 23:
+        context$1$0.next = 26;
+        break;
+
+      case 25:
+        log('no user token');
+
+      case 26:
 
         log('running router');
-        context$1$0.next = 22;
+        context$1$0.next = 29;
         return new _Promise(function (resolve, reject) {
           var location = new _reactRouterLibLocation2['default'](_this.path, _this.query);
           var callback = function callback(error) {
@@ -185,26 +197,26 @@ router.get('*', _regeneratorRuntime.mark(function callee$0$0() {
           _reactRouter2['default'].run((0, _routes2['default'])(componentContext), location, callback);
         });
 
-      case 22:
+      case 29:
         _ref = context$1$0.sent;
         _ref2 = _slicedToArray(_ref, 2);
         initialState = _ref2[0];
         transition = _ref2[1];
 
         if (!transition.isCancelled) {
-          context$1$0.next = 31;
+          context$1$0.next = 38;
           break;
         }
 
         this.redirect(transition.redirectInfo.pathname);
         return context$1$0.abrupt('return');
 
-      case 31:
+      case 38:
         if (!initialState) {
           this.status = 404;
         }
 
-      case 32:
+      case 39:
         log('serializing dehydrated flux state');
         dehydratedState = (0, _serializeJavascript2['default'])(_flux2['default'].dehydrate(context));
 
@@ -225,11 +237,11 @@ router.get('*', _regeneratorRuntime.mark(function callee$0$0() {
           inlineCss: _cssMinimizeAutoprefixerSassSassInlineScss2['default']
         });
 
-      case 37:
+      case 44:
       case 'end':
         return context$1$0.stop();
     }
-  }, callee$0$0, this);
+  }, callee$0$0, this, [[10, 19]]);
 }));
 
 exports['default'] = router;

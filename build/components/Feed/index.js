@@ -61,7 +61,7 @@ var Feed = (function (_React$Component) {
         },
         createdAt: new Date(),
         body: 'Test :)',
-        imageUrl: 'http://www.gravatar.com/avatar/HASH5?s=1024&d=retro',
+        imageUrl: '//unsplash.it/800/400?random',
         likes: [{
           name: {
             full: 'Mike Nicholson'
@@ -77,7 +77,7 @@ var Feed = (function (_React$Component) {
         },
         createdAt: new Date(),
         body: 'This is awesome, guys.',
-        imageUrl: 'http://www.gravatar.com/avatar/HASH3?s=1024&d=retro',
+        imageUrl: '//unsplash.it/800/400?random',
         likes: [{
           name: {
             full: 'Superman Sporty'
