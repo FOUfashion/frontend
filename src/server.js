@@ -133,5 +133,5 @@ const port = process.env.FRONTEND_PORT || 9090;
 const host = '0.0.0.0';
 
 server.listen(port, host, function() {
-  console.log('Listening on http://%s:%s', host, port);
+  console.log(`Listening on ${host}:${port}`);
 });
