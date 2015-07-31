@@ -18,6 +18,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _materialUi = require('material-ui');
+
 var _stylesScss = require('./styles.scss');
 
 var _stylesScss2 = _interopRequireDefault(_stylesScss);
@@ -35,9 +37,24 @@ var Header = (function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2['default'].createElement(
-        'h3',
+        'div',
         { className: _stylesScss2['default'].header },
-        this.props.author.name.full
+        _react2['default'].createElement(
+          _materialUi.Avatar,
+          { className: _stylesScss2['default'].avatar },
+          this.props.author.name.full[0]
+        ),
+        _react2['default'].createElement(
+          'h3',
+          { className: _stylesScss2['default'].title },
+          this.props.author.name.full,
+          _react2['default'].createElement('br', null),
+          _react2['default'].createElement(
+            'span',
+            { className: _stylesScss2['default'].subtitle },
+            this.props.author.title
+          )
+        )
       );
     }
   }], [{
@@ -46,7 +63,8 @@ var Header = (function (_React$Component) {
       author: _react.PropTypes.shape({
         name: _react.PropTypes.shape({
           full: _react.PropTypes.string
-        })
+        }),
+        title: _react.PropTypes.string.isRequired
       }).isRequired
     },
     enumerable: true

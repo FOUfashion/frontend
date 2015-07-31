@@ -18,6 +18,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _materialUi = require('material-ui');
+
 var _componentsFeed = require('../../components/Feed');
 
 var _componentsFeed2 = _interopRequireDefault(_componentsFeed);
@@ -52,9 +54,22 @@ var FeedPage = (function (_React$Component) {
   _inherits(FeedPage, _React$Component);
 
   function FeedPage() {
+    var _this = this;
+
     _classCallCheck(this, _FeedPage);
 
     _get(Object.getPrototypeOf(_FeedPage.prototype), 'constructor', this).apply(this, arguments);
+
+    this.toggleNavBar = function (e) {
+      e.stopPropagation();
+      _this.refs.leftNav.toggle();
+    };
+
+    this.onPageClick = function (e) {
+      if (e.target.tagName === 'DIV' && e.target.style.backgroundColor === 'rgba(0, 0, 0, 0.541176)') {
+        _this.refs.leftNav.close();
+      }
+    };
   }
 
   _createClass(FeedPage, [{
@@ -68,10 +83,45 @@ var FeedPage = (function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var menuItems = [{
+        type: _materialUi.MenuItem.Types.SUBHEADER,
+        text: 'Fou'
+      }, {
+        route: 'feed',
+        text: 'Feed'
+      }, {
+        route: 'messages',
+        text: 'Messages'
+      }, {
+        route: 'profile',
+        text: 'Profile'
+      }, {
+        type: _materialUi.MenuItem.Types.SUBHEADER,
+        text: 'Account'
+      }, {
+        route: 'notifications',
+        text: 'Notifications'
+      }, {
+        route: 'messages',
+        text: 'Messages'
+      }, {
+        route: 'settings',
+        text: 'Settings'
+      }, {
+        route: 'logout',
+        text: 'Log out'
+      }];
+
       return _react2['default'].createElement(
         'div',
-        { className: _stylesScss2['default'].page },
-        _react2['default'].createElement(_componentsTopBar2['default'], { className: _stylesScss2['default'].topBar }),
+        { className: _stylesScss2['default'].page, onClick: this.onPageClick },
+        _react2['default'].createElement(_materialUi.LeftNav, { ref: 'leftNav', docked: false, menuItems: menuItems, style: {
+            primary1Color: '#eee',
+            disabledColor: '#eee',
+            borderColor: '#eee',
+            textColor: '#eee'
+          } }),
+        _react2['default'].createElement(_componentsTopBar2['default'], { className: _stylesScss2['default'].topBar, navBarHandler: this.toggleNavBar }),
         _react2['default'].createElement(
           'div',
           { className: _stylesScss2['default'].container },

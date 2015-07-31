@@ -1,5 +1,18 @@
+.avatar {
+  vertical-align: top;
+}
+
 .header {
-  padding: 0 15px 5px;
-  margin: 20px 0 15px;
+  padding: 20px 15px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.title {
+  display: inline-block;
+  margin: 0 0 0 15px;
   font-weight: normal;
+
+  .subtitle {
+    font-size: 14px;
+  }
 }

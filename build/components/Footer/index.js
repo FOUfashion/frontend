@@ -47,7 +47,7 @@ var Footer = (function (_React$Component) {
           'Designed and programmed with <3 by ',
           _react2['default'].createElement(
             'a',
-            { href: "http://www.aluxian.com", target: "_blank" },
+            { href: 'http://www.aluxian.com', target: '_blank' },
             'Alexandru Rosianu'
           ),
           '.'

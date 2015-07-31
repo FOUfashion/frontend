@@ -64,7 +64,7 @@ var LandingPage = (function (_React$Component) {
               _componentsButton2['default'],
               {
                 className: _stylesScss2['default'].button, light: true, outline: true, link: true, external: true,
-                href: "http://eepurl.com/buQtCT" },
+                href: 'http://eepurl.com/buQtCT' },
               'NEWSLETTER SIGN UP'
             ),
             _react2['default'].createElement(
@@ -160,7 +160,7 @@ var LandingPage = (function (_React$Component) {
               _componentsButton2['default'],
               {
                 className: _stylesScss2['default'].button, light: true, outline: true, link: true, external: true,
-                href: "http://eepurl.com/buQtCT" },
+                href: 'http://eepurl.com/buQtCT' },
               'NEWSLETTER SIGN UP'
             ),
             _react2['default'].createElement(

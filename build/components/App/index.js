@@ -42,7 +42,7 @@ var App = (function (_React$Component) {
     value: function render() {
       return _react2['default'].createElement(
         _timeoutTransitionGroup2['default'],
-        { enterTimeout: 600, leaveTimeout: 400, transitionName: "routerTransition", className: _stylesScss2['default'].app },
+        { enterTimeout: 600, leaveTimeout: 400, transitionName: 'routerTransition', className: _stylesScss2['default'].app },
         _react2['default'].createElement(
           'div',
           { key: this.props.location.pathname },

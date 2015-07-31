@@ -56,7 +56,7 @@ var FormInput = (function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      var children = this.props.password ? _react2['default'].createElement('input', { type: "password" }) : undefined;
+      var children = this.props.password ? _react2['default'].createElement('input', { type: 'password' }) : undefined;
       var _props = this.props;
       var className = _props.className;
 

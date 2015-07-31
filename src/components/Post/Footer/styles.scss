@@ -1,5 +1,17 @@
+@import '~susy';
+
 .footer {
-  padding: 0 15px 5px;
-  margin: 20px 0 15px;
+  @include container;
   font-weight: normal;
+  display: block;
+
+  .likes {
+    @include span(1 of 2 first);
+    text-align: center;
+  }
+
+  .comments {
+    @include span(1 of 2 last);
+    text-align: center;
+  }
 }
