@@ -18,16 +18,33 @@ $susy: (
 .container {
   @include container;
   margin-top: 30px;
-}
+  padding: 0 30px;
 
-.menuBar {
-  @include span(3 first);
-}
+  .menuBar {
+    display: none;
+  }
 
-.feed {
-  @include span(6);
-}
+  .feed {
+    @include span(12);
+  }
 
-.chatBar {
-  @include span(3 last);
+  .chatBar {
+    display: none;
+  }
+
+  @include susy-breakpoint($desktop) {
+    .menuBar {
+      display: block;
+      @include span(3 first);
+    }
+
+    .feed {
+      @include span(6);
+    }
+
+    .chatBar {
+      display: block;
+      @include span(3 last);
+    }
+  }
 }

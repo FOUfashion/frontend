@@ -6,6 +6,8 @@ import Footer from './Footer';
 import Media from './Media';
 import Body from './Body';
 
+import styles from './styles.scss';
+
 class Post extends React.Component {
 
   static propTypes = {
@@ -29,7 +31,7 @@ class Post extends React.Component {
 
   render() {
     return (
-      <Paper>
+      <Paper className={styles.post}>
         <Header {...this.props.post} />
         <Body {...this.props.post} />
         <Media {...this.props.post} />
