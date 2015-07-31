@@ -115,17 +115,11 @@ If logging is not enabled, log calls are just no-ops.
 Facebook's [Jest](https://facebook.github.io/jest/) is used to run unit tests.
 
 ```bash
-# run the tests
+# run the tests (coverage included)
 $ npm test
 
 # automatically re-run the tests on code changes
 $ npm run test-watch
-
-# run the tests and generate a report in ./coverage/
-$ npm run coverage
-
-# automatically re-run the tests with coverage on code changes
-$ npm run coverage-watch
 
 # also lint the code if you're feeling fancy
 $ npm run lint
