@@ -82,6 +82,22 @@ $ npm run watch-client
 $ npm run browser-sync
 ```
 
+Note that you need a valid `$FRONTEND_API_TOKEN` for it to connect to the API:
+
+```bash
+# Start the API server
+$ npm start
+
+# Connect to the admin interface
+$ vantage 4000
+
+# Generate first-party credentials
+api~$ fp -u frontend -e front@end.com -f Front -l End -n fronty
+
+# Now you can re-start the frontend server
+$ export FRONTEND_API_TOKEN=<token>
+```
+
 ## Debugging :bug:
 
 I use [debug](https://github.com/visionmedia/debug) to log detailed messages for app debugging. To enable logging:
