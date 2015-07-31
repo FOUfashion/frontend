@@ -109,7 +109,7 @@ var RegisterPage = (function (_React$Component) {
 
             context$3$0.prev = 2;
             context$3$0.next = 5;
-            return _regeneratorRuntime.awrap(_superagentBluebirdPromise2['default'].get('/api/profile/' + encodeURIComponent(this.request.body.email)).promise());
+            return _regeneratorRuntime.awrap(_superagentBluebirdPromise2['default'].get('/api/profile/' + encodeURIComponent(data.email)).promise());
 
           case 5:
             this.isLoading(false);

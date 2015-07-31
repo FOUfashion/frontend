@@ -134,7 +134,7 @@ var LoginPage = (function (_React$Component) {
 
             this.isLoading(false);
 
-            if (context$3$0.t0.status === 404) {
+            if (context$3$0.t0.status === 401 || context$3$0.t0.status === 404) {
               this.setState({ error: 'Oops! Wrong credentials.' });
             } else {
               this.setState({ error: 'Unexpected error occured.' });

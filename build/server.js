@@ -6,6 +6,8 @@ var _Promise = require('babel-runtime/core-js/promise')['default'];
 
 var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
 
+var marked0$0 = [exchangeCredentials].map(_regeneratorRuntime.mark);
+
 var _packageJson = require('../package.json');
 
 var _packageJson2 = _interopRequireDefault(_packageJson);
@@ -80,29 +82,69 @@ server.use((0, _koaJsonBody2['default'])({
 
 // API proxy
 var FIRST_PARTY_REQUESTS = {
-  GET: [/^\/account\/\w+$/, /^\/profile$/],
+  GET: [/^\/account\/\w+$/, /^\/profile\/.*/],
   POST: [/^\/account$/, /^\/login$/]
 };
 
+// Check the route to decide whether the FP token should be used
 var checkRoute = function checkRoute() {
+  log('checking route');
   var exps = FIRST_PARTY_REQUESTS[this.method];
 
   if (exps) {
     for (var i = 0; i < exps.length; i++) {
       var exp = exps[i];
+
       if (exp.test(this.path)) {
+        log('found match, using FP token', this.path);
         return process.env.FRONTEND_API_TOKEN;
       }
     }
   }
 };
 
+// Exchange the user's credentials for a token to be used in future requests
+function exchangeCredentials(fpToken) {
+  var result;
+  return _regeneratorRuntime.wrap(function exchangeCredentials$(context$1$0) {
+    while (1) switch (context$1$0.prev = context$1$0.next) {
+      case 0:
+        log('exchanging credentials for token');
+
+        context$1$0.next = 3;
+        return (0, _requestPromise2['default'])({
+          method: 'POST',
+          baseUrl: process.env.FRONTEND_API_URI,
+          url: '/oauth/exchange/credentials',
+          headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + fpToken
+          },
+          json: {
+            username: this.request.body.username,
+            password: this.request.body.password
+          }
+        });
+
+      case 3:
+        result = context$1$0.sent;
+
+        this.session.apiToken = result.value;
+        log('got token', result.value.substr(0, 6) + '...');
+
+      case 6:
+      case 'end':
+        return context$1$0.stop();
+    }
+  }, marked0$0[0], this);
+}
+
 server.use((0, _koaMount2['default'])('/api', _regeneratorRuntime.mark(function callee$0$0(next) {
-  var requestToken, result, userToken, account, profile;
+  var requestToken;
   return _regeneratorRuntime.wrap(function callee$0$0$(context$1$0) {
     while (1) switch (context$1$0.prev = context$1$0.next) {
       case 0:
-        requestToken = checkRoute.call(this) || this.session.api_token;
+        requestToken = checkRoute.call(this) || this.session.apiToken;
 
         log('proxying', this.method, this.path);
 
@@ -126,73 +168,29 @@ server.use((0, _koaMount2['default'])('/api', _regeneratorRuntime.mark(function 
         return context$1$0.delegateYield(next, 't0', 8);
 
       case 8:
-        if (!(this.method === 'POST' && this.path === '/account' && this.status === 201)) {
-          context$1$0.next = 25;
+        if (!(this.method === 'POST')) {
+          context$1$0.next = 15;
           break;
         }
 
-        log('exchanging credentials for token');
+        if (!(this.path === '/account' && this.status === 201)) {
+          context$1$0.next = 12;
+          break;
+        }
 
         context$1$0.next = 12;
-        return (0, _requestPromise2['default'])({
-          method: 'POST',
-          baseUrl: process.env.FRONTEND_API_URI,
-          url: '/oauth/exchange/credentials',
-          headers: {
-            Accept: 'application/json',
-            Authorization: 'Bearer ' + requestToken
-          },
-          json: {
-            username: this.request.body.username,
-            password: this.request.body.password
-          }
-        });
+        return exchangeCredentials.call(this, requestToken);
 
       case 12:
-        result = context$1$0.sent;
-        userToken = result.value;
+        if (!(this.path === '/login' && this.status === 200)) {
+          context$1$0.next = 15;
+          break;
+        }
 
-        log('got token', userToken.substr(0, 6) + '...');
+        context$1$0.next = 15;
+        return exchangeCredentials.call(this, requestToken);
 
-        // Get the account object
-        context$1$0.next = 17;
-        return (0, _requestPromise2['default'])({
-          method: 'GET',
-          baseUrl: process.env.FRONTEND_API_URI,
-          url: '/account',
-          headers: {
-            Accept: 'application/json',
-            Authorization: 'Bearer ' + userToken
-          },
-          json: true
-        });
-
-      case 17:
-        account = context$1$0.sent;
-
-        log('token owned by account', account, userToken);
-        this.session.account = account;
-
-        // Get the profile
-        context$1$0.next = 22;
-        return (0, _requestPromise2['default'])({
-          method: 'GET',
-          baseUrl: process.env.FRONTEND_API_URI,
-          url: '/profile',
-          headers: {
-            Accept: 'application/json',
-            Authorization: 'Bearer ' + userToken
-          },
-          json: true
-        });
-
-      case 22:
-        profile = context$1$0.sent;
-
-        log('token owned by profile', profile);
-        this.session.account.profile = profile;
-
-      case 25:
+      case 15:
       case 'end':
         return context$1$0.stop();
     }
@@ -222,3 +220,7 @@ server.listen(port, host, function () {
 });
 
 // Exchange token
+
+// Registration
+
+// Login
