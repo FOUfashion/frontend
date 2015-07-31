@@ -49,31 +49,36 @@ router.get('*', function *() {
     log('purging session');
     this.session = null;
   } else {
-    log('initializing flux state');
+    log('initializing flux state...');
 
     // Get the account if a token is saved in the session
     if (this.session.apiToken) {
       log('retrieving user account');
 
-      const account = yield request({
-        method: 'GET',
-        baseUrl: process.env.FRONTEND_API_URI,
-        url: '/account',
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${this.session.apiToken}`
-        },
-        json: true
-      });
+      try {
+        const account = yield request({
+          method: 'GET',
+          baseUrl: process.env.FRONTEND_API_URI,
+          url: '/account',
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${this.session.apiToken}`
+          },
+          json: true
+        });
 
-      this.session.account = account;
+        yield context.executeAction(AppActions.serverInit, {
+          account: account
+        });
+
+        log('flux state initialized');
+      } catch(error) {
+        log('unexpected error', error);
+        this.session = null;
+      }
     } else {
       log('no user token');
     }
-
-    yield context.executeAction(AppActions.serverInit, {
-      account: this.session.account
-    });
   }
 
   log('running router');
