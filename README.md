@@ -29,7 +29,7 @@ Fou Frontend is an isomorphic app built with modern technologies and a focus on 
 
 - resource bundles contain a hash in their name for cache busting => efficient, long-term caching
 - each component has a local stylesheet => concise and shallow stylesheets, reduced conflicts
-- webpack-dev-server reloads components and stylesheets instantly => faster dev, improved productivity
+- webpack-dev-server reloads modules instantly => faster development, increased productivity
 - server side pre-rendering => speedy SPA app with unaffected SEO
 - auth
   - login, logout and registration pages
