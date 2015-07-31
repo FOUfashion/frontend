@@ -55,7 +55,7 @@ class LoginPage extends React.Component {
     } catch(error) {
       this.isLoading(false);
 
-      if (error.status === 404) {
+      if (error.status === 401 || error.status === 404) {
         this.setState({ error: 'Oops! Wrong credentials.' });
       } else {
         this.setState({ error: 'Unexpected error occured.' });
