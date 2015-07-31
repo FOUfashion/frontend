@@ -78,29 +78,16 @@ var TopBar = (function (_React$Component) {
       var props = _objectWithoutProperties(_props, ['className']);
 
       var classes = (0, _classnames2['default'])(_stylesScss2['default'].topBar, className);
-
-      var userItem = undefined;
-      if (this.props.isSignedIn) {
-        var _name = this.props.account.get('profile').get('name').get('first');
-        userItem = _react2['default'].createElement(
-          _Item2['default'],
-          { href: "/me", float: "right", className: _stylesScss2['default'].profileItem },
-          _react2['default'].createElement(
-            _materialUi.Avatar,
-            { size: 28 },
-            _name[0]
-          ),
-          _react2['default'].createElement(
-            'span',
-            { className: _stylesScss2['default'].profileName },
-            _name
-          )
-        );
-      }
+      var name = this.props.account.get('profile').get('name').get('first');
 
       return _react2['default'].createElement(
         _Paper2['default'],
         _extends({ className: classes }, props),
+        _react2['default'].createElement(
+          _Item2['default'],
+          { onClick: this.props.navBarHandler, external: true, float: "left", className: _stylesScss2['default'].hamburgerBtn },
+          _react2['default'].createElement('img', { src: require('../../images/actions/hamburger.svg') })
+        ),
         _react2['default'].createElement(
           _Item2['default'],
           { href: "/feed", external: true, float: "left" },
@@ -108,33 +95,46 @@ var TopBar = (function (_React$Component) {
         ),
         _react2['default'].createElement(
           _Item2['default'],
-          { href: "/logout", float: "right" },
+          { href: "/logout", float: "right", className: _stylesScss2['default'].logoutBtn },
           _react2['default'].createElement('img', { src: require('../../images/actions/exit.svg') })
         ),
         _react2['default'].createElement(
           _Item2['default'],
-          { href: "/settings", float: "right" },
+          { href: "/settings", float: "right", className: _stylesScss2['default'].settingsBtn },
           _react2['default'].createElement('img', { src: require('../../images/actions/cog.svg') })
         ),
         _react2['default'].createElement(
           _Item2['default'],
-          { href: "/messages", float: "right" },
+          { href: "/messages", float: "right", className: _stylesScss2['default'].messagesBtn },
           _react2['default'].createElement('img', { src: require('../../images/actions/messages.svg') })
         ),
         _react2['default'].createElement(
           _Item2['default'],
-          { href: "/notifications", float: "right" },
+          { href: "/notifications", float: "right", className: _stylesScss2['default'].notificationsBtn },
           _react2['default'].createElement('img', { src: require('../../images/actions/bell.svg') })
         ),
-        userItem
+        _react2['default'].createElement(
+          _Item2['default'],
+          { href: "/me", float: "right" },
+          _react2['default'].createElement(
+            _materialUi.Avatar,
+            { size: 28 },
+            name[0]
+          ),
+          _react2['default'].createElement(
+            'span',
+            { className: _stylesScss2['default'].profileName },
+            name
+          )
+        )
       );
     }
   }], [{
     key: 'propTypes',
     value: {
       className: _react.PropTypes.string,
-      isSignedIn: _react.PropTypes.bool,
-      account: _reactImmutableProptypes2['default'].map
+      account: _reactImmutableProptypes2['default'].map,
+      navBarHandler: _react.PropTypes.func
     },
     enumerable: true
   }]);

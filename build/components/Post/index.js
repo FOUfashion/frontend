@@ -38,6 +38,10 @@ var _Body = require('./Body');
 
 var _Body2 = _interopRequireDefault(_Body);
 
+var _stylesScss = require('./styles.scss');
+
+var _stylesScss2 = _interopRequireDefault(_stylesScss);
+
 var Post = (function (_React$Component) {
   _inherits(Post, _React$Component);
 
@@ -52,7 +56,7 @@ var Post = (function (_React$Component) {
     value: function render() {
       return _react2['default'].createElement(
         _Paper2['default'],
-        null,
+        { className: _stylesScss2['default'].post },
         _react2['default'].createElement(_Header2['default'], this.props.post),
         _react2['default'].createElement(_Body2['default'], this.props.post),
         _react2['default'].createElement(_Media2['default'], this.props.post),
@@ -66,8 +70,7 @@ var Post = (function (_React$Component) {
         author: _react.PropTypes.shape({
           name: _react.PropTypes.shape({
             full: _react.PropTypes.string
-          }),
-          gravatarHash: _react.PropTypes.string
+          })
         }),
         createdAt: _react.PropTypes.date,
         body: _react.PropTypes.string,

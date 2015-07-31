@@ -35,16 +35,31 @@ var Footer = (function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2['default'].createElement(
-        'p',
+        'div',
         { className: _stylesScss2['default'].footer },
-        this.props.likes.length,
-        ' lightbulbs'
+        _react2['default'].createElement(
+          'p',
+          { className: _stylesScss2['default'].likes },
+          this.props.likes,
+          ' likes'
+        ),
+        _react2['default'].createElement(
+          'p',
+          { className: _stylesScss2['default'].comments },
+          this.props.comments,
+          ' comments'
+        )
       );
     }
   }], [{
     key: 'propTypes',
     value: {
       likes: _react.PropTypes.arrayOf(_react.PropTypes.shape({
+        name: _react.PropTypes.shape({
+          full: _react.PropTypes.string
+        })
+      })).isRequired,
+      comments: _react.PropTypes.arrayOf(_react.PropTypes.shape({
         name: _react.PropTypes.shape({
           full: _react.PropTypes.string
         })
