@@ -212,7 +212,7 @@ routers.forEach(function (router) {
 });
 
 // Start listening
-var port = process.env.FRONTEND_PORT || 9090;
+var port = process.env.FRONTEND_PORT || process.env.PORT || 9090;
 var host = '0.0.0.0';
 
 server.listen(port, host, function () {

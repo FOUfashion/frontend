@@ -129,7 +129,7 @@ routers.forEach(function(router) {
 });
 
 // Start listening
-const port = process.env.FRONTEND_PORT || 9090;
+const port = process.env.FRONTEND_PORT || process.env.PORT || 9090;
 const host = '0.0.0.0';
 
 server.listen(port, host, function() {
