@@ -115,7 +115,7 @@ var FeedPage = (function (_React$Component) {
       return _react2['default'].createElement(
         'div',
         { className: _stylesScss2['default'].page, onClick: this.onPageClick },
-        _react2['default'].createElement(_materialUi.LeftNav, { ref: "leftNav", docked: false, menuItems: menuItems, style: {
+        _react2['default'].createElement(_materialUi.LeftNav, { ref: 'leftNav', docked: false, menuItems: menuItems, style: {
             primary1Color: '#eee',
             disabledColor: '#eee',
             borderColor: '#eee',

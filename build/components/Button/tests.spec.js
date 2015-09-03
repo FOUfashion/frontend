@@ -51,7 +51,7 @@ describe('Button', function () {
   it('should be able to provide a className', function () {
     var button = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(
       Button,
-      { className: "test-me" },
+      { className: 'test-me' },
       'Follow'
     ));
 
@@ -79,7 +79,7 @@ describe('Button', function () {
   it('should be able to change the type to submit or reset', function () {
     var submitButton = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(
       Button,
-      { type: "submit" },
+      { type: 'submit' },
       'Submit'
     ));
 
@@ -88,7 +88,7 @@ describe('Button', function () {
 
     var resetButton = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(
       Button,
-      { type: "reset" },
+      { type: 'reset' },
       'Submit'
     ));
     var resetButtonNode = TestUtils.findRenderedDOMComponentWithTag(resetButton, 'button');

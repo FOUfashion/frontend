@@ -44,7 +44,7 @@ var NotFoundPage = (function (_React$Component) {
           { className: _stylesScss2['default'].container },
           _react2['default'].createElement(
             _reactRouter.Link,
-            { to: "/", className: _stylesScss2['default'].link },
+            { to: '/', className: _stylesScss2['default'].link },
             '404.',
             _react2['default'].createElement('br', null),
             'inspiration',

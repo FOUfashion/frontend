@@ -221,22 +221,22 @@ var LoginPage = (function (_React$Component) {
             _react2['default'].createElement(
               _formsyReact.Form,
               { onValidSubmit: this.onValidSubmit, onInvalidSubmit: this.onInvalidSubmit, onChange: this.onChange },
-              _react2['default'].createElement(_componentsFormInput2['default'], { floatingLabelText: "Username", shake: this.state.shouldShake,
-                name: "username", validations: validations.username, validationErrors: errors.username, required: true }),
-              _react2['default'].createElement(_componentsFormInput2['default'], { floatingLabelText: "Password", shake: this.state.shouldShake,
-                name: "password", validations: validations.password, validationErrors: errors.password, required: true, password: true }),
+              _react2['default'].createElement(_componentsFormInput2['default'], { floatingLabelText: 'Username', shake: this.state.shouldShake,
+                name: 'username', validations: validations.username, validationErrors: errors.username, required: true }),
+              _react2['default'].createElement(_componentsFormInput2['default'], { floatingLabelText: 'Password', shake: this.state.shouldShake,
+                name: 'password', validations: validations.password, validationErrors: errors.password, required: true, password: true }),
               errorNotice,
               _react2['default'].createElement(
                 'div',
                 { className: _stylesScss2['default'].buttons },
                 _react2['default'].createElement(
                   _componentsButton2['default'],
-                  { className: _stylesScss2['default'].button, type: "submit", loading: this.state.loading, formNoValidate: true },
+                  { className: _stylesScss2['default'].button, type: 'submit', loading: this.state.loading, formNoValidate: true },
                   'SIGN IN'
                 ),
                 _react2['default'].createElement(
                   _componentsButton2['default'],
-                  { className: _stylesScss2['default'].button, link: true, href: "/register", outline: true },
+                  { className: _stylesScss2['default'].button, link: true, href: '/register', outline: true },
                   'SIGN UP'
                 )
               )

@@ -57,7 +57,7 @@ var log = (0, _debug2['default'])('fou:server');
 
 // Meta
 server.name = _packageJson2['default'].name;
-server.keys = process.env.FRONTEND_SESSION_KEYS.split(',');
+server.keys = process.env.FRONTEND_SESSION_KEYS ? process.env.FRONTEND_SESSION_KEYS.split(',') : ['123'];
 
 // Log requests
 server.use((0, _koaLogger2['default'])());
@@ -69,10 +69,10 @@ server.use((0, _koaStatic2['default'])(publicPath, { defer: false }));
 
 // Session config
 server.use((0, _koaGenericSession2['default'])({
-  store: (0, _koaRedis2['default'])({
+  store: process.env.FRONTEND_REDIS_HOST ? (0, _koaRedis2['default'])({
     host: process.env.FRONTEND_REDIS_HOST,
     port: process.env.FRONTEND_REDIS_PORT
-  })
+  }) : undefined
 }));
 
 // Parse body
@@ -198,7 +198,7 @@ server.use((0, _koaMount2['default'])('/api', _regeneratorRuntime.mark(function 
 })));
 
 server.use((0, _koaMount2['default'])('/api', (0, _koaProxy2['default'])({
-  host: process.env.FRONTEND_API_URI
+  host: process.env.FRONTEND_API_URI || 'http://localhost:5000'
 })));
 
 // Register routes

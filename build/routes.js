@@ -119,12 +119,12 @@ function routes(context) {
   return _react2['default'].createElement(
     _reactRouter.Route,
     { component: _componentsApp2['default'] },
-    _react2['default'].createElement(_reactRouter.Route, { path: "/", component: _pagesLandingPage2['default'] }),
-    _react2['default'].createElement(_reactRouter.Route, { path: "/login", component: _pagesLoginPage2['default'], onEnter: requireLoggedOut }),
-    _react2['default'].createElement(_reactRouter.Route, { path: "/register", component: _pagesRegisterPage2['default'], onEnter: requireLoggedOut }),
-    _react2['default'].createElement(_reactRouter.Route, { path: "/logout", onEnter: doLogOut }),
-    _react2['default'].createElement(_reactRouter.Route, { path: "/feed", component: _pagesFeedPage2['default'], onEnter: requireLoggedIn }),
-    _react2['default'].createElement(_reactRouter.Route, { path: "*", component: _pagesNotFoundPage2['default'] })
+    _react2['default'].createElement(_reactRouter.Route, { path: '/', component: _pagesLandingPage2['default'] }),
+    _react2['default'].createElement(_reactRouter.Route, { path: '/login', component: _pagesLoginPage2['default'], onEnter: requireLoggedOut }),
+    _react2['default'].createElement(_reactRouter.Route, { path: '/register', component: _pagesRegisterPage2['default'], onEnter: requireLoggedOut }),
+    _react2['default'].createElement(_reactRouter.Route, { path: '/logout', onEnter: doLogOut }),
+    _react2['default'].createElement(_reactRouter.Route, { path: '/feed', component: _pagesFeedPage2['default'], onEnter: requireLoggedIn }),
+    _react2['default'].createElement(_reactRouter.Route, { path: '*', component: _pagesNotFoundPage2['default'] })
   );
 }
 

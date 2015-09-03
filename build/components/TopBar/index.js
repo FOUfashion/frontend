@@ -85,37 +85,37 @@ var TopBar = (function (_React$Component) {
         _extends({ className: classes }, props),
         _react2['default'].createElement(
           _Item2['default'],
-          { onClick: this.props.navBarHandler, external: true, float: "left", className: _stylesScss2['default'].hamburgerBtn },
+          { onClick: this.props.navBarHandler, external: true, float: 'left', className: _stylesScss2['default'].hamburgerBtn },
           _react2['default'].createElement('img', { src: require('../../images/actions/hamburger.svg') })
         ),
         _react2['default'].createElement(
           _Item2['default'],
-          { href: "/feed", external: true, float: "left" },
+          { href: '/feed', external: true, float: 'left' },
           _react2['default'].createElement(_Logo2['default'], { className: _stylesScss2['default'].logo, styled: true })
         ),
         _react2['default'].createElement(
           _Item2['default'],
-          { href: "/logout", float: "right", className: _stylesScss2['default'].logoutBtn },
+          { href: '/logout', float: 'right', className: _stylesScss2['default'].logoutBtn },
           _react2['default'].createElement('img', { src: require('../../images/actions/exit.svg') })
         ),
         _react2['default'].createElement(
           _Item2['default'],
-          { href: "/settings", float: "right", className: _stylesScss2['default'].settingsBtn },
+          { href: '/settings', float: 'right', className: _stylesScss2['default'].settingsBtn },
           _react2['default'].createElement('img', { src: require('../../images/actions/cog.svg') })
         ),
         _react2['default'].createElement(
           _Item2['default'],
-          { href: "/messages", float: "right", className: _stylesScss2['default'].messagesBtn },
+          { href: '/messages', float: 'right', className: _stylesScss2['default'].messagesBtn },
           _react2['default'].createElement('img', { src: require('../../images/actions/messages.svg') })
         ),
         _react2['default'].createElement(
           _Item2['default'],
-          { href: "/notifications", float: "right", className: _stylesScss2['default'].notificationsBtn },
+          { href: '/notifications', float: 'right', className: _stylesScss2['default'].notificationsBtn },
           _react2['default'].createElement('img', { src: require('../../images/actions/bell.svg') })
         ),
         _react2['default'].createElement(
           _Item2['default'],
-          { href: "/me", float: "right" },
+          { href: '/me', float: 'right' },
           _react2['default'].createElement(
             _materialUi.Avatar,
             { size: 28 },

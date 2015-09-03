@@ -16,7 +16,7 @@ const log = debug('fou:server');
 
 // Meta
 server.name = manifest.name;
-server.keys = process.env.FRONTEND_SESSION_KEYS.split(',');
+server.keys = process.env.FRONTEND_SESSION_KEYS ? process.env.FRONTEND_SESSION_KEYS.split(',') : ['123'];
 
 // Log requests
 server.use(logger());
@@ -28,10 +28,10 @@ server.use(serve(publicPath, { defer: false }));
 
 // Session config
 server.use(session({
-  store: redis({
+  store: process.env.FRONTEND_REDIS_HOST ? redis({
     host: process.env.FRONTEND_REDIS_HOST,
     port: process.env.FRONTEND_REDIS_PORT
-  })
+  }) : undefined
 }));
 
 // Parse body
@@ -113,7 +113,7 @@ server.use(mount('/api', function *(next) {
 }));
 
 server.use(mount('/api', proxy({
-  host: process.env.FRONTEND_API_URI
+  host: process.env.FRONTEND_API_URI || 'http://localhost:5000'
 })));
 
 // Register routes

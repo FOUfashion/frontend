@@ -288,17 +288,17 @@ var RegisterPage = (function (_React$Component) {
               _react2['default'].createElement(
                 'div',
                 { className: _stylesScss2['default'].names },
-                _react2['default'].createElement(_componentsFormInput2['default'], { shake: this.state.shouldShake, name: "firstName", className: _stylesScss2['default'].nameField,
-                  floatingLabelText: "First Name", validations: validations.name, validationErrors: errors.name, required: true }),
-                _react2['default'].createElement(_componentsFormInput2['default'], { shake: this.state.shouldShake, name: "lastName", className: _stylesScss2['default'].nameField,
-                  floatingLabelText: "Last Name", validations: validations.name, validationErrors: errors.name, required: true })
+                _react2['default'].createElement(_componentsFormInput2['default'], { shake: this.state.shouldShake, name: 'firstName', className: _stylesScss2['default'].nameField,
+                  floatingLabelText: 'First Name', validations: validations.name, validationErrors: errors.name, required: true }),
+                _react2['default'].createElement(_componentsFormInput2['default'], { shake: this.state.shouldShake, name: 'lastName', className: _stylesScss2['default'].nameField,
+                  floatingLabelText: 'Last Name', validations: validations.name, validationErrors: errors.name, required: true })
               ),
-              _react2['default'].createElement(_componentsFormInput2['default'], { floatingLabelText: "Email", shake: this.state.shouldShake,
-                name: "email", validations: validations.email, validationErrors: errors.email, required: true }),
-              _react2['default'].createElement(_componentsFormInput2['default'], { floatingLabelText: "Username", shake: this.state.shouldShake,
-                name: "username", validations: validations.username, validationErrors: errors.username, required: true }),
-              _react2['default'].createElement(_componentsFormInput2['default'], { floatingLabelText: "Password", shake: this.state.shouldShake,
-                name: "password", validations: validations.password, validationErrors: errors.password, required: true, password: true }),
+              _react2['default'].createElement(_componentsFormInput2['default'], { floatingLabelText: 'Email', shake: this.state.shouldShake,
+                name: 'email', validations: validations.email, validationErrors: errors.email, required: true }),
+              _react2['default'].createElement(_componentsFormInput2['default'], { floatingLabelText: 'Username', shake: this.state.shouldShake,
+                name: 'username', validations: validations.username, validationErrors: errors.username, required: true }),
+              _react2['default'].createElement(_componentsFormInput2['default'], { floatingLabelText: 'Password', shake: this.state.shouldShake,
+                name: 'password', validations: validations.password, validationErrors: errors.password, required: true, password: true }),
               _react2['default'].createElement(
                 'p',
                 { className: _stylesScss2['default'].consent },
@@ -323,12 +323,12 @@ var RegisterPage = (function (_React$Component) {
                 { className: _stylesScss2['default'].buttons },
                 _react2['default'].createElement(
                   _componentsButton2['default'],
-                  { className: _stylesScss2['default'].button, type: "submit", loading: this.state.loading, formNoValidate: true },
+                  { className: _stylesScss2['default'].button, type: 'submit', loading: this.state.loading, formNoValidate: true },
                   'SIGN UP'
                 ),
                 _react2['default'].createElement(
                   _componentsButton2['default'],
-                  { className: _stylesScss2['default'].button, link: true, href: "/login", outline: true },
+                  { className: _stylesScss2['default'].button, link: true, href: '/login', outline: true },
                   'SIGN IN'
                 )
               )
